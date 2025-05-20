@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ilmare.carbonbank.mapper.CrbnMbrInfoMapper">
+
+    <select id="selectAdmDesc" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel" resultType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+    <![CDATA[
+        select
+				mbr_id
+				,mbr_pwd
+				,mbr_cell_num
+				,mbr_nm
+				,party_cd
+				,qr_stat
+				,dgt_qr_cd
+				,ppr_qr_cd
+				,store_id
+				,chg_pwd_dtm
+				,lst_lgn_dtm
+				,cre_dtm
+				,chg_dtm
+        from CRBN_MBR_INFO
+            WHERE mbr_id = #{mbrId}
+     ]]>
+    </select>
+    
+    <select id="selectAdmList" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel" resultType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+        <![CDATA[
+            /*
+            1. ID: selectAdmList
+            2. 업무명: 관리자의 리스트
+            3. 업무설명:
+            */
+            SELECT *
+              FROM (
+                    SELECT
+						mbr_id
+						,mbr_pwd
+						,mbr_cell_num
+						,mbr_nm
+						,party_cd
+						,qr_stat
+						,dgt_qr_cd
+						,ppr_qr_cd
+						,store_no
+						,chg_pwd_dtm
+						,lst_lgn_dtm
+						,cre_dtm
+						,chg_dtm
+                    from CRBN_MBR_INFO
+                   where party_cd = #{partyCd}
+                     ORDER BY doc_seq DESC
+                   ) A
+             LIMIT #{pageNo}, #{listSize}
+         ]]>
+    </select>
+ 
+    <select id="selectAdmListCount" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel" resultType="String">
+        <![CDATA[
+            /*
+                1. ID: selectAdmListCount
+                2. 업무명: 뉴스
+                3. 업무설명: 관리자 뉴스 리스트 총갯수
+            */
+        
+            SELECT
+                COUNT(1)
+            FROM CRBN_MBR_INFO
+            where party_cd = #{partyCd}
+        ]]>
+    </select>
+ 
+    <select id="selectDesc" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel" resultType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+    /*
+    1. ID: selectList
+    2. 업무명: 모바일의 상세조회
+    3. 업무설명:
+    */
+	         select 
+				mbr_id
+				,mbr_pwd
+				,mbr_cell_num
+				,mbr_nm
+				,party_cd
+				,qr_stat
+				,dgt_qr_cd
+				,ppr_qr_cd
+				,store_id
+				,chg_pwd_dtm
+				,lst_lgn_dtm
+				,cre_dtm
+				,chg_dtm
+	          from CRBN_MBR_INFO  WHERE mbr_id = #{mbrId}
+	          
+    </select>
+    
+    <insert id="insertMbr" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+        <![CDATA[
+            INSERT INTO CRBN_MBR_INFO (
+				mbr_id,mbr_pwd,mbr_cell_num,mbr_nm,party_cd,dgt_qr_cd
+            ) VALUES (
+              #{mbrId}, #{mbrpwd}, #{mbrCellNum}, #{mbrNm}, #{partyCd}, #{dgtQQrCd}
+            )
+        ]]>
+    </insert>
+
+    <update id="updateMbrQrUse" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+        <![CDATA[
+            UPDATE CRBN_MBR_INFO
+               SET
+                    party_cd =#{partyCd}
+                    ,qr_stat   = 'U'
+                    ,dgt_qr_cd= #{dgtQrCd}
+                    ,ppr_qr_cd= #{pprQrCd}
+                    ,store_id  = #{storeId}
+              WHERE mbr_id = #{mbrId}
+        ]]>
+    </update>
+ 
+    <update id="updatePasswd" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+        <![CDATA[
+            UPDATE CRBN_MBR_INFO
+               SET
+                    mbr_pwd =#{mbrPwd}     ,chg_pwd_dtm   = DATE_FORMAT(now(), '%Y%m%d%H%i%S')
+              WHERE mbr_id = #{mbrId}
+        ]]>
+    </update>
+ 
+    <update id="updateLgnHist" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+        <![CDATA[
+            UPDATE CRBN_MBR_INFO
+               SET
+                    lst_lgn_dtm   = DATE_FORMAT(now(), '%Y%m%d%H%i%S')
+              WHERE mbr_id = #{mbrId}
+        ]]>
+    </update>
+
+    <insert id="insertLgnHist" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+        <![CDATA[
+            INSERT INTO CRBN_MBR_LGN_HST (
+				mbr_id, lgn_ip, lgn_os, lgn_browser
+            ) VALUES (
+              #{mbrId}, #{lgnIp}, #{lgnOs}, #{lgnBrowser}
+            )
+        ]]>
+    </insert>
+
+ 
+ </mapper>
