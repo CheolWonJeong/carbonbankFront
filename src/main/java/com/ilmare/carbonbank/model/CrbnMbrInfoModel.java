@@ -24,6 +24,16 @@ public class CrbnMbrInfoModel {
 	private String lgnOs;         //로그인 OS
 	private String lgnBrowser;    //로그인 브라우저
 
+	private String lgnDtm;      //로그인 일시
+	
+    public void setLgnDtm(String lgnDtm) {
+        this.lgnDtm = lgnDtm;
+    }
+
+    public String getLgnDtm() {
+        return lgnDtm;
+    }
+
 	public void setLgnIp(String lgnIp) {
         this.lgnIp = lgnIp;
     }

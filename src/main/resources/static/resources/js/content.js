@@ -14,5 +14,25 @@ $(function () {
         dropDown.stop(false, true).slideToggle();
       });
 
+
+    // 슬라이드이미지
+    var swiper = new Swiper(".mySwiper", {
+        speed: 1000,
+        loop: true,
+        autoplay: {
+        delay: 5000,
+        disableOnInteraction: false, // 사용자 상호작용 후에도 autoplay 유지
+        },
+        navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+        el: ".swiper-pagination",
+        },
+        mousewheel: true,
+        keyboard: true,
+    });
+
 });
 

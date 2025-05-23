@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/nolayour}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/nohead}}"></th:block>
+
+
+<body>
+<div class="wrap">
+	<div layout:fragment="content">
+	<!-- //content-wrap -->
+    <ul class="carbon-join2">
+<!-- 
+        <li>
+            <label for="">상호</label>
+            <input type="text" name="" id="">
+        </li>
+        <li>
+            <label for="">대표자 성명</label>
+            <input type="text" name="" id="">
+        </li>
+        <li>
+            <label for="">사업자 등록번호</label>
+            <input type="text" name="" id="">
+        </li>
+ -->
+        <li>
+            <label for="">휴대폰 번호</label>
+            <input type="text" name="" id="">
+        </li>
+        <li>
+            <label for="">비밀번호(6자리)</label>
+            <input type="password" name="" id="">
+        </li>
+<!--         
+        <li>
+            <label for="">사업자등록증 사진</label>
+            <div class="file-input">
+                <input type="text" readonly="readonly" title="File Route" id="file_route1">
+                <label>파일선택<input type="file" onchange="javascript:document.getElementById('file_route1').value=this.value"></label>
+            </div>
+        </li>
+        <li>
+            <label for="">사업장 사진</label>
+            <div class="file-input">
+                <input type="text" readonly="readonly" title="File Route" id="file_route2">
+                <label>파일선택<input type="file" onchange="javascript:document.getElementById('file_route2').value=this.value"></label>
+            </div>
+        </li>
+ -->        
+    </ul>
+    <div class="join-btn">
+        <button type="button" class="btn-gray">가입취소</button>
+        <button type="button" class="btn-blue">회원가입</button>
+    </div>
+	</div>
+</div><!-- //wrap -->
+</body>
+</html>
