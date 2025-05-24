@@ -23,5 +23,8 @@ public interface CrbnMbrInfoMapper {
 	int updatePasswd(CrbnMbrInfoModel crbnNotice);
 	int updateLgnHist(CrbnMbrInfoModel crbnNotice);
 	int insertLgnHist(CrbnMbrInfoModel crbnNotice);
+
+	int updateStoreLgnHist(CrbnMbrInfoModel crbnNotice);
+	int insertStoreLgnHist(CrbnMbrInfoModel crbnNotice);
 	
 }

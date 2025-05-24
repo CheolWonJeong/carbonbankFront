@@ -1,6 +1,7 @@
 package com.ilmare.carbonbank.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ilmare.carbonbank.cmn.mgr.SessInfo;
 import com.ilmare.carbonbank.cmn.mgr.SessionManager;
+import com.ilmare.carbonbank.cmn.util.AES256Util;
+import com.ilmare.carbonbank.cmn.util.CommUtil;
+import com.ilmare.carbonbank.cmn.util.DateUtil;
+import com.ilmare.carbonbank.cmn.util.QRCodeCreate;
+import com.ilmare.carbonbank.model.CrbnMbrInfoModel;
 import com.ilmare.carbonbank.service.CrbnMbrInfoService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,13 +30,13 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController {
 
 	@Autowired
-	CrbnMbrInfoService admSvc;
+	CrbnMbrInfoService svc;
 
 	@Autowired
 	private SessionManager sessMgr;
 	
 	@RequestMapping(value = "/cbLogin.do", method=RequestMethod.GET)
-	public String goHome(HttpServletRequest request,  Model model) {
+	public String cbLogin(HttpServletRequest request,  Model model) {
 
 /*
 		log.info("main 로그인 상태");
@@ -41,4 +47,51 @@ public class LoginController {
 		return "/mobile/home/login";
 	}
 
+	@RequestMapping("/cbLgnProc")
+	public @ResponseBody  HashMap cbLgnProc(HttpServletRequest request, final CrbnMbrInfoModel paramVo, Model model) throws Exception {
+		
+		HashMap result = new HashMap();
+		log.info("cbLgnProc Start");
+
+		// 패스워드 암호화
+		String encParamPasswd = AES256Util.encrypt(paramVo.getMbrPwd());
+
+		//멤버 조회
+		CrbnMbrInfoModel info = svc.selectDesc(paramVo);
+		log.info("loginProc pwd  {} | {} ", encParamPasswd, info.getMbrPwd());
+
+		log.info("loginProc getCreDtm  {} ",info.getCreDtm());
+		//패스워드 비교
+		if (!encParamPasswd.equals(info.getMbrPwd())) {
+			result.put("procInd", "N");  // 정상
+		} else {
+			//로그인 성공
+			info.setLgnIp(CommUtil.getIp(request));
+			info.setLgnBrowser(CommUtil.getBrowser(request));
+			info.setLgnOs(CommUtil.getOs(request));
+			//로그인 이력 처리
+			svc.loginProc(info);
+			//세션 생성
+			SessInfo sess= new SessInfo();
+			sess.setMbrId(info.getMbrId());
+			sess.setMbrNm(info.getMbrNm());
+			sess.setMbrCellNum(info.getMbrCellNum());
+			sess.setPartyCd(info.getPartyCd());
+			sess.setDgtQrCd(info.getDgtQrCd());
+			sess.setPprQrCd(info.getPprQrCd());
+			sess.setLgnDtm(info.getLstLgnDtm());
+			
+			sessMgr.createSession( request, sess );
+			
+			result.put("procInd", "S");  // 정상
+			result.put("sess", sess);  // 정상
+			log.info("NoticeMainList End");
+			
+		}
+		
+
+		return result;
+	}
+
+	
 }
