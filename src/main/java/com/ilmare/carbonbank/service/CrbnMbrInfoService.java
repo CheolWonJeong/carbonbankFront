@@ -34,8 +34,12 @@ public class CrbnMbrInfoService {
 	}
 
 	
-	public String  selectMaxQrCode(){
-		return mapper.selectMaxQrCode();
+	public String  dgtQrCdNextVal(){
+		return mapper.dgtQrCdNextVal();
+	}
+
+	public String  memberNextVal(){
+		return mapper.memberNextVal();
 	}
 
 	public CrbnMbrInfoModel  selectDesc(CrbnMbrInfoModel param){
@@ -48,7 +52,7 @@ public class CrbnMbrInfoService {
 	public int insertMbr(CrbnMbrInfoModel nModel)
 	{
 		int rtn = mapper.insertMbr(nModel);
-		//rtn =  mapper.insertMbr(nModel);
+		rtn =  mapper.insertDgtImg(nModel);
 		return rtn;
 		
 	}

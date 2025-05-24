@@ -14,9 +14,11 @@ public interface CrbnMbrInfoMapper {
 	CrbnMbrInfoModel selectAdmDesc(CrbnMbrInfoModel commVo);
 	List<CrbnMbrInfoModel> selectAdmList(CrbnMbrInfoModel commVo);
 	String selectAdmListCount(CrbnMbrInfoModel commVo);
-	String selectMaxQrCode();
+	String dgtQrCdNextVal();
+	String memberNextVal();
 	CrbnMbrInfoModel selectDesc(CrbnMbrInfoModel commVo);
 	int insertMbr(CrbnMbrInfoModel crbnNotice);
+	int insertDgtImg(CrbnMbrInfoModel crbnNotice);
 	int updateMbrQrUse(CrbnMbrInfoModel crbnNotice);
 	int updatePasswd(CrbnMbrInfoModel crbnNotice);
 	int updateLgnHist(CrbnMbrInfoModel crbnNotice);

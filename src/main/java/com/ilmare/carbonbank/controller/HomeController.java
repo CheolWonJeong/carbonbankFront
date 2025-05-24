@@ -1,6 +1,7 @@
 package com.ilmare.carbonbank.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ilmare.carbonbank.cmn.mgr.SessInfo;
 import com.ilmare.carbonbank.cmn.mgr.SessionManager;
+import com.ilmare.carbonbank.cmn.util.AES256Util;
 import com.ilmare.carbonbank.cmn.util.DateUtil;
+import com.ilmare.carbonbank.cmn.util.QRCodeCreate;
 import com.ilmare.carbonbank.cmn.vo.CommonVo;
 import com.ilmare.carbonbank.model.CrbnMbrInfoModel;
 import com.ilmare.carbonbank.service.CrbnMbrInfoService;
@@ -51,28 +54,37 @@ public class HomeController {
 	}
 
 	@RequestMapping("/cbRegMmeberProc")
-	public String cbRegMmeberProc(HttpServletRequest request, final CrbnMbrInfoModel paramVo, Model model) throws Exception {
+	public @ResponseBody  HashMap cbRegMmeberProc(HttpServletRequest request, final CrbnMbrInfoModel paramVo, Model model) throws Exception {
 		
+		HashMap result = new HashMap();
 		log.info("cbRegMmeberProc Start");
 
 		//멤버 아이디 생성
-		String memId= "M" + DateUtil.getCurrDateTime();
+		String memId= "M" + svc.memberNextVal();
 		paramVo.setMbrId(memId);
 
 		//QR 코드 생성
 		//QR테이블에서 MAX 값을 읽어 +1 한다.
-		String tmpQrCd = svc.selectMaxQrCode();
-		String dgnQrCd = "DGT" + ((tmpQrCd == null? 0: 1) + 1);
+		String dgnQrCd = "DGT" + svc.dgtQrCdNextVal();
 		paramVo.setDgtQrCd(dgnQrCd);
 		
+		// 패승뤄드 암호화
+		String encParamPasswd = AES256Util.encrypt(paramVo.getMbrPwd());
+		log.info("loginProc pwd  {} ", encParamPasswd);
+		paramVo.setMbrPwd(encParamPasswd);
+		
+		//QR 코드 이미지 생성
+		byte[] qrImgBytes = QRCodeCreate.generateQRCodeImage(dgnQrCd, null);
 		//멤버 저장
 		svc.insertMbr(paramVo);
+		result.put("procInd", "S");  // 정상
 		log.info("NoticeMainList End");
 
-		return "adm/content/notice/list";
+		return result;
 	}
 
 	
+
 	@RequestMapping(value = "/cbRegStore.do", method=RequestMethod.GET)
 	public ModelAndView Viewhome(HttpServletRequest request ) {
 		ModelAndView mav = new ModelAndView();
