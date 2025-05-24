@@ -21,8 +21,8 @@
 	                <div class="menu-header">
 	                    <h1><img src="/resources/images/logo.svg"></h1>
 	                    <div class="sidemy">
-	                       <span>홍길동님</span>
-	                       최근접속 : 2025.03.22 00:00:00
+	                       <span th:text="${ sess.mbrNm }">홍길동님</span>
+	                       최근접속 : [[${sess.lstLgnDtm}]]
 	                    </div>
 	                </div>
 	                <!-- menu -->
@@ -30,22 +30,22 @@
 	                    <li class="m1">
 	                       탄소
 	                        <ul>
-	                            <li><a href="#">매장 찾기</a></li>
-	                            <li><a href="#">실적 조회</a></li>
+	                            <li><a href="/member/cbStoreSearch.do">매장 찾기</a></li>
+	                            <li><a href="/member/cbPerformanceQuery.do">실적 조회</a></li>
 	                            <li><a href="#">FAQ</a></li>
 	                        </ul>
 	                    </li>
 	                    <li class="m2">
 	                        환경
 	                        <ul>
-	                            <li><a href="#">뉴스</a></li>
+	                            <li><a href="/main/cbEnvNewsList.do">뉴스</a></li>
 	                        </ul>
 	                     </li>
 	                     <li class="m3">
 	                        고객센터
 	                        <ul>
-	                            <li><a href="#">공지사항</a></li>
-	                            <li><a href="#">문의 및 제안</a></li>
+	                            <li><a href="/main/cbNoticeList.do">공지사항</a></li>
+	                            <li><a href="/my/cbQnaList.do">문의 및 제안</a></li>
 	                            <li><a href="#">FAQ</a></li>
 	                        </ul>
 	                     </li>

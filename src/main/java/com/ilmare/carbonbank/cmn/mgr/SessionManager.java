@@ -109,7 +109,7 @@ public class SessionManager
     	httpSession.setAttribute("partyCd",  (StringUtil.nullStringToEmpty(sessinfo.getPartyCd())));     // 소속코드    
     	httpSession.setAttribute("dgtQrCd", (StringUtil.nullStringToEmpty(sessinfo.getDgtQrCd())));    //디지털 QR      
     	httpSession.setAttribute("PprQrCd",  (StringUtil.nullStringToEmpty(sessinfo.getPprQrCd())));    //종이 QR         
-    	httpSession.setAttribute("lgnDtm",  (StringUtil.nullStringToEmpty(sessinfo.getLgnDtm())));	//로그인 일시     
+    	httpSession.setAttribute("lstLgnDtm",  (StringUtil.nullStringToEmpty(sessinfo.getLstLgnDtm())));	//로그인 일시     
 
     }
  
@@ -128,7 +128,7 @@ public class SessionManager
     	httpSession.setAttribute("partyCd",  (StringUtil.nullStringToEmpty(sessinfo.getPartyCd())));     // 소속코드    
     	httpSession.setAttribute("dgtQrCd", (StringUtil.nullStringToEmpty(sessinfo.getDgtQrCd())));    //디지털 QR      
     	httpSession.setAttribute("PprQrCd",  (StringUtil.nullStringToEmpty(sessinfo.getPprQrCd())));    //종이 QR         
-    	httpSession.setAttribute("lgnDtm",  (StringUtil.nullStringToEmpty(sessinfo.getLgnDtm())));	//로그인 일시     
+    	httpSession.setAttribute("lstLgnDtm",  (StringUtil.nullStringToEmpty(sessinfo.getLstLgnDtm())));	//로그인 일시     
 
     }
     
@@ -144,7 +144,7 @@ public class SessionManager
     	sessinfo.setPartyCd(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("partyCd")));     // 소속코드   
     	sessinfo.setDgtQrCd(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("dgtQrCd")));     // 디지털 QR      
     	sessinfo.setPprQrCd(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("pprQrCd")));    // 종이 QR  
-    	sessinfo.setLgnDtm(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("lgnDtm")));    //로그인 잉시 
+    	sessinfo.setLstLgnDtm(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("lstLgnDtm")));    //로그인 잉시 
     	
     	return sessinfo;
 

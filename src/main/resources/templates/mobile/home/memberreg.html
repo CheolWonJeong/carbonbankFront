@@ -10,12 +10,33 @@
 
 	$(document).ready(function(){
     	
+		$("input:text[mbrCellNum]").on("keyup", function() {
+		      $(this).val($(this).val().replace(/[^0-9]/g,""));
+		   });		
 		//저장버튼 클릭
         $('#memReg').on('click', function(event) {
+        	
+        	var mbrNm = $('#mbrNm').val();
+        	var mbrCellNum = $('#mbrCellNum').val();
+        	var mbrPwd = $('#mbrPwd').val();
+        	var pwd2 = $('#mbrPwd2nd').val();
+        	
+        	if ( mbrNm == "") {
+        		alert("이름을 입력 하세요.");
+        		return;
+        	}
+        	if ( mbrCellNum == "" ) {
+        		alert("휴대폰 번호을 입력 하세요.");
+        		return;
+        	}
+        	if (mbrPwd != "" && mbrPwd != pwd2) {
+        		alert("패스워드가 일치하지 않습니다.");
+        		return;
+        	}
             var param = {
-                     "mbrNm" : $('#mbrNm').val() 
-                     , "mbrCellNum" : $('#mbrCellNum').val() 
-                     , "mbrPwd" : $('#mbrPwd').val() 
+                     "mbrNm" : mbrNm
+                     , "mbrCellNum" : mbrCellNum
+                     , "mbrPwd" : mbrPwd
                };        
             
             $.ajax({
@@ -31,6 +52,8 @@
     				if (data.procInd == "S") {
     					alert("정상 처리 되었습니다.");
     					location.href = "/main/cbMain.do";
+    				}else if (data.procInd == "D") {
+    					alert("기 가입된 전화번호 입니다.");
     				} else {
     					alert("처리중 오류가 발생 했습니다.");
     				}
@@ -52,25 +75,29 @@
 <body>
 <div class="wrap">
 	<div layout:fragment="content">
-	<!-- //content-wrap -->
-    <ul class="carbon-join2">
-        <li>
-            <label for="">이름</label>
-            <input type="text" name="" id="mbrNm">
-        </li>
-        <li>
-            <label for="">휴대폰 번호</label>
-            <input type="text" name="" id="mbrCellNum">
-        </li>
-        <li>
-            <label for="">비밀번호</label>
-            <input type="password" name="" id="mbrPwd">
-        </li>
-    </ul>
-    <div class="join-btn">
-        <button type="button" class="btn-gray" id="Lgn">가입취소</button>
-        <button type="button" class="btn-blue" id="memReg">회원가입</button>
-    </div>
+		<!-- //content-wrap -->
+	    <ul class="carbon-join2">
+	        <li>
+	            <label for="">이름</label>
+	            <input type="text" name="" id="mbrNm">
+	        </li>
+	        <li>
+	            <label for="">휴대폰 번호</label>
+	            <input type="text" name="" id="mbrCellNum" numberOnly>
+	        </li>
+	        <li>
+	            <label for="">비밀번호(숫자 6자리)</label>
+	            <input type="password" maxlength=6 name="" id="mbrPwd">
+	        </li>
+	        <li>
+	            <label for="">비밀번호 확인</label>
+	            <input type="password" maxlength=6 name="" id="mbrPwd2nd">
+	        </li>
+	    </ul>
+	    <div class="join-btn">
+	        <button type="button" class="btn-gray" id="Lgn">가입취소</button>
+	        <button type="button" class="btn-blue" id="memReg">회원가입</button>
+	    </div>
 	</div>
 </div><!-- //wrap -->
 </body>

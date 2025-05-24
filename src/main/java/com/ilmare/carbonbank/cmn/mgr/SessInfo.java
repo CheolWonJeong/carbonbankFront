@@ -12,7 +12,7 @@ public class SessInfo
 	private String partyCd;        //소속코드
 	private String dgtQrCd;        //디지털 QR코드
 	private String pprQrCd;        //종이 QR코드
-	private String LgnDtm;      //마지막 로그인 일시
+	private String lstLgnDtm;      //마지막 로그인 일시
 
 	private String storeId;          //가맹점아이디
 
@@ -24,12 +24,12 @@ public class SessInfo
         return storeId;
     }
 
-	public void setLgnDtm(String LgnDtm) {
-        this.LgnDtm = LgnDtm;
+	public void setLstLgnDtm(String lstLgnDtm) {
+        this.lstLgnDtm = lstLgnDtm;
     }
 
-    public String getLgnDtm() {
-        return LgnDtm;
+    public String getLstLgnDtm() {
+        return lstLgnDtm;
     }
 
 	public void setMbrId(String mbrId) {

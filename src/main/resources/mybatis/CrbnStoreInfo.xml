@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ilmare.carbonbank.mapper.CrbnStoreInfoMapper">
+
+    <select id="selectAdmDesc" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="com.ilmare.carbonbank.model.CrbnStoreInfoModel">
+    <![CDATA[
+        select
+			store_id
+			,party_cd
+			,bis_num
+			,store_pwd
+			,store_cell_num
+			,store_ceo_nm
+			,store_nm
+			,store_no_img
+			,store_img
+			,store_email
+			,store_addr
+			,store_event
+			,store_cacao_id
+			,store_latitude
+			,store_longitude
+			,chg_pwd_dtm
+			,lst_lgn_dtm
+			,cre_dtm
+			,chg_dtm
+        from CRBN_STORE_INFO
+            WHERE store_id = #{storeId} or store_cell_num = #{storeCellNum}
+     ]]>
+    </select>
+    
+    <select id="selectAdmList" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="com.ilmare.carbonbank.model.CrbnStoreInfoModel">
+        <![CDATA[
+            /*
+            1. ID: selectAdmList
+            2. 업무명: 관리자의 리스트
+            3. 업무설명:
+            */
+            SELECT *
+              FROM (
+                    SELECT
+						store_id
+						,party_cd
+						,bis_num
+						,store_pwd
+						,store_cell_num
+						,store_ceo_nm
+						,store_nm
+						,store_no_img
+						,store_img
+						,store_email
+						,store_addr
+						,store_event
+						,store_cacao_id
+						,store_latitude
+						,store_longitude
+						,chg_pwd_dtm
+						,lst_lgn_dtm
+						,cre_dtm
+						,chg_dtm
+                    from CRBN_STORE_INFO
+                   where party_cd = #{partyCd}
+                     ORDER BY doc_seq DESC
+                   ) A
+             LIMIT #{pageNo}, #{listSize}
+         ]]>
+    </select>
+ 
+    <select id="selectAdmListCount" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="String">
+        <![CDATA[
+            /*
+                1. ID: selectAdmListCount
+                2. 업무명: 뉴스
+                3. 업무설명: 관리자 뉴스 리스트 총갯수
+            */
+        
+            SELECT
+                COUNT(1)
+            FROM CRBN_STORE_INFO
+            where party_cd = #{partyCd}
+        ]]>
+    </select>
+ 
+    <select id="storeNextVal" resultType="String">
+    <![CDATA[
+			SELECT NEXTVAL('STORE');
+     ]]>
+    </select>
+
+    <select id="selectCount" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="int">
+        <![CDATA[
+            SELECT
+                COUNT(1)
+            FROM CRBN_STORE_INFO
+            where store_cell_num = #{storeCellNum}
+        ]]>
+    </select>
+ 
+
+    <update id="updatePasswd" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel">
+        <![CDATA[
+            UPDATE CRBN_STORE_INFO
+               SET
+                    store_pwd =#{storePwd}     ,chg_pwd_dtm   = now()
+              WHERE store_cell_num = #{storeCellNum}
+        ]]>
+    </update>
+ 
+
+ 
+ </mapper>

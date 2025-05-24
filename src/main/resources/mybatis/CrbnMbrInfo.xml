@@ -70,28 +70,26 @@
         ]]>
     </select>
  
-    <select id="selectDesc" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel" resultType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+    <select id="selectLoginData" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel" resultType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
     /*
     1. ID: selectDesc
     2. 업무명: 모바일의 상세조회
     3. 업무설명:
     */
-	         select 
-				mbr_id
-				,mbr_pwd
-				,mbr_nm
-				,m.party_cd
-				,qr_stat
-				,dgt_qr_cd
-				,ppr_qr_cd
-				,m.store_id
-				,m.chg_pwd_dtm
-				,m.lst_lgn_dtm
-				,m.cre_dtm
-				,m.chg_dtm
-                ,s.store_id  reg_store_id  
-	          from CRBN_MBR_INFO m  LEFT JOIN CRBN_STORE_INFO s ON m.mbr_cell_num = s.store_cell_num
-              WHERE m.mbr_cell_num = #{mbrCellNum}
+			select * from (
+				         select 
+							mbr_id	,mbr_nm	,qr_stat,dgt_qr_cd,ppr_qr_cd,m.lst_lgn_dtm
+			                ,s.store_id  reg_store_id  
+				          from CRBN_MBR_INFO m  LEFT JOIN CRBN_STORE_INFO s ON m.mbr_cell_num = s.store_cell_num
+              			WHERE m.mbr_cell_num = #{mbrCellNum} and mbr_pwd =#{mbrPwd} 
+			union
+				         select 
+							''	, store_ceo_nm	,'','','', lst_lgn_dtm
+			                ,store_id  reg_store_id  
+				          from CRBN_STORE_INFO
+			              WHERE store_cell_num = #{mbrCellNum} and store_pwd =#{mbrPwd} 
+			) as a
+			limit 0, 1
 	          
     </select>
     
@@ -107,6 +105,15 @@
      ]]>
     </select>
 
+    <select id="selectCount" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel" resultType="int">
+        <![CDATA[
+            SELECT
+                COUNT(1)
+            FROM CRBN_MBR_INFO
+            where mbr_cell_num = #{mbrCellNum}
+        ]]>
+    </select>
+ 
     <insert id="insertMbr" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
         <![CDATA[
             INSERT INTO CRBN_MBR_INFO (
@@ -144,7 +151,7 @@
         <![CDATA[
             UPDATE CRBN_MBR_INFO
                SET
-                    mbr_pwd =#{mbrPwd}     ,chg_pwd_dtm   = DATE_FORMAT(now(), '%Y%m%d%H%i%S')
+                    mbr_pwd =#{mbrPwd}     ,chg_pwd_dtm   = now()
               WHERE mbr_id = #{mbrId}
         ]]>
     </update>

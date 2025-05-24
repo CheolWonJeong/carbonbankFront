@@ -20,7 +20,7 @@ public class CrbnMbrInfoService {
 	
 
 	public CrbnMbrInfoModel selectAdmDesc(CrbnMbrInfoModel param){
-		return mapper.selectDesc(param);
+		return mapper.selectAdmDesc(param);
 	}
 
 	/*
@@ -43,8 +43,12 @@ public class CrbnMbrInfoService {
 		return mapper.memberNextVal();
 	}
 
-	public CrbnMbrInfoModel  selectDesc(CrbnMbrInfoModel param){
-		return mapper.selectDesc(param);
+	public CrbnMbrInfoModel  selectLoginData(CrbnMbrInfoModel param){
+		return mapper.selectLoginData(param);
+	}
+
+	public int  selectCount(CrbnMbrInfoModel nModel){
+		return mapper.selectCount(nModel);
 	}
 
 	/*
@@ -58,7 +62,7 @@ public class CrbnMbrInfoService {
 		return rtn;
 		
 	}
-	public int  update(CrbnMbrInfoModel param){
+	public int  updateMbrQrUse(CrbnMbrInfoModel param){
 		return mapper.updateMbrQrUse(param);
 	}
 
@@ -69,12 +73,16 @@ public class CrbnMbrInfoService {
 	@Transactional
 	public int loginProc(CrbnMbrInfoModel nModel)
 	{
+		int rtn =0;
 		//회원로그인
-		int rtn = mapper.updateLgnHist(nModel);
-		rtn =  mapper.insertLgnHist(nModel);
+		//가맹점 로그인
+		if ( nModel.getMbrId() != null && !nModel.getMbrId().isEmpty()) {
+			rtn = mapper.updateLgnHist(nModel);
+			rtn =  mapper.insertLgnHist(nModel);
+		}
 		
 		//가맹점 로그인
-		if (!nModel.getRegStoreId().isEmpty()) {
+		if ( nModel.getRegStoreId() != null && !nModel.getRegStoreId().isEmpty()) {
 			rtn = mapper.updateStoreLgnHist(nModel);
 			rtn =  mapper.insertStoreLgnHist(nModel);
 		}

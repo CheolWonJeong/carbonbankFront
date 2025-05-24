@@ -55,14 +55,12 @@ public class LoginController {
 
 		// 패스워드 암호화
 		String encParamPasswd = AES256Util.encrypt(paramVo.getMbrPwd());
+		paramVo.setMbrPwd(encParamPasswd);
 
 		//멤버 조회
-		CrbnMbrInfoModel info = svc.selectDesc(paramVo);
-		log.info("loginProc pwd  {} | {} ", encParamPasswd, info.getMbrPwd());
-
-		log.info("loginProc getCreDtm  {} ",info.getCreDtm());
+		CrbnMbrInfoModel info = svc.selectLoginData(paramVo);
 		//패스워드 비교
-		if (!encParamPasswd.equals(info.getMbrPwd())) {
+		if (info == null) {
 			result.put("procInd", "N");  // 정상
 		} else {
 			//로그인 성공
@@ -79,7 +77,7 @@ public class LoginController {
 			sess.setPartyCd(info.getPartyCd());
 			sess.setDgtQrCd(info.getDgtQrCd());
 			sess.setPprQrCd(info.getPprQrCd());
-			sess.setLgnDtm(info.getLstLgnDtm());
+			sess.setLstLgnDtm(info.getLstLgnDtm());
 			
 			sessMgr.createSession( request, sess );
 			

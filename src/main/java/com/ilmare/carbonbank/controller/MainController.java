@@ -49,6 +49,8 @@ public class MainController {
 			return "redirect:" + conConst.lgnUrl;
 			
 		}
+
+		model.addAttribute("sess", sessMgr.getSession(request));
 		//2 자료 조회
 		//파람 set
 		
