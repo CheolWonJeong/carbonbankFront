@@ -1,0 +1,141 @@
+<!--/****************************************************************************************
+* 25-05-19 / line 102 / 버튼 추가
+* 25-05-22 / line 88 / 조회수 추가
+* 25-05-22 / line 109 / 기사 상태 표시 추가
+****************************************************************************************/ -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>탄소뱅크</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+	<meta name="keywords" content="탄소뱅크" />
+    <meta name="description" content="탄소뱅크" />
+    <meta property="og:image" content="../resources/images/opengraph.png" />
+    <link rel="icon" href="../resources/images/favicon.png">
+	<link rel="stylesheet" href="../resources/css/common.css" >
+    <script type="text/javascript" src="../resources/js/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+    <header class="carbon-header">
+        <div class="carbon-head">
+            <button type="button"  class="back">뒤로</button>
+            <h1 class="sub-head">Title</h1>
+            <div class="i-notice">
+                <img src="../resources/images/ico_noitce.svg">
+                <span class="on"></span>
+            </div>
+        </div>
+        <div class="menu-wrap">
+            <input id="menu-toggle" type="checkbox" />
+            <label class="menu-btn" for="menu-toggle"><span></span></label>
+            <div class="menu-back"></div>
+
+            <div class="menu-content">
+                <div class="menu-header">
+                    <h1><img src="../resources/images/logo.svg"></h1>
+                    <div class="sidemy">
+                       <span>홍길동님</span>
+                       최근접속 : 2025.03.22 00:00:00
+                    </div>
+                </div>
+                <!-- menu -->
+                <ul class="menu-list">
+                    <li class="m1">
+                       탄소
+                        <ul>
+                            <li><a href="#">매장 찾기</a></li>
+                            <li><a href="#">실적 조회</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </li>
+                    <li class="m2">
+                        환경
+                        <ul>
+                            <li><a href="#">뉴스</a></li>
+                        </ul>
+                     </li>
+                     <li class="m3">
+                        고객센터
+                        <ul>
+                            <li><a href="#">공지사항</a></li>
+                            <li><a href="#">문의 및 제안</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                     </li>
+                     <li class="m4">
+                        설정
+                        <ul>
+                            <li><a href="#">알림</a></li>
+                        </ul>
+                     </li>
+                </ul>
+            </div>
+            <!-- //menu-content -->
+        </div>
+    </header>
+
+    <div class="content-wrap">
+        <section class="carbon-content">
+
+            <div class="board-view">
+                <div class="view-title">
+                    2025년 탄소중립포인트제 참여 기업·기관 업무 협약식
+                </div>
+                <!-- 조회수 추가 -->
+                <div class="view-info">
+                    <span>조회수: 99</span>
+                    <span>연합뉴스</span>
+                    <span>2025.04.29</span>
+                    <span>
+                        <a href="#" target="_blank">기사원문</a>
+                    </span>
+                </div>
+                <div class="view-content">
+                    <img src="../resources/images/thumb_01.png">
+                    (서울=연합뉴스) 김완섭 환경부 장관이 21일 서울 강서구 코엑스마곡에서 열린 2025년 기후변화주간 개막식에서 탄소중립포인트제에 신규로 참가한 기업과 업무협약을 체결한 후 관계자들과 기념 촬영하고 있다.
+                    <br><br>
+                    2025.4.21 [환경부 제공. 재판매 및 DB 금지]
+                    <br><br>
+                    photo@yna.co.kr
+                </div>
+            </div>
+            <!-- 05.19 버튼 추가 -->
+            <button type="button" class="btn-blue w100 mT20">목록으로</button>
+        </section>
+
+        <ul class="view-think">
+            <!-- 상태 클릭했을때 active 활성화 -->
+            <li class="think-like">
+                <a href="#" class="active"  onclick="return false">추천해요 <span>100</span></a>
+            </li>
+            <li class="think-good">
+                <a href="#"  onclick="return false">좋아요 <span>15</span></a>
+            </li>
+            <li class="think-sad">
+                <a href="#"  onclick="return false">슬퍼요 <span>0</span></a>
+            </li>
+            <li class="think-angry">
+                <a href="#"  onclick="return false">화나요 <span>8</span></a>
+            </li>
+        </ul>
+        <!-- //carbon-content -->
+    </div>
+    <!-- //content-wrap -->
+
+    <div class="carbon-footer">
+        <div class="footer-01"><a href="#">Home</a></div>
+        <div class="footer-02"><a href="#">탄소활동</a></div>
+        <div class="footer-03"><a href="#">QR</a></div>
+        <div class="footer-04"><a href="#">뉴스</a></div>
+        <div class="footer-05"><a href="#">마이페이지</a></div>
+    </div>
+
+    <script type="text/javascript" src="../resources/js/content.js"></script>
+
+
+</body>
+</html>
+
