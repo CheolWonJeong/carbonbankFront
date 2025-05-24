@@ -148,13 +148,14 @@ input[type=radio]:focus {
   margin-right: 6px;
   vertical-align:-6px;
 }
-input[type=checkbox]:checked {background: #53667B; border:1px solid #53667B; }
+input[type=checkbox]:checked {background: #3C64D3; border:1px solid #3C64D3; }
 input[type=checkbox]:after {content: ''; position: relative; left: 35%; top: 18%; width: 20%;height: 40%; border: solid #fff; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); display: none;}
 input[type=checkbox]:checked:after {display: block;}
 input[type=checkbox]:focus {
   transition-duration: 0.5s;
   transition: all 0.5s;
 }
+
 
 
 /* 버튼 */
@@ -179,14 +180,19 @@ button {
   }
 
 
-.btn-gray 	    {line-height: 45px; height:45px; font-size:0.88rem; background:#fff; border: 1px solid #C6D0DA; padding:0 24px; border-radius:4px; }
-.btn-gray:hover {border: 1px solid #3567CD; }
-
-.btn-grayfill 	{line-height: 45px; height:45px; font-size:0.88rem; background:#64697B;  padding:0 24px; border-radius:4px; color: #fff; }
-.btn-grayfill:hover {background:#222; }
-
 .btn-blue 	{line-height: 45px; height:45px; font-size:1rem; background:#3C64D3;  padding:0 24px; border-radius:4px; color: #fff; font-weight: 500; }
 .btn-blue:hover {background:#2B53C0; }
 
-.btn-black 	{line-height: 45px; height:45px; font-size:0.88rem; background:#000;  padding:0 24px; border-radius:4px; color: #fff; }
-.btn-black:hover {background:#333; }
+.btn-black 	{line-height: 45px; height:45px; font-size:1rem; background:#424850;  padding:0 24px; border-radius:4px; color: #fff; font-weight: 500;}
+.btn-black:hover {background:#111; }
+
+.btn-gray 	{line-height: 45px; height:45px; font-size:1rem; background:#A2A6B5;  padding:0 24px; border-radius:4px; color: #fff; font-weight: 500;}
+
+/* 파일찾기  */
+.file-input label {position:relative; cursor:pointer;display:inline-block;overflow:hidden;width:100px;background:#979BA6;color:#fff;text-align:center;line-height:35px!important; height:35px;vertical-align:middle; border-radius: 3px; font-size: 0.88rem!important;}
+.file-input label input {position:absolute;width:0;height:0;overflow:hidden;}
+.file-input input[type=text] {border:1px solid #C6D0DA; height:35px; padding-left:10px;margin:3px; vertical-align:middle;display:inline-block;border-radius: 3px; width:calc(100% - 112px)!important; font-size: 0.88rem;}
+.file-input label:hover {background:#9095A0;}
+.file-reset {background:#BBBEC7;border-radius: 3px; line-height:35px; height:35px;vertical-align:middle;  width: 30px; color: #fff;}
+.file-reset::before { content:"\e5cd";  font-size: 1rem;  font-family: 'Material Icons Outlined'; font-weight: 300;}
+.file-reset:hover{background:#B2B5BC;}

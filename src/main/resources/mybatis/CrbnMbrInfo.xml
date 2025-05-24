@@ -94,12 +94,34 @@
 	          
     </select>
     
+    <select id="dgtQrCdNextVal"  resultType="String">
+        <![CDATA[
+			SELECT NEXTVAL('DGT_QR_CD');
+        ]]>
+    </select>
+ 
+    <select id="memberNextVal" resultType="String">
+    <![CDATA[
+			SELECT NEXTVAL('MEMBER');
+     ]]>
+    </select>
+
     <insert id="insertMbr" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
         <![CDATA[
             INSERT INTO CRBN_MBR_INFO (
-				mbr_id,mbr_pwd,mbr_cell_num,mbr_nm,party_cd,dgt_qr_cd
+				mbr_id,mbr_pwd,mbr_cell_num,mbr_nm,dgt_qr_cd
             ) VALUES (
-              #{mbrId}, #{mbrpwd}, #{mbrCellNum}, #{mbrNm}, #{partyCd}, #{dgtQQrCd}
+              #{mbrId}, #{mbrPwd}, #{mbrCellNum}, #{mbrNm}, #{dgtQrCd}
+            )
+        ]]>
+    </insert>
+
+    <insert id="insertDgtImg" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+        <![CDATA[
+            INSERT INTO CRBN_DGT_QR_INFO (
+				dgt_qr_cd, dgt_qr_img
+            ) VALUES (
+              #{dgtQrCd}, #{dgtQrImg}
             )
         ]]>
     </insert>

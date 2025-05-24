@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layour}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+
+
+<body>
+<div class="wrap">
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/header}}"></th:block>
+	
+	<div layout:fragment="content">
+	<!-- //content-wrap -->
+    <ul class="carbon-join2">
+        <li>
+            <label for="">이름</label>
+            <input type="text" name="" id="">
+        </li>
+        <li>
+            <label for="">휴대폰 번호</label>
+            <input type="text" name="" id="">
+        </li>
+        <li>
+            <label for="">비밀번호</label>
+            <input type="password" name="" id="">
+        </li>
+    </ul>
+    <div class="join-btn">
+        <button type="button" class="btn-gray">가입취소</button>
+        <button type="button" class="btn-blue">회원가입</button>
+    </div>
+	</div>
+	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
+</div><!-- //wrap -->
+</body>
+</html>

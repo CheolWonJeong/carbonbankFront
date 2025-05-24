@@ -24,6 +24,26 @@ public class CrbnMbrInfoModel {
 	private String lgnOs;         //로그인 OS
 	private String lgnBrowser;    //로그인 브라우저
 
+	private String lgnDtm;      //로그인 일시
+
+	private byte[] dgtQrImg;      //디지털 QR 이미지
+	
+    public void setDgtQrImg(byte[] dgtQrImg) {
+        this.dgtQrImg = dgtQrImg;
+    }
+
+    public byte[] getDgtQrImg() {
+        return dgtQrImg;
+    }
+
+    public void setLgnDtm(String lgnDtm) {
+        this.lgnDtm = lgnDtm;
+    }
+
+    public String getLgnDtm() {
+        return lgnDtm;
+    }
+
 	public void setLgnIp(String lgnIp) {
         this.lgnIp = lgnIp;
     }
