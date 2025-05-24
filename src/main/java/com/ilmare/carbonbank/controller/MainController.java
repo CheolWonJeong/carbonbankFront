@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ilmare.carbonbank.cmn.controller.ConfigConstants;
 import com.ilmare.carbonbank.cmn.controller.ConfigConstants.enMenuList;
+import com.ilmare.carbonbank.cmn.mgr.SessionManager;
 import com.ilmare.carbonbank.cmn.vo.CommonVo;
 import com.ilmare.carbonbank.mapper.CrbnEnvNewsMapper;
 import com.ilmare.carbonbank.model.CrbnNoticeModel;
@@ -31,10 +33,22 @@ public class MainController {
 	@Autowired
 	private CrbnEnvNewsMapper envSvc;
 
+	@Autowired
+	private SessionManager sessMgr;
+	
+	@Autowired
+	private ConfigConstants conConst;
+	
+	
 	@RequestMapping(value = "/cbMain.do", method=RequestMethod.GET)
 	public String Viewhome(HttpServletRequest request,  Model model) {
 		
 		//1.세션검사
+		if ( !sessMgr.isSession(request) ) {
+			log.info("Viewhome 세션 없음 상태");
+			return "redirect:" + conConst.lgnUrl;
+			
+		}
 		//2 자료 조회
 		//파람 set
 		

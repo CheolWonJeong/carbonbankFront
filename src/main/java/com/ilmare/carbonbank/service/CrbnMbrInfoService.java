@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ilmare.carbonbank.mapper.CrbnMbrInfoMapper;
 import com.ilmare.carbonbank.model.CrbnMbrInfoModel;
@@ -47,8 +48,9 @@ public class CrbnMbrInfoService {
 	}
 
 	/*
-	 * 관리자 등록
+	 * 회원 등록
 	 */
+	@Transactional
 	public int insertMbr(CrbnMbrInfoModel nModel)
 	{
 		int rtn = mapper.insertMbr(nModel);
@@ -60,6 +62,39 @@ public class CrbnMbrInfoService {
 		return mapper.updateMbrQrUse(param);
 	}
 
+	/*
+	 * 회원 로그인 처리
+	 * 
+	 */
+	@Transactional
+	public int loginProc(CrbnMbrInfoModel nModel)
+	{
+		//회원로그인
+		int rtn = mapper.updateLgnHist(nModel);
+		rtn =  mapper.insertLgnHist(nModel);
+		
+		//가맹점 로그인
+		if (!nModel.getRegStoreId().isEmpty()) {
+			rtn = mapper.updateStoreLgnHist(nModel);
+			rtn =  mapper.insertStoreLgnHist(nModel);
+		}
+		return rtn;
+		
+	}
+
+	/*
+	 * 회원 로그인 처리
+	 * 
+	 */
+	@Transactional
+	public int storeLoginProc(CrbnMbrInfoModel nModel)
+	{
+		//가맹점 로그인
+		int rtn = mapper.updateStoreLgnHist(nModel);
+		rtn =  mapper.insertStoreLgnHist(nModel);
+		return rtn;
+		
+	}
 
 	
 	

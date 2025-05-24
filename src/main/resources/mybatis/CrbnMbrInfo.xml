@@ -72,25 +72,26 @@
  
     <select id="selectDesc" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel" resultType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
     /*
-    1. ID: selectList
+    1. ID: selectDesc
     2. 업무명: 모바일의 상세조회
     3. 업무설명:
     */
 	         select 
 				mbr_id
 				,mbr_pwd
-				,mbr_cell_num
 				,mbr_nm
-				,party_cd
+				,m.party_cd
 				,qr_stat
 				,dgt_qr_cd
 				,ppr_qr_cd
-				,store_id
-				,chg_pwd_dtm
-				,lst_lgn_dtm
-				,cre_dtm
-				,chg_dtm
-	          from CRBN_MBR_INFO  WHERE mbr_id = #{mbrId}
+				,m.store_id
+				,m.chg_pwd_dtm
+				,m.lst_lgn_dtm
+				,m.cre_dtm
+				,m.chg_dtm
+                ,s.store_id  reg_store_id  
+	          from CRBN_MBR_INFO m  LEFT JOIN CRBN_STORE_INFO s ON m.mbr_cell_num = s.store_cell_num
+              WHERE m.mbr_cell_num = #{mbrCellNum}
 	          
     </select>
     
@@ -152,7 +153,7 @@
         <![CDATA[
             UPDATE CRBN_MBR_INFO
                SET
-                    lst_lgn_dtm   = DATE_FORMAT(now(), '%Y%m%d%H%i%S')
+                    lst_lgn_dtm   = now()
               WHERE mbr_id = #{mbrId}
         ]]>
     </update>
@@ -163,6 +164,25 @@
 				mbr_id, lgn_ip, lgn_os, lgn_browser
             ) VALUES (
               #{mbrId}, #{lgnIp}, #{lgnOs}, #{lgnBrowser}
+            )
+        ]]>
+    </insert>
+
+    <update id="updateStoreLgnHist" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+        <![CDATA[
+            UPDATE CRBN_STORE_INFO
+               SET
+                    lst_lgn_dtm   = now()
+              WHERE store_id = #{regStoreId}
+        ]]>
+    </update>
+
+    <insert id="insertStoreLgnHist" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+        <![CDATA[
+            INSERT INTO CRBN_STORE_LGN_HST (
+				store_id, lgn_ip, lgn_os, lgn_browser
+            ) VALUES (
+              #{regStoreId}, #{lgnIp}, #{lgnOs}, #{lgnBrowser}
             )
         ]]>
     </insert>

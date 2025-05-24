@@ -154,7 +154,7 @@ public class SessionManager
     {
     	httpSession  = req.getSession();
     	if ( httpSession == null)  return false;
-        if ( StringUtil.nullStringToEmpty((String)httpSession.getAttribute("admId")).length() < 2 ) {
+        if ( StringUtil.nullStringToEmpty((String)httpSession.getAttribute("mbrId")).length() < 2 ) {
             return false;
         }
         return true;

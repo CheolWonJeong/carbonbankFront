@@ -75,6 +75,7 @@ public class HomeController {
 		
 		//QR 코드 이미지 생성
 		byte[] qrImgBytes = QRCodeCreate.generateQRCodeImage(dgnQrCd, null);
+		paramVo.setDgtQrImg(qrImgBytes);
 		//멤버 저장
 		svc.insertMbr(paramVo);
 		result.put("procInd", "S");  // 정상

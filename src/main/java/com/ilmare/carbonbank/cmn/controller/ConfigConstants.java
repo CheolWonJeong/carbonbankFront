@@ -6,8 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConfigConstants {
 
-    public static String SERVICE_DOMAIN = "http://m.carbonbank.re.kr";
-	public static final String  lgnUrl = "/adm/login.do";
+	public static final String  lgnUrl = "/home/cbLogin.do";
 
 	//페이지간련
 	public static final int pageSize = 20;    //페이지당 row 건수
