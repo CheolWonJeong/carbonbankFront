@@ -5,7 +5,11 @@
 <body>
 	<div class="wrap">
 
+    	<div th:replace="fragments/header::headersub"></div>
+
     	<div layout:fragment="content" class="content"></div>
+
+    	<div th:replace="fragments/footer::footer"></div>
 	</div>
 </body>
 </html>

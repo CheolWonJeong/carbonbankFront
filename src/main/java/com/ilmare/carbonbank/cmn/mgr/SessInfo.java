@@ -14,9 +14,18 @@ public class SessInfo
 	private String pprQrCd;        //종이 QR코드
 	private String lstLgnDtm;      //마지막 로그인 일시
 
+	private String loginInd;          //로그인 구분:M:회원, S:가맹점, A:회원, 가맹점 둘다 가입
 	private String storeId;          //가맹점아이디
 
-	public void seStoreId(String storeId) {
+	public void setLoginInd(String loginInd) {
+        this.loginInd = loginInd;
+    }
+
+    public String getLoginInd() {
+        return loginInd;
+    }
+
+	public void setStoreId(String storeId) {
         this.storeId = storeId;
     }
 

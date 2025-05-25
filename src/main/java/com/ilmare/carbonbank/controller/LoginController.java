@@ -59,9 +59,19 @@ public class LoginController {
 
 		//멤버 조회
 		CrbnMbrInfoModel info = svc.selectLoginData(paramVo);
+
+		String loginInd = null;		//로그인 구분:M:회원, S:가맹점, A:회원, 가맹점 둘다 가입
+		if (info.getMbrId() != null && info.getStoreId() != null) {
+			loginInd = "A";
+		} else if (info.getMbrId() != null ) {
+			loginInd = "M";
+		} else if (info.getStoreId() != null) {
+			loginInd = "S";
+		}
+		
 		//패스워드 비교
-		if (info == null) {
-			result.put("procInd", "N");  // 정상
+		if (info == null || loginInd == null) {
+			result.put("procInd", "N");  // 자료 없음
 		} else {
 			//로그인 성공
 			info.setLgnIp(CommUtil.getIp(request));
@@ -78,6 +88,8 @@ public class LoginController {
 			sess.setDgtQrCd(info.getDgtQrCd());
 			sess.setPprQrCd(info.getPprQrCd());
 			sess.setLstLgnDtm(info.getLstLgnDtm());
+			sess.setStoreId(info.getRegStoreId());
+			sess.setLoginInd(loginInd);
 			
 			sessMgr.createSession( request, sess );
 			

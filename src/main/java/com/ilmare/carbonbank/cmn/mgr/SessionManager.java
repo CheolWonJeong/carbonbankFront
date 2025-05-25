@@ -109,7 +109,9 @@ public class SessionManager
     	httpSession.setAttribute("partyCd",  (StringUtil.nullStringToEmpty(sessinfo.getPartyCd())));     // 소속코드    
     	httpSession.setAttribute("dgtQrCd", (StringUtil.nullStringToEmpty(sessinfo.getDgtQrCd())));    //디지털 QR      
     	httpSession.setAttribute("PprQrCd",  (StringUtil.nullStringToEmpty(sessinfo.getPprQrCd())));    //종이 QR         
-    	httpSession.setAttribute("lstLgnDtm",  (StringUtil.nullStringToEmpty(sessinfo.getLstLgnDtm())));	//로그인 일시     
+    	httpSession.setAttribute("lstLgnDtm",  (StringUtil.nullStringToEmpty(sessinfo.getLstLgnDtm())));	//최근 로그인 일시로그인    
+    	httpSession.setAttribute("storeId",  (StringUtil.nullStringToEmpty(sessinfo.getStoreId())));	//가입된 가맹점 ID      
+    	httpSession.setAttribute("loginInd",  (StringUtil.nullStringToEmpty(sessinfo.getLoginInd())));	//로그인 구분:M:회원, S:가맹점, A:회원, 가맹점 둘다 가입 
 
     }
  
@@ -128,7 +130,9 @@ public class SessionManager
     	httpSession.setAttribute("partyCd",  (StringUtil.nullStringToEmpty(sessinfo.getPartyCd())));     // 소속코드    
     	httpSession.setAttribute("dgtQrCd", (StringUtil.nullStringToEmpty(sessinfo.getDgtQrCd())));    //디지털 QR      
     	httpSession.setAttribute("PprQrCd",  (StringUtil.nullStringToEmpty(sessinfo.getPprQrCd())));    //종이 QR         
-    	httpSession.setAttribute("lstLgnDtm",  (StringUtil.nullStringToEmpty(sessinfo.getLstLgnDtm())));	//로그인 일시     
+    	httpSession.setAttribute("lstLgnDtm",  (StringUtil.nullStringToEmpty(sessinfo.getLstLgnDtm())));	//최근 로그인 일시로그인     
+    	httpSession.setAttribute("storeId",  (StringUtil.nullStringToEmpty(sessinfo.getStoreId())));	//가입된 가맹점 ID      
+    	httpSession.setAttribute("loginInd",  (StringUtil.nullStringToEmpty(sessinfo.getLoginInd())));	//로그인 구분:M:회원, S:가맹점, A:회원, 가맹점 둘다 가입 
 
     }
     
@@ -144,8 +148,9 @@ public class SessionManager
     	sessinfo.setPartyCd(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("partyCd")));     // 소속코드   
     	sessinfo.setDgtQrCd(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("dgtQrCd")));     // 디지털 QR      
     	sessinfo.setPprQrCd(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("pprQrCd")));    // 종이 QR  
-    	sessinfo.setLstLgnDtm(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("lstLgnDtm")));    //로그인 잉시 
-    	
+    	sessinfo.setLstLgnDtm(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("lstLgnDtm")));    //최근 로그인 일시로그인
+    	sessinfo.setStoreId(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("storeId")));    //가입된 가맹점 ID 
+    	sessinfo.setLoginInd(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("loginInd")));    //로그인 구분:M:회원, S:가맹점, A:회원, 가맹점 둘다 가입 
     	return sessinfo;
 
     }
