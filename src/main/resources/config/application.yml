@@ -13,7 +13,7 @@ server:
 
 spring:
   application:
-  name: carbonbankfront
+    name: carbonbankfront
 
   servlet:
     multipart:
@@ -56,11 +56,11 @@ mybatis:
 # mybatis mapper.xml 위치 명시
   mapper-locations: classpath:/mybatis/**/*.xml
 
-# Logback 설정
-logging:
-  level:
-    root: info
-  config: classpath:log/logback-spring.xml 
+## Logback 설정
+#logging:
+#  level:
+#    root: info
+#  config: classpath:log/logback-spring.xml 
 
 # 파일업로드 경로
 comm:

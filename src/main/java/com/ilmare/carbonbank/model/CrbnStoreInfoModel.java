@@ -8,6 +8,7 @@ package com.ilmare.carbonbank.model;
 public class CrbnStoreInfoModel {
 
 	private String storeId;        //가맹점아이디
+	private String storeUuid;		// 가맹점 UUID(kakaoMap 제공)
 	private String partyCd;        //소속코드
 	private String bisNum;        //사업자 등록번호
 	private String storePwd;        //비밀번호
@@ -15,6 +16,8 @@ public class CrbnStoreInfoModel {
 	private String storeCeoNm;        //대표자 성명
 	private String storeNm;        //상호
 	private String storeLttdLngtd;        //위도경도(위도,경도)
+	private String storeX;			// 가맹점 x 좌표 
+	private String storeY;			// 가맹점 y 좌표 
 	private String storeNoImg;        //사업자등록증 이미지 파일 경로
 	private String storeImg;        //사업장 사진 이미지 파일 경로
 	private String storeEmail;        //메일주소
@@ -24,6 +27,14 @@ public class CrbnStoreInfoModel {
 	private String lstLgnDtm;      //마지막 로그인 일시
 	private String creDtm;         //생성일시
 	private String chgDtm;         //변경일시
+	
+	
+	public CrbnStoreInfoModel(String storeUuid, String storeNm, String storeX, String storeY) {
+		this.storeUuid = storeUuid;
+		this.storeNm = storeNm;
+		this.storeX = storeX;
+		this.storeY = storeY;
+	}
 	
     public void setStoreId(String storeId) {
         this.storeId = storeId;
@@ -160,5 +171,29 @@ public class CrbnStoreInfoModel {
     public String getChgDtm() {
         return chgDtm;
     }
-
+    
+    public void setStoreUuid(String storeUuid) {
+    	this.storeUuid = storeUuid;
+    }
+    
+    public String getStoreUuid() {
+    	return storeUuid;
+    }
+    
+   public void setStoreX(String storeX) {
+	   this.storeX = storeX;
+   }
+   
+   public String getStoreX() {
+	   return storeX;
+   }
+   
+   public void setStoreY(String storeY) {
+	   this.storeY = storeY;
+   }
+   
+   public String getStoreY() {
+	   return storeY;
+   }
+ 
 }
