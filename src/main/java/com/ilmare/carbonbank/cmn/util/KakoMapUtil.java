@@ -16,6 +16,8 @@ public class KakoMapUtil {
 	
 	// kakao map 검색 api
 	public JsonNode getStoreInfo(String keyword) {
+		
+		keyword = keyword.replace(" ", "");
         final String requestUrl = "https://dapi.kakao.com/v2/local/search/keyword.json?radius=5000&query="+ keyword;
         
         HttpClient client = HttpClientBuilder.create().build();
