@@ -127,9 +127,9 @@
     <insert id="insertDgtImg" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
         <![CDATA[
             INSERT INTO CRBN_DGT_QR_INFO (
-				dgt_qr_cd, dgt_qr_img
+				dgt_qr_cd
             ) VALUES (
-              #{dgtQrCd}, #{dgtQrImg}
+              #{dgtQrCd}
             )
         ]]>
     </insert>

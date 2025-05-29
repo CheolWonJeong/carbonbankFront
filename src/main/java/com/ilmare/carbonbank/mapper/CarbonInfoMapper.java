@@ -24,6 +24,4 @@ public interface CarbonInfoMapper {
 	List<CarbonInfoModel> storeUseCntStatsYmd(String storeId);
 	List<CarbonInfoModel> storeUseCntStatsYm(String storeId);
 	
-	CrbnMbrInfoModel  getDgtQrImg(String dgtQrCd);
-
 }

@@ -56,8 +56,4 @@ public class CarbonInfoService {
 		return mapper.storeUseCntStatsYm(storeId);
 	}
 	
-	public CrbnMbrInfoModel  getDgtQrImg(String dgtQrCd){
-		return mapper.getDgtQrImg(dgtQrCd);
-	}
-	
 }

@@ -3,7 +3,7 @@
     <div th:fragment="header">
     <header class="carbon-header">
         <div class="carbon-head">
-            <button type="button"  class="back">뒤로</button>
+            <button type="button" id="befBackBtn" class="back">뒤로</button>
             <h1 class="sub-head" th:text="${ pagenm }">Title</h1>
             <div class="i-notice">
                 <img src="../resources/images/ico_noitce.svg">
@@ -28,7 +28,7 @@
 	                    <li class="m1">
 	                       탄소
 	                        <ul>
-	                            <li><a href="/member/cbStoreSearch.do">매장 찾기</a></li>
+	                            <li><a href="/store/cbStoreSearch.do">매장 찾기</a></li>
 	                            <li><a href="/member/cbPerformanceQuery.do">실적 조회</a></li>
 	                            <li><a href="#">FAQ</a></li>
 	                        </ul>

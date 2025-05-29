@@ -24,8 +24,6 @@ public class CrbnMbrInfoModel {
 	private String lgnOs;         //로그인 OS
 	private String lgnBrowser;    //로그인 브라우저
 
-	private byte[] dgtQrImg;      //디지털 QR 이미지
-
 	private String regStoreId;    //가입된 가맹점
 	
     public void setRegStoreId(String regStoreId) {
@@ -34,14 +32,6 @@ public class CrbnMbrInfoModel {
 
     public String getRegStoreId() {
         return regStoreId;
-    }
-
-    public void setDgtQrImg(byte[] dgtQrImg) {
-        this.dgtQrImg = dgtQrImg;
-    }
-
-    public byte[] getDgtQrImg() {
-        return dgtQrImg;
     }
 
 	public void setLgnIp(String lgnIp) {

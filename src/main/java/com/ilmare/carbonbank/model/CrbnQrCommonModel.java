@@ -7,7 +7,6 @@ package com.ilmare.carbonbank.model;
  */
 public class CrbnQrCommonModel {
 	private String dgtQrCd;        //디지털 QR코드
-	private byte[] dgtQrImg;        //디지털 QR이지
 	private String qrStat;         //QR 상태: N 생성, P:출력, S:판매, U:사용등록(매핑)
 	private String crbnAdmId;	//사용등록 담당자
 	private String partyCd;        //소속코드
@@ -20,14 +19,6 @@ public class CrbnQrCommonModel {
 	private String creDtm;         //생성일시
 	private String chgDtm;         //변경일시
 	
-    public void setDgtQrImg(byte[] dgtQrImg) {
-        this.dgtQrImg = dgtQrImg;
-    }
-
-    public byte[] getDgtQrImg() {
-        return dgtQrImg;
-    }
-
     public void setCrbnAdmId(String crbnAdmId) {
         this.crbnAdmId = crbnAdmId;
     }

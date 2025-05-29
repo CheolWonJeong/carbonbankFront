@@ -27,7 +27,40 @@ public class CrbnStoreInfoModel {
 	private String creDtm;         //생성일시
 	private String chgDtm;         //변경일시
 
+	private String storeUuid;		// 가맹점 UUID(kakaoMap 제공)
+	private String storeX;			// 가맹점 x 좌표 
+	private String storeY;			// 가맹점 y 좌표 	
 	
+	public CrbnStoreInfoModel(String storeUuid, String storeNm, String storeX, String storeY) {
+		this.storeUuid = storeUuid;
+		this.storeNm = storeNm;
+		this.storeX = storeX;
+		this.storeY = storeY;
+	}	
+    public void setStoreUuid(String storeUuid) {
+        this.storeUuid = storeUuid;
+    }
+
+    public String getStoreUuid() {
+        return storeUuid;
+    }
+
+    public void setStoreX(String storeX) {
+        this.storeY = storeX;
+    }
+
+    public String getStoreX() {
+        return storeX;
+    }
+
+    public void setStoreY(String storeY) {
+        this.storeY = storeY;
+    }
+
+    public String getStoreY() {
+        return storeY;
+    }
+
     public void setStoreCacaoId(String storeCacaoId) {
         this.storeCacaoId = storeCacaoId;
     }

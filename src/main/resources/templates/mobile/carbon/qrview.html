@@ -1,28 +1,39 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{mobile/layout/layoutsub}">
-	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
-
-
+<html lang="ko">
+<head>
+	<title>탄소뱅크</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+	<meta name="keywords" content="탄소뱅크" />
+    <meta name="description" content="탄소뱅크" />
+    <meta property="og:image" content="/resources/images/opengraph.png" />
+    <link rel="icon" href="/resources/images/favicon.png">
+	<link rel="stylesheet" href="/resources/css/common.css" >
+    <script type="text/javascript" src="/resources/js/menuLink.js"></script>
+    <script type="text/javascript" src="/resources/js/jquery-3.6.0.min.js"></script>
+</head>
 <body>
-	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
-	
-	<div layout:fragment="content">
-    <div class="content-wrap">
+    <header class="carbon-header">
+        <div class="carbon-head">
+            <button class="modal-close" ></button>
+        </div>
+    </header>
 
-         <div class="qrmark">
-             <img  th:src="${ dgtQrImgUrl }"  id="QrImgView">
-         </div>
-
+    <div class="qrcontent">
+        <div class="qr-text">
+            <span th:text="${ sess.mbrNm }">홍길동님</span>
+            나의 QR코드를 제시해 주세요
+        </div>
+        <div class="qrview">
+            <img  th:src="${ dgtQrImgUrl }"  id="QrImgView">
+        </div>
     </div>
-    <!-- //content-wrap -->
-	</div>
-	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
 
     <script type="text/javascript" src="../resources/js/content.js"></script>
     <script type="text/javascript" src="../resources/js/swiper-bundle.min.js"></script>
 
+
 </body>
 </html>
+

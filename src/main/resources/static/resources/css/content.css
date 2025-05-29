@@ -429,4 +429,8 @@ a.store-scan:hover {color: #fff; background: #3C64D3;}
 .view-think li.think-sad {background: url('../images/u_sad.svg') no-repeat center top;}
 .view-think li.think-angry {background: url('../images/u_angry.svg') no-repeat center top;}
 
-
+.qrcontent {background: #EAF2FF; height: calc(100vh - 50px);  box-sizing: border-box; padding: 40px;  margin-top:50px;}
+.qrview {background: #fff; border-radius: 8px; text-align: center; padding: 30px 0;}
+.qrview img {width: 200px;}
+.qr-text {font-weight: 500; margin-bottom: 20px;}
+.qr-text span {font-weight: 700; display: block; font-size: 1.12rem; color: var(--blue);}

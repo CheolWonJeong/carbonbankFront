@@ -5,6 +5,147 @@
       layout:decorate="~{mobile/layout/layoutsub}">
 	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
 
+<script type="text/javascript">
+	$(function(){ 
+	});
+
+	$(document).ready(function(){
+    	
+		//조회버튼 클릭
+        $('#queryYmd').on('click', function(event, page) {
+        	
+            
+        	var pageIdx = (page == null ? "1" : page);
+            var rowPerPage = 10;
+            var pageBlock = 10;
+            
+            var param = {
+                     "searchType" : $('#searchType').val() 
+                     , "searchValue" : $('#searchValue').val() 
+                     , "pageNo" : pageIdx
+               };        
+            
+            $.ajax({
+                url : '/carbon/cbPerformanceQueryProc'
+                , type : 'POST'
+                , dataType : 'JSON'
+                , cache : false
+                , data : param
+                , beforeSend : function( xhr, settings ) { 
+                    //loadingbar_show(); 
+                }
+                , success : function(data, stauts, request) {
+                    var values = data.rows;
+                    var strHtml = "";
+                    
+                    if (values.length > 0) {
+                        $.each(values, function(index, value){
+                            strHtml += '<tr id="' + value.docSeq + '">';
+                            strHtml += '    <td>' + ((pageIdx-1) * rowPerPage + index + 1) + '</td>';
+                            strHtml += '    <td class="left">' + value.docTitle + '</td>';
+                            strHtml += '    <td>' + value.docRead + '</td>';
+                            strHtml += '    <td>' + value.docStatText + '</td>';
+                            strHtml += '    <td>' + value.upDate + '</td>';
+                            strHtml += '</tr>';
+	                        });
+	                    } else {
+	                        strHtml = '<tr><td colspan=5 class="no_result"><span>검색 결과가 없습니다.</span></td></tr>';
+	                    }
+	                    $('#boardTbody1').html(strHtml);
+	                    
+	                }
+	                , error : function(xhr, status) {
+	                    alert('서비스 장애발생 관리자에게 문의해 주십시요 we');
+	                }
+	                , complete : function(xhr, status) {
+	                    //loadingbar_hide();
+	                }    
+	            });
+	        });
+	        
+	        $("#searchBtn").trigger('click', 1);
+	        
+	        $('#insertBtn').on('click',function(){
+	            location.href = "/adm/content/EnvNewsIns.do";
+	        });
+	        
+	        //엔터시 검색
+	        $('#searchValue').on('keydown', function(event, page) {
+	        	if (event.keyCode != 13) {
+	        		return;
+	        	}
+	        	$("#searchBtn").trigger('click', 1);
+	        });
+	    });
+
+	
+		dateQuery(ind) {
+        	
+            
+            var param = {
+                     "yyyy" : $('#yyyy').val() 
+                     , "mm" : $('#mm').val() 
+                     , "qryInd" : ind
+               };        
+            
+            $.ajax({
+                url : '/carbon/cbPerformanceQueryProc'
+                , type : 'POST'
+                , dataType : 'JSON'
+                , cache : false
+                , data : param
+                , beforeSend : function( xhr, settings ) { 
+                    //loadingbar_show(); 
+                }
+                , success : function(data, stauts, request) {
+                    var values = data.rows;
+                    var strHtml = "";
+                    
+                    if (values.length > 0) {
+                        $.each(values, function(index, value){
+                            <tr>
+                            <td>2005-05-02</td>
+                            <td>500</td>
+                        </tr>
+                            strHtml += '<tr >';
+                            strHtml += '    <td>' +  + '</td>';
+                            strHtml += '    <td class="left">' + value.docTitle + '</td>';
+                            strHtml += '    <td>' + value.docRead + '</td>';
+                            strHtml += '    <td>' + value.docStatText + '</td>';
+                            strHtml += '    <td>' + value.upDate + '</td>';
+                            strHtml += '</tr>';
+                        });
+                    } else {
+                        strHtml = '<tr><td colspan=5 class="no_result"><span>검색 결과가 없습니다.</span></td></tr>';
+                    }
+                    $('#boardTbody1').html(strHtml);
+                    
+                }
+                , error : function(xhr, status) {
+                    alert('서비스 장애발생 관리자에게 문의해 주십시요 we');
+                }
+                , complete : function(xhr, status) {
+                    //loadingbar_hide();
+                }    
+            });
+        });
+        
+        $("#searchBtn").trigger('click', 1);
+        
+        $('#insertBtn').on('click',function(){
+            location.href = "/adm/content/EnvNewsIns.do";
+        });
+        
+        //엔터시 검색
+        $('#searchValue').on('keydown', function(event, page) {
+        	if (event.keyCode != 13) {
+        		return;
+        	}
+        	$("#searchBtn").trigger('click', 1);
+        });
+    });
+</script>
+
 
 <body>
 	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
@@ -24,8 +165,8 @@
 			        <option th:value="${month}" th:text="${month}"></option>
 			    </th:block>
             </select>
-            <button type="button" class="btn-blue">일별조회</button>
-            <button type="button" class="btn-blue">월별조회</button>
+            <button type="button" class="btn-blue" id="queryYmd">일별조회</button>
+            <button type="button" class="btn-blue" id="queryYm">월별조회</button>
         </div>
 
         <section class="carbon-content">
@@ -38,49 +179,13 @@
                     <thead>
                         <tr>
                             <th>일자</th>
-                            <th>판매건수</th>
+                            <th>실적</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>2005-05-02</td>
                             <td>500</td>
-                        </tr>
-                        <tr>
-                            <td>2005-05-02</td>
-                            <td>40</td>
-                        </tr>
-                        <tr>
-                            <td>2005-05-02</td>
-                            <td>500</td>
-                        </tr>
-                        <tr>
-                            <td>2005-05-02</td>
-                            <td>40</td>
-                        </tr>
-                        <tr>
-                            <td>2005-05-02</td>
-                            <td>500</td>
-                        </tr>
-                        <tr>
-                            <td>2005-05-02</td>
-                            <td>40</td>
-                        </tr>
-                        <tr>
-                            <td>2005-05-02</td>
-                            <td>500</td>
-                        </tr>
-                        <tr>
-                            <td>2005-05-02</td>
-                            <td>40</td>
-                        </tr>
-                        <tr>
-                            <td>2005-05-02</td>
-                            <td>500</td>
-                        </tr>
-                        <tr>
-                            <td>2005-05-02</td>
-                            <td>40</td>
                         </tr>
                     </tbody>
                 </table>

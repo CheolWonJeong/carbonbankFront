@@ -25,7 +25,7 @@
 	            select mbr_id, cnt, RANK() OVER (ORDER BY cnt DESC) AS mbr_ranking
 				from (
 					select mbr_id, count(*) cnt
-					from CRBN_QR_USE_HST  where mbr_id
+					from CRBN_QR_USE_HST
 					group by mbr_id
 				) a 
             ) b
@@ -118,12 +118,5 @@
 			group by DATE_FORMAT(use_dtm, '%Y-%m')	          
     </select>
     
-    <select id="getDgtQrImg" parameterType="String" resultType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
-        <![CDATA[
-            select dgt_qr_img from  CRBN_DGT_QR_INFO
-            where dgt_qr_cd = #{dgtQrCd}
-        ]]>
-    </select>
-
 
  </mapper>

@@ -8,7 +8,6 @@ package com.ilmare.carbonbank.model;
 public class CarbonInfoModel {
 	private String mbrId;          //회원아이디
 	private String storeId;        //가맹점
-	private byte[] dgtQrImg;      //디지털 QR 이미지
 
 	private int mbrUseTotal;    //회원 실천 전체점수
 	private int mbrRanking;     //회원 랭킹 순위
@@ -87,14 +86,6 @@ public class CarbonInfoModel {
 
     public int getQrUseCnt() {
         return qrUseCnt;
-    }
-
-    public void setDgtQrImg(byte[] dgtQrImg) {
-        this.dgtQrImg = dgtQrImg;
-    }
-
-    public byte[] getDgtQrImg() {
-        return dgtQrImg;
     }
 
 	public void setMbrId(String mbrId) {

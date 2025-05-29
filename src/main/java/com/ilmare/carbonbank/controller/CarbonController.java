@@ -19,6 +19,7 @@ import com.ilmare.carbonbank.cmn.mgr.SessInfo;
 import com.ilmare.carbonbank.cmn.mgr.SessionManager;
 import com.ilmare.carbonbank.cmn.util.DateUtil;
 import com.ilmare.carbonbank.cmn.util.FileUtil;
+import com.ilmare.carbonbank.cmn.util.QRCodeCreate;
 import com.ilmare.carbonbank.cmn.vo.CommonVo;
 import com.ilmare.carbonbank.model.CarbonInfoModel;
 import com.ilmare.carbonbank.model.CrbnMbrInfoModel;
@@ -73,24 +74,34 @@ public class CarbonController {
 			//디지털 QR이미지 세션에 있는지 확인
 			String fileUrl = sessMgr.getDgtQrUri(request);
 			log.info("QR IMG fileUrl={} ", fileUrl);
+
 			if (fileUrl == null || fileUrl.isEmpty()) {
 				
-	            String fileName = FileUtil.imgTempServerPath +File.separator + sess.getDgtQrCd() + ".png";
-	            fileUrl = FileUtil.imgUri   +File.separator + sess.getDgtQrCd() + ".png";
-				log.info("QR IMG {} |{}", fileName, fileUrl);
+	            //디지털 QR 이미지 생성
+				String filePath = FileUtil.dgtQrPath + DateUtil.getCurrDate();
+				String fileSavePath = FileUtil.imgServerPath + filePath;
+				String fileName = File.separator + sess.getDgtQrCd() + ".png";
+				String fileFullName = fileSavePath +fileName;
+	            fileUrl = FileUtil.imgUri + filePath + fileName;
+				log.info("QR IMG {} |{}", fileFullName, fileUrl);
 	            //서버에 파일 이미지 존재 검사
-	            File file = new File(fileName);
+	            File file = new File(fileFullName);
 	            
 	            if (!file.exists()) {
-					//QR 이미지 조회
-					CrbnMbrInfoModel memInfo = svc.getDgtQrImg(sess.getDgtQrCd());       //디지털 QR 이미지
-					
-					//이미지 임시 경로에 파일 저장
-					try (FileOutputStream fos = new FileOutputStream(fileName)) {
-			            fos.write(memInfo.getDgtQrImg());
-			        } catch (IOException e) {
+					//디지털 QR 이미지 생성
+	            	try {
+	            		
+		        		byte[] qrImgBytes = QRCodeCreate.generateQRCodeImage(sess.getDgtQrCd(), null);
+						
+						//이미지 임시 경로에 파일 저장
+						try (FileOutputStream fos = new FileOutputStream(fileFullName)) {
+				            fos.write(qrImgBytes);
+				        } catch (IOException e) {
+				            e.printStackTrace();
+				        }
+			        } catch (Exception e) {
 			            e.printStackTrace();
-			        }
+	            	}
 	            }	            
 				
 				sessMgr.setDgtQrUri(request, fileUrl);
@@ -149,7 +160,7 @@ public class CarbonController {
 		for (int i = 1; i <= 12; i++) {
 		    months.add(String.format("%02d", i)); // "01", "02", ..., "12"
 		}
-		model.addAttribute("months", months);		
+		model.addAttribute("months", months);
 		
 		return "/mobile/carbon/performancequery";
 	}
@@ -173,24 +184,34 @@ public class CarbonController {
 		//디지털 QR이미지 세션에 있는지 확인
 		String fileUrl = sessMgr.getDgtQrUri(request);
 		log.info("QR IMG fileUrl={} ", fileUrl);
+
 		if (fileUrl == null || fileUrl.isEmpty()) {
 			
-            String fileName = FileUtil.imgTempServerPath +File.separator + sess.getDgtQrCd() + ".png";
-            fileUrl = FileUtil.imgUri   +File.separator + sess.getDgtQrCd() + ".png";
-			log.info("QR IMG {} |{}", fileName, fileUrl);
+            //디지털 QR 이미지 생성
+			String filePath = FileUtil.dgtQrPath + DateUtil.getCurrDate();
+			String fileSavePath = FileUtil.imgServerPath + filePath;
+			String fileName = File.separator + sess.getDgtQrCd() + ".png";
+			String fileFullName = fileSavePath +fileName;
+            fileUrl = FileUtil.imgUri + filePath + fileName;
+			log.info("QR IMG {} |{}", fileFullName, fileUrl);
             //서버에 파일 이미지 존재 검사
-            File file = new File(fileName);
+            File file = new File(fileFullName);
             
             if (!file.exists()) {
-				//QR 이미지 조회
-				CrbnMbrInfoModel memInfo = svc.getDgtQrImg(sess.getDgtQrCd());       //디지털 QR 이미지
-				
-				//이미지 임시 경로에 파일 저장
-				try (FileOutputStream fos = new FileOutputStream(fileName)) {
-		            fos.write(memInfo.getDgtQrImg());
-		        } catch (IOException e) {
+				//디지털 QR 이미지 생성
+            	try {
+            		
+	        		byte[] qrImgBytes = QRCodeCreate.generateQRCodeImage(sess.getDgtQrCd(), null);
+					
+					//이미지 임시 경로에 파일 저장
+					try (FileOutputStream fos = new FileOutputStream(fileFullName)) {
+			            fos.write(qrImgBytes);
+			        } catch (IOException e) {
+			            e.printStackTrace();
+			        }
+		        } catch (Exception e) {
 		            e.printStackTrace();
-		        }
+            	}
             }	            
 			
 			sessMgr.setDgtQrUri(request, fileUrl);
@@ -200,5 +221,26 @@ public class CarbonController {
 
 		return "/mobile/carbon/qrview";
 	}
+
+	@RequestMapping(value = "/cbPerformanceQueryProc", method=RequestMethod.GET)
+	public String cbPerformanceQueryProc(HttpServletRequest request,  CarbonInfoModel cbnInfo, Model model) {
+		
+		//1.세션검사
+		if ( !sessMgr.isSession(request) ) {
+			log.info("Viewhome 세션 없음 상태");
+			return "redirect:" + conConst.lgnUrl;
+			
+		}
+		
+		SessInfo sess = sessMgr.getSession(request);
+		
+		//시럭 조회
+		svc.memberUseCntStatsYm(null);
+		String loginInd = sess.getLoginInd();
+		String viewNm = null;
+		
+		return "/mobile/carbon/performancequery";
+	}
+
 	
 }

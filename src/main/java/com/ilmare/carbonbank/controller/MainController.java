@@ -19,6 +19,7 @@ import com.ilmare.carbonbank.mapper.CrbnEnvNewsMapper;
 import com.ilmare.carbonbank.model.CrbnNoticeModel;
 import com.ilmare.carbonbank.model.CrbnStoreInfoModel;
 import com.ilmare.carbonbank.model.NewsCommonModel;
+import com.ilmare.carbonbank.service.CarbonInfoService;
 import com.ilmare.carbonbank.service.CrbnNoticeService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,6 +32,9 @@ public class MainController {
 
 	@Autowired
 	private CrbnNoticeService noticeSvc;
+
+	@Autowired
+	private CarbonInfoService carbonSvc;
 
 	@Autowired
 	private CrbnEnvNewsMapper envSvc;
@@ -72,8 +76,8 @@ public class MainController {
 		//파람 set
 		
 		//나의실천점수
-		int useCnt = 13;
-		int myLank = 3;
+		int useCnt = carbonSvc.getMbrUseTotal(sess.getMbrId());
+		String myLank = carbonSvc.getMbrRanking(sess.getMbrId());
 		model.addAttribute("useCnt", useCnt);
 		model.addAttribute("myLank", myLank);
 		
