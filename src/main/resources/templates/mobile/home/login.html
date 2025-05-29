@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{mobile/layout/nolayour}">
+      layout:decorate="~{mobile/layout/layoutno}">
 	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/nohead}}"></th:block>
 
 <script type="text/javascript">
@@ -17,7 +17,6 @@
                      "mbrCellNum" : $('#mbrCellNum').val() 
                      , "mbrPwd" : $('#mbrPwd').val() 
                };        
-            alert("sd");
             $.ajax({
                 url : '/home/cbLgnProc'
                 , type : 'POST'
@@ -25,7 +24,6 @@
                 , cache : false
                 , data : param
                 , beforeSend : function( xhr, settings ) { 
-                	alert("before");
                 	//loadingbar_show(); 
                 }
                 , success : function(data, stauts, request) {

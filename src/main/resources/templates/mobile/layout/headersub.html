@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <div th:fragment="header">
-	    <header class="carbon-header">
-	        <div class="carbon-head">
-	            <div class="storelogo"><!-- 05.22 class 명 변경-->
-	                <img src="/resources/images/store_logo.png">
-	            </div>
-	            <h1><img src="/resources/images/logo.svg"></h1>
-	            <div class="i-notice">
-	                <span class="on"></span>
-	                <img src="/resources/images/ico_noitce.svg">
-	            </div>
-	        </div>
-	        <div class="menu-wrap">
-	            <input id="menu-toggle" type="checkbox" />
-	            <label class="menu-btn" for="menu-toggle"><span></span></label>
-	            <div class="menu-back"></div>
-	
-	            <div class="menu-content">
-	                <div class="menu-header">
-	                    <h1><img src="/resources/images/logo.svg"></h1>
-	                    <div class="sidemy">
-	                       <span th:text="${ sess.mbrNm }">홍길동님</span>
-	                       최근접속 : [[${sess.lstLgnDtm}]]
-	                    </div>
-	                </div>
+    <header class="carbon-header">
+        <div class="carbon-head">
+            <button type="button"  class="back">뒤로</button>
+            <h1 class="sub-head" th:text="${ pagenm }">Title</h1>
+            <div class="i-notice">
+                <img src="../resources/images/ico_noitce.svg">
+                <span class="on"></span>
+            </div>
+        </div>
+        <div class="menu-wrap">
+            <input id="menu-toggle" type="checkbox" />
+            <label class="menu-btn" for="menu-toggle"><span></span></label>
+            <div class="menu-back"></div>
+
+            <div class="menu-content">
+                <div class="menu-header">
+                    <h1><img src="../resources/images/logo.svg"></h1>
+                    <div class="sidemy">
+                       <span th:text="${ sess.mbrNm }">홍길동님</span>
+                       최근접속 : [[${sess.lstLgnDtm}]]
+                    </div>
+                </div>
 	                <!-- menu -->
 	                <ul class="menu-list">
 	                    <li class="m1">
@@ -56,9 +54,9 @@
 	                        </ul>
 	                     </li>
 	                </ul>
-	            </div>
-	            <!-- //menu-content -->
-	        </div>
-	    </header>
+            </div>
+            <!-- //menu-content -->
+        </div>
+    </header>
     </div>
 </html>

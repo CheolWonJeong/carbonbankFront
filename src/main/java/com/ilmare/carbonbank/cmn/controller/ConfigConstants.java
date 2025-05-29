@@ -35,6 +35,31 @@ public class ConfigConstants {
 
 
 	}
+
+	public static enum mainUrl{
+		CARBONBANK("CARBONBANK", "/mobile/main/main_carbon"),
+		INCHEON("INCHEON", "/mobile/main/main_incheon"),
+		member("member", "/mobile/main/main_member"),
+		store("store", "/mobile/main/main_store");
+
+		private String code;
+		private String linkUrl;
+
+		mainUrl(final String _code, final String linkUrl) {
+			this.code = _code;
+			this.linkUrl = linkUrl;
+		}
+
+		public String getCode() {
+			return code;
+		}
+
+		public String getLinkUrl() {
+			return linkUrl;
+		}
+
+
+	}
 	public static enum enMenuList{
 		cbNoticeDesc("공지사항"),
 		cbNoticeList("공지사항"),
@@ -47,7 +72,13 @@ public class ConfigConstants {
 		cbMunicipalNewsDesc("시정뉴스"),
 		cbMunicipalNewsList("시정뉴스"),
 		cbMunicipalVideoDesc("시정활동영상"),
-		cbMunicipalVideoList("시정활동영상");
+		cbMunicipalVideoList("시정활동영상"),
+		cbQRView("QR보기"),
+		cbStoreSearch("매장착기"),
+		cbPerformanceQuery("실적조회"),
+		cbSaleList("매출관리"),
+		cbQrScan("QR 스캔"),
+		cbQrList("QR관리");
 		private String name;
 
 		enMenuList(final String _name) {

@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{mobile/layout/layour}">
+      layout:decorate="~{mobile/layout/layout}">
 	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
 
 
 <body>
 <div class="wrap">
-	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headerlist}}"></th:block>
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
 	
 	<div layout:fragment="content">
 	    <div class="content-wrap">

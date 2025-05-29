@@ -55,15 +55,23 @@ public class LoginController {
 
 		// 패스워드 암호화
 		String encParamPasswd = AES256Util.encrypt(paramVo.getMbrPwd());
+		paramVo.setMbrPwd(encParamPasswd);
 
 		//멤버 조회
-		CrbnMbrInfoModel info = svc.selectDesc(paramVo);
-		log.info("loginProc pwd  {} | {} ", encParamPasswd, info.getMbrPwd());
+		CrbnMbrInfoModel info = svc.selectLoginData(paramVo);
 
-		log.info("loginProc getCreDtm  {} ",info.getCreDtm());
+		String loginInd = null;		//로그인 구분:M:회원, S:가맹점, A:회원, 가맹점 둘다 가입
+		if (info.getMbrId() != null && info.getStoreId() != null) {
+			loginInd = "A";
+		} else if (info.getMbrId() != null ) {
+			loginInd = "M";
+		} else if (info.getStoreId() != null) {
+			loginInd = "S";
+		}
+		
 		//패스워드 비교
-		if (!encParamPasswd.equals(info.getMbrPwd())) {
-			result.put("procInd", "N");  // 정상
+		if (info == null || loginInd == null) {
+			result.put("procInd", "N");  // 자료 없음
 		} else {
 			//로그인 성공
 			info.setLgnIp(CommUtil.getIp(request));
@@ -79,7 +87,9 @@ public class LoginController {
 			sess.setPartyCd(info.getPartyCd());
 			sess.setDgtQrCd(info.getDgtQrCd());
 			sess.setPprQrCd(info.getPprQrCd());
-			sess.setLgnDtm(info.getLstLgnDtm());
+			sess.setLstLgnDtm(info.getLstLgnDtm());
+			sess.setStoreId(info.getRegStoreId());
+			sess.setLoginInd(loginInd);
 			
 			sessMgr.createSession( request, sess );
 			

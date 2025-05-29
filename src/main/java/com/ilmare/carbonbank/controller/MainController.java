@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ilmare.carbonbank.cmn.controller.ConfigConstants;
 import com.ilmare.carbonbank.cmn.controller.ConfigConstants.enMenuList;
+import com.ilmare.carbonbank.cmn.controller.ConfigConstants.mainUrl;
+import com.ilmare.carbonbank.cmn.mgr.SessInfo;
 import com.ilmare.carbonbank.cmn.mgr.SessionManager;
 import com.ilmare.carbonbank.cmn.vo.CommonVo;
 import com.ilmare.carbonbank.mapper.CrbnEnvNewsMapper;
@@ -49,6 +51,23 @@ public class MainController {
 			return "redirect:" + conConst.lgnUrl;
 			
 		}
+
+		SessInfo sess = sessMgr.getSession(request);
+		model.addAttribute("sess", sess);
+		//소속에 따른 view 결정
+		String partyCd = sess.getPartyCd();
+		String viewNm = null;
+		
+		if ( partyCd.equals(mainUrl.CARBONBANK.getCode())) {
+			viewNm = mainUrl.CARBONBANK.getLinkUrl();
+		} else if ( partyCd.equals(mainUrl.INCHEON.getCode())) {
+			viewNm = mainUrl.INCHEON.getLinkUrl();
+			
+		} else {
+			viewNm = mainUrl.CARBONBANK.getLinkUrl();
+		}
+		log.info("viewNm = {} | {}", sess.getPartyCd(), viewNm);
+		
 		//2 자료 조회
 		//파람 set
 		
@@ -94,7 +113,7 @@ public class MainController {
 		List<NewsCommonModel> hotNewsList = null;
 		model.addAttribute("hotNewsList", hotNewsList);
 		
-		return "/mobile/main/main";
+		return viewNm;
 	}
 
 	/*

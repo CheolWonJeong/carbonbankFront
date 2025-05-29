@@ -14,17 +14,44 @@ public class CrbnStoreInfoModel {
 	private String storeCellNum;        //휴대폰번호
 	private String storeCeoNm;        //대표자 성명
 	private String storeNm;        //상호
-	private String storeLttdLngtd;        //위도경도(위도,경도)
 	private String storeNoImg;        //사업자등록증 이미지 파일 경로
 	private String storeImg;        //사업장 사진 이미지 파일 경로
 	private String storeEmail;        //메일주소
 	private String storeAddr;        //사업장 주소
 	private String storeEvent;        //할인행사
+	private String storeCacaoId;        //카카오 등록 아이디
+	private String storeLatitude;        //위도
+	private String storeLongitude;        //경도
 	private String chgPwdDtm;      //패스워드 변경일
 	private String lstLgnDtm;      //마지막 로그인 일시
 	private String creDtm;         //생성일시
 	private String chgDtm;         //변경일시
+
 	
+    public void setStoreCacaoId(String storeCacaoId) {
+        this.storeCacaoId = storeCacaoId;
+    }
+
+    public String getStoreCacaoId() {
+        return storeCacaoId;
+    }
+
+    public void setStoreLatitude(String storeLatitude) {
+        this.storeLatitude = storeLatitude;
+    }
+
+    public String getStoreLatitude() {
+        return storeLatitude;
+    }
+
+    public void setStoreLongitude(String storeLongitude) {
+        this.storeLongitude = storeLongitude;
+    }
+
+    public String getStoreLongitude() {
+        return storeLongitude;
+    }
+
     public void setStoreId(String storeId) {
         this.storeId = storeId;
     }
@@ -71,14 +98,6 @@ public class CrbnStoreInfoModel {
 
     public String getStoreNm() {
         return storeNm;
-    }
-
-    public void setStoreLttdLngtd(String storeLttdLngtd) {
-        this.storeLttdLngtd = storeLttdLngtd;
-    }
-
-    public String getStoreLttdLngtd() {
-        return storeLttdLngtd;
     }
 
     public void setStoreNoImg(String storeNoImg) {
