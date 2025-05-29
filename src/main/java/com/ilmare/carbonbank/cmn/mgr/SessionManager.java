@@ -12,6 +12,7 @@ public class SessionManager
     private SessInfo sess = null;
  
     private HttpSession httpSession;
+    protected final static String DGT_QR_URL = "DGT_QR_URL";
     protected final static String ILMARE_SESS_INFO = "SESS_INFO";
  
     public boolean isFindSession( HttpServletRequest req, String sessName )
@@ -165,5 +166,12 @@ public class SessionManager
         return true;
     }
  
+    public String getDgtQrUri( HttpServletRequest req ) {
+    	return StringUtil.nullStringToEmpty((String)httpSession.getAttribute(DGT_QR_URL));
+    }
+    
+    public void setDgtQrUri( HttpServletRequest req, String  dgtQrUri) {
+    	httpSession.setAttribute(DGT_QR_URL, (StringUtil.nullStringToEmpty(dgtQrUri)));
+    }
     
 }

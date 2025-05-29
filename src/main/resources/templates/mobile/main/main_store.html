@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layout}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+
+
+<body>
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/header}}"></th:block>
+	
+	<div layout:fragment="content">
+    <div class="content-wrap">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide slide-v6">
+                    <span>탄소중립 어렵지 않아요!<br>앱 깔고 회원 가입 하세요</span>
+                        텀블러 사용할 때마다 녹색실천활동<br>
+                        포인트 적립과 함께 녹색 발자국을<br>
+                        남겨보아요!
+                </div>
+                <div class="swiper-slide slide-v4">
+                    <span>우리 매장은 텀블러를 사용하는<br>환경 시민을 환영합니다</span>
+                        지구 지키기 참여 시민을 위하여<br>
+                        저희 매장에서는 할인으로 보답 합니다
+                </div>
+                <div class="swiper-slide slide-v5">
+                    <span>우리 매장은 QR과 텀블러를 <br>공급하고 있습니다</span>
+                        저희는 미래세대를 위하여 텀블러와<br>
+                        녹색 탄소를 함께 공급하는 매장입니다
+                </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <section class="carbon-content">
+            <!-- QR -->
+            <div class="carbon-qr">
+               <div class="qr-info">
+                    <span th:text="${ sess.mbrNm }">한스씨앤씨님</span> 지구를 위한 약속, 지금 실천하세요.
+                </div>
+                <div class="store-member">
+                    회원등록 <span  th:text="${ storeMemTotalCnt }">236</span>
+                </div>
+                <a href="#" class="store-scan">
+                    <img src="../resources/images/scan.svg">
+                    OR 스캔
+                </a>
+            </div>
+
+            <!-- QR -->
+            <div class="carbon-point">
+                <a href="#" target="_blank">
+                    환경부 <span>탄소중립 실천 포인트</span>
+                    <br>
+                    회원가입하기
+                </a>
+            </div>
+
+            <!-- menu list -->
+            <div class="carbon-list">
+                <div class="clist-07">
+                    <a href="/store/cbQrList.do">
+                        <span>QR 관리</span>
+                        QR코드, 쉽고 편리하게 관리하세요
+                    </a>
+                </div>
+                <div class="clist-08">
+                    <a href="/store/cbSaleList.do">
+                        <span>매출 관리</span>
+                        매출 데이터를 빠르고 정확하게 관리하세요
+                    </a>
+                </div>
+                <div class="clist-03">
+                    <a href="#">
+                        <span>환경제품 보러가기</span>
+                        환경을 살리는 착한 제품, 함께 해요
+                    </a>
+                </div>
+            </div>
+            <!-- menu list -->
+
+
+        </section>
+        <!-- //carbon-content -->
+    </div>
+    <!-- //content-wrap -->
+	</div>
+	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
+
+    <script type="text/javascript" src="../resources/js/content.js"></script>
+    <script type="text/javascript" src="../resources/js/swiper-bundle.min.js"></script>
+
+</body>
+</html>
