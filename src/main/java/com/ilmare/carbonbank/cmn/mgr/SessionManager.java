@@ -113,6 +113,7 @@ public class SessionManager
     	httpSession.setAttribute("lstLgnDtm",  (StringUtil.nullStringToEmpty(sessinfo.getLstLgnDtm())));	//최근 로그인 일시로그인    
     	httpSession.setAttribute("storeId",  (StringUtil.nullStringToEmpty(sessinfo.getStoreId())));	//가입된 가맹점 ID      
     	httpSession.setAttribute("loginInd",  (StringUtil.nullStringToEmpty(sessinfo.getLoginInd())));	//로그인 구분:M:회원, S:가맹점, A:회원, 가맹점 둘다 가입 
+    	httpSession.setAttribute("creDtm",  (StringUtil.nullStringToEmpty(sessinfo.getCreDtm())));	//로그인 일자 
 
     }
  
@@ -134,7 +135,7 @@ public class SessionManager
     	httpSession.setAttribute("lstLgnDtm",  (StringUtil.nullStringToEmpty(sessinfo.getLstLgnDtm())));	//최근 로그인 일시로그인     
     	httpSession.setAttribute("storeId",  (StringUtil.nullStringToEmpty(sessinfo.getStoreId())));	//가입된 가맹점 ID      
     	httpSession.setAttribute("loginInd",  (StringUtil.nullStringToEmpty(sessinfo.getLoginInd())));	//로그인 구분:M:회원, S:가맹점, A:회원, 가맹점 둘다 가입 
-
+    	httpSession.setAttribute("creDtm",  (StringUtil.nullStringToEmpty(sessinfo.getCreDtm())));	//로그인 일자 
     }
     
 
@@ -152,6 +153,7 @@ public class SessionManager
     	sessinfo.setLstLgnDtm(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("lstLgnDtm")));    //최근 로그인 일시로그인
     	sessinfo.setStoreId(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("storeId")));    //가입된 가맹점 ID 
     	sessinfo.setLoginInd(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("loginInd")));    //로그인 구분:M:회원, S:가맹점, A:회원, 가맹점 둘다 가입 
+    	sessinfo.setCreDtm(StringUtil.nullStringToEmpty((String)httpSession.getAttribute("creDtm")));    //로그인 일자 
     	return sessinfo;
 
     }

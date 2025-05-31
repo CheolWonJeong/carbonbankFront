@@ -15,13 +15,13 @@ public interface CarbonInfoMapper {
 
 	int getMbrUseTotal(String mbrId);
 	String getMbrRanking(String mbrId);
-	List<CarbonInfoModel> memberUseCntStatsYmd(String mbrId);
-	List<CarbonInfoModel> memberUseCntStatsYm(String mbrId);
+	List<CarbonInfoModel> memberUseCntStatsYmd(CarbonInfoModel paramInfo);
+	List<CarbonInfoModel> memberUseCntStatsYm(CarbonInfoModel paramInfo);
 
 	int getStoreMemberCount(String storeId);
-	List<CarbonInfoModel> storeSaleCntStatsYmd(String storeId);
-	List<CarbonInfoModel> storeSaleCntStatsYm(String storeId);
-	List<CarbonInfoModel> storeUseCntStatsYmd(String storeId);
-	List<CarbonInfoModel> storeUseCntStatsYm(String storeId);
+	List<CarbonInfoModel> storeSaleCntStatsYmd(CarbonInfoModel paramInfo);
+	List<CarbonInfoModel> storeSaleCntStatsYm(CarbonInfoModel paramInfo);
+	List<CarbonInfoModel> storeUseCntStatsYmd(CarbonInfoModel paramInfo);
+	List<CarbonInfoModel> storeUseCntStatsYm(CarbonInfoModel paramInfo);
 	
 }

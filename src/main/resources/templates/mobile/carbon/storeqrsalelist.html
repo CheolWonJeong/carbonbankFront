@@ -12,7 +12,7 @@ function queryData (ind, qryYmd) {
              , "qryInd" : ind 
      };
 	$.ajax({
-        url : '/carbon/cbPerformanceQueryProc'
+        url : '/carbon/cbQrListProc'
             , type : 'POST'
             , dataType : 'JSON'
             , cache : false
@@ -103,7 +103,7 @@ function queryData (ind, qryYmd) {
                     <thead>
                         <tr>
                             <th>일자</th>
-                            <th>실적</th>
+                            <th>판매건수</th>
                         </tr>
                     </thead>
                     <tbody id="boardTbody1">
@@ -132,7 +132,7 @@ function queryData (ind, qryYmd) {
         <!-- //carbon-content -->
 
         <div class="qr-inventory"  id="totalCnt" style="display:none;">
-            <span>전체</span> 1,200건 
+            <span>전체</span> 1,200건
         </div>
 
     </div>

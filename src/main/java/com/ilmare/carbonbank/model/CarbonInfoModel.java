@@ -16,7 +16,7 @@ public class CarbonInfoModel {
 	private int storeMemTotal;        //가맹점 회원수
 	
 	//조회조건
-	private String qryYm;          //연월
+	private String qryYmd;          //연월
 	private String qryInd;        //조회구분(D:일별, M:월별)
 	
 	//조회 리스트
@@ -48,12 +48,12 @@ public class CarbonInfoModel {
         return storeMemTotal;
     }
 
-	public void setQryYm(String qryYm) {
-        this.qryYm = qryYm;
+	public void setQryYmd(String qryYmd) {
+        this.qryYmd = qryYmd;
     }
 
-    public String getQryYm() {
-        return qryYm;
+    public String getQryYmd() {
+        return qryYmd;
     }
 
 	public void setQryInd(String qryInd) {

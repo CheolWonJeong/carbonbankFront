@@ -78,14 +78,14 @@
     */
 			select * from (
 				         select 
-							mbr_id	,mbr_nm	,qr_stat,dgt_qr_cd,ppr_qr_cd,m.lst_lgn_dtm, m.party_cd
-			                ,s.store_id  reg_store_id  
+							mbr_id	,mbr_nm	,qr_stat,dgt_qr_cd,ppr_qr_cd,m.lst_lgn_dtm, m.party_cd, DATE_FORMAT(m.cre_dtm, '%Y%m%d') cre_dtm
+			                ,s.store_id  
 				          from CRBN_MBR_INFO m  LEFT JOIN CRBN_STORE_INFO s ON m.mbr_cell_num = s.store_cell_num
               			WHERE m.mbr_cell_num = #{mbrCellNum} and mbr_pwd =#{mbrPwd} 
 			union
 				         select 
-							''	, store_ceo_nm	,'','','', lst_lgn_dtm, party_cd
-			                ,store_id  reg_store_id  
+							''	, store_ceo_nm	,'','','', lst_lgn_dtm, party_cd, ''
+			                ,store_id  
 				          from CRBN_STORE_INFO
 			              WHERE store_cell_num = #{mbrCellNum} and store_pwd =#{mbrPwd} 
 			) as a

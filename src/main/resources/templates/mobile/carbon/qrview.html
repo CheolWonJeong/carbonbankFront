@@ -13,10 +13,19 @@
     <script type="text/javascript" src="/resources/js/menuLink.js"></script>
     <script type="text/javascript" src="/resources/js/jquery-3.6.0.min.js"></script>
 </head>
+<script type="text/javascript">
+	$(function(){ 
+        $('#closeBtn').on('click',function(){
+            Window.close();
+        });
+    });
+</script>
+
 <body>
+
     <header class="carbon-header">
         <div class="carbon-head">
-            <button class="modal-close" ></button>
+            <button class="modal-close" id="closeBtn"  ></button>
         </div>
     </header>
 
@@ -30,8 +39,8 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="../resources/js/content.js"></script>
-    <script type="text/javascript" src="../resources/js/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="/resources/js/content.js"></script>
+    <script type="text/javascript" src="/resources/js/swiper-bundle.min.js"></script>
 
 
 </body>

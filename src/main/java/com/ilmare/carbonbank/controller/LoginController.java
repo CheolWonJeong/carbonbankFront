@@ -88,8 +88,9 @@ public class LoginController {
 			sess.setDgtQrCd(info.getDgtQrCd());
 			sess.setPprQrCd(info.getPprQrCd());
 			sess.setLstLgnDtm(info.getLstLgnDtm());
-			sess.setStoreId(info.getRegStoreId());
+			sess.setStoreId(info.getStoreId());
 			sess.setLoginInd(loginInd);
+			sess.setCreDtm(info.getCreDtm());
 			
 			sessMgr.createSession( request, sess );
 			
@@ -100,6 +101,32 @@ public class LoginController {
 		}
 		
 
+		return result;
+	}
+
+	@RequestMapping("/viewSession")
+	public @ResponseBody  HashMap viewSession(HttpServletRequest request, final CrbnMbrInfoModel paramVo, Model model) throws Exception {
+		
+		HashMap result = new HashMap();
+
+		//1.세션검사
+		if ( !sessMgr.isSession(request) ) {
+			log.info("Viewhome 세션 없음 상태");
+			result.put("msg" , "session is null");
+			return result;
+		}
+		SessInfo sess = sessMgr.getSession(request);
+
+		result.put("mbrId", sess.getMbrId());
+		result.put("mbrNm", sess.getMbrNm());
+		result.put("mbrCellNum", sess.getMbrCellNum());
+		result.put("partyCd", sess.getPartyCd());
+		result.put("dgtQrCd", sess.getDgtQrCd());
+		result.put("pprQrCd", sess.getPprQrCd());
+		result.put("lstLgnDtm", sess.getLstLgnDtm());
+		result.put("creDtm", sess.getCreDtm());
+		result.put("loginInd", sess.getLoginInd());
+		result.put("storeId",  sess.getStoreId());
 		return result;
 	}
 

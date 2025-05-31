@@ -33,27 +33,27 @@
 		]]>
     </select>
  
-    <select id="memberUseCntStatsYmd" parameterType="String" resultType="com.ilmare.carbonbank.model.CarbonInfoModel">
+    <select id="memberUseCntStatsYmd" parameterType="com.ilmare.carbonbank.model.CarbonInfoModel" resultType="com.ilmare.carbonbank.model.CarbonInfoModel">
     /*
     1. ID: memberUseCntStatsYmd
     2. 업무명: 회원의 실적조회
     3. 업무설명: 회원의 일자별실적(사용 건수) 조회
     */
-			select DATE_FORMAT(use_dtm, '%Y-%m-%d')  as ymd, count(*) qrUseCnt 
+			select DATE_FORMAT(use_dtm, '%Y-%m-%d')  as ymd, count(*) as qr_use_cnt 
 			from CRBN_QR_USE_HST
-			where mbr_id = #{mbrId}
+			where mbr_id = #{mbrId} and use_dtm like CONCAT(#{qryYmd} , '%')
 			group by DATE_FORMAT(use_dtm, '%Y-%m-%d')	          
     </select>
     
-    <select id="memberUseCntStatsYm" parameterType="String" resultType="com.ilmare.carbonbank.model.CarbonInfoModel">
+    <select id="memberUseCntStatsYm" parameterType="com.ilmare.carbonbank.model.CarbonInfoModel" resultType="com.ilmare.carbonbank.model.CarbonInfoModel">
     /*
     1. ID: memberUseCntStatsYm
     2. 업무명: 회원의 실적조회
     3. 업무설명: 회원의 월별실적(사용 건수) 조회
     */
-			select DATE_FORMAT(use_dtm, '%Y-%m')  as ymd, count(*) qrUseCnt 
+			select DATE_FORMAT(use_dtm, '%Y-%m')  as ymd, count(*) as qr_use_cnt
 			from CRBN_QR_USE_HST
-			where mbr_id = #{mbrId}
+			where mbr_id = #{mbrId} and use_dtm like CONCAT(#{qryYmd} , '%')
 			group by DATE_FORMAT(use_dtm, '%Y-%m')	          
     </select>
     
@@ -69,53 +69,53 @@
         ]]>
     </select>
  
-    <select id="storeSaleCntStatsYmd" parameterType="String" resultType="com.ilmare.carbonbank.model.CarbonInfoModel">
+    <select id="storeSaleCntStatsYmd" parameterType="com.ilmare.carbonbank.model.CarbonInfoModel" resultType="com.ilmare.carbonbank.model.CarbonInfoModel">
     /*
     1. ID: storeSaleCntStatsYmd
     2. 업무명: 가맹점의 QR관리
     3. 업무설명: 가맹점에서 등록된 회원수 일별 조회
     */
-			select DATE_FORMAT(cre_dtm, '%Y-%m-%d')  as ymd, count(*) qrSaleCnt 
+			select DATE_FORMAT(cre_dtm, '%Y-%m-%d')  as ymd, count(*) as qr_use_cnt 
 			from CRBN_QR_USE_INFO
-			where store_id = #{storeId}
-			group by DATE_FORMAT(use_dtm, '%Y-%m-%d')	          
+			where store_id = #{storeId} and cre_dtm like CONCAT(#{qryYmd} , '%')
+			group by DATE_FORMAT(cre_dtm, '%Y-%m-%d')	          
     </select>
     
-    <select id="storeSaleCntStatsYm" parameterType="String" resultType="com.ilmare.carbonbank.model.CarbonInfoModel">
+    <select id="storeSaleCntStatsYm" parameterType="com.ilmare.carbonbank.model.CarbonInfoModel" resultType="com.ilmare.carbonbank.model.CarbonInfoModel">
     /*
     1. ID: storeSaleCntStatsYm
     2. 업무명: 가맹점의 QR관리
     3. 업무설명: 가맹점에서 등록된 회원수 월별 조회
     */
-			select DATE_FORMAT(cre_dtm, '%Y-%m')  as ymd, count(*) qrSaleCnt 
+			select DATE_FORMAT(cre_dtm, '%Y-%m')  as ymd, count(*) as qr_use_cnt
 			from CRBN_QR_USE_INFO
-			where store_id = #{storeId}
-			group by DATE_FORMAT(use_dtm, '%Y-%m')	          
+			where store_id = #{storeId} and cre_dtm like CONCAT(#{qryYmd} , '%')
+			group by DATE_FORMAT(cre_dtm, '%Y-%m')	          
     </select>
 
  
-    <select id="storeUseCntStatsYmd" parameterType="String" resultType="com.ilmare.carbonbank.model.CarbonInfoModel">
+    <select id="storeUseCntStatsYmd" parameterType="com.ilmare.carbonbank.model.CarbonInfoModel" resultType="com.ilmare.carbonbank.model.CarbonInfoModel">
     /*
     1. ID: memberUseCntStatsYmd
     2. 업무명: 가맹점의 매출 관리
     3. 업무설명: 가맹점에서 사용한 일자별실적(사용 건수) 조회
     */
-			select DATE_FORMAT(use_dtm, '%Y-%m-%d')  as ymd, count(*) qrUseCnt 
+			select DATE_FORMAT(cre_dtm, '%Y-%m-%d')  as ymd, count(*) as qr_use_cnt 
 			from CRBN_QR_USE_HST
-			where store_id = #{storeId}
-			group by DATE_FORMAT(use_dtm, '%Y-%m-%d')	          
+			where store_id = #{storeId} and cre_dtm like CONCAT(#{qryYmd} , '%')
+			group by DATE_FORMAT(cre_dtm, '%Y-%m-%d')	          
     </select>
     
-    <select id="storeUseCntStatsYm" parameterType="String" resultType="com.ilmare.carbonbank.model.CarbonInfoModel">
+    <select id="storeUseCntStatsYm" parameterType="com.ilmare.carbonbank.model.CarbonInfoModel" resultType="com.ilmare.carbonbank.model.CarbonInfoModel">
     /*
     1. ID: memberUseCntStatsYm
     2. 업무명: 가맹점의 매출 관리
     3. 업무설명: 가맹점에서 사용한 월별실적(사용 건수) 조회
     */
-			select DATE_FORMAT(use_dtm, '%Y-%m')  as ymd, count(*) qrUseCnt 
+			select DATE_FORMAT(cre_dtm, '%Y-%m')  as ymd, count(*) as qr_use_cnt 
 			from CRBN_QR_USE_HST
-			where store_id = #{storeId}
-			group by DATE_FORMAT(use_dtm, '%Y-%m')	          
+			where store_id = #{storeId} and cre_dtm like CONCAT(#{qryYmd} , '%')
+			group by DATE_FORMAT(cre_dtm, '%Y-%m')	          
     </select>
     
 

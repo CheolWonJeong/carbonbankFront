@@ -27,33 +27,33 @@ public class CarbonInfoService {
 		return mapper.getMbrRanking(mbrId);
 	}
 	
-	public List<CarbonInfoModel>  memberUseCntStatsYmd(String mbrId){
-		return mapper.memberUseCntStatsYmd(mbrId);
+	public List<CarbonInfoModel>  memberUseCntStatsYmd(CarbonInfoModel paramInfo){
+		return mapper.memberUseCntStatsYmd(paramInfo);
 	}
 	
-	public List<CarbonInfoModel>  memberUseCntStatsYm(String mbrId){
-		return mapper.memberUseCntStatsYm(mbrId);
+	public List<CarbonInfoModel>  memberUseCntStatsYm(CarbonInfoModel paramInfo){
+		return mapper.memberUseCntStatsYm(paramInfo);
 	}
 	
 	public int getStoreMemberCount(String storeId){
 		return mapper.getStoreMemberCount(storeId);
 	}
 	
-	public List<CarbonInfoModel>  storeSaleCntStatsYmd(String storeId){
-		return mapper.storeSaleCntStatsYmd(storeId);
+	public List<CarbonInfoModel>  storeSaleCntStatsYmd(CarbonInfoModel paramInfo){
+		return mapper.storeSaleCntStatsYmd(paramInfo);
 	}
 	
-	public List<CarbonInfoModel>  storeSaleCntStatsYm(String storeId){
-		return mapper.storeSaleCntStatsYm(storeId);
+	public List<CarbonInfoModel>  storeSaleCntStatsYm(CarbonInfoModel paramInfo){
+		return mapper.storeSaleCntStatsYm(paramInfo);
 	}
 	
 
-	public List<CarbonInfoModel>  storeUseCntStatsYmd(String storeId){
-		return mapper.storeUseCntStatsYmd(storeId);
+	public List<CarbonInfoModel>  storeUseCntStatsYmd(CarbonInfoModel paramInfo){
+		return mapper.storeUseCntStatsYmd(paramInfo);
 	}
 	
-	public List<CarbonInfoModel>  storeUseCntStatsYm(String storeId){
-		return mapper.storeUseCntStatsYm(storeId);
+	public List<CarbonInfoModel>  storeUseCntStatsYm(CarbonInfoModel paramInfo){
+		return mapper.storeUseCntStatsYm(paramInfo);
 	}
 	
 }
