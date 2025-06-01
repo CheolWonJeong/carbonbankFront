@@ -87,10 +87,10 @@ public class CrbnNoticeService {
 	}
 	
 	/*
-	 * 최근 5건 조회 리스트
+	 * 최근 3건 조회 리스트
 	 */
-	public List<CrbnNoticeModel> selectLatestList(){
-		return mapper.selectLatestList();
+	public List<CrbnNoticeModel> selectLatestList(String partyCd){
+		return mapper.selectLatestList(partyCd);
 	}
 	
 	/*

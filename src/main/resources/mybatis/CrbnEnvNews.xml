@@ -124,8 +124,8 @@
 	         select 
 	           doc_seq, doc_title
 	           ,img_src_nm, img_nail_nm, doc_from, doc_url
-	           , DATE_FORMAT(show_dtm,'%Y-%m-%d %H:%i:%s') AS show_dtm
-	          from CRBN_ENV_NEWS  WHERE doc_stat = 'V'
+	           , show_dtm
+	          from CRBN_ENV_NEWS  WHERE  party_cd = #{partyCd} and doc_stat = 'V'
 	          order by show_dtm desc
         	  LIMIT #{pageNo} , #{listSize}
 	          
@@ -141,8 +141,8 @@
         
             SELECT
                 COUNT(1)
-            FROM CRBN_ENV_NEWS
-              WHERE doc_stat = 'V'
+            FROM CRBN_ENV_NEWS 
+              WHERE party_cd = #{partyCd} and doc_stat = 'V'
         ]]>
     </select>
  
@@ -153,7 +153,7 @@
     3. 업무설명:
     */
 	         select 
-	           doc_seq, doc_title
+	           doc_seq, doc_title, doc_info
 	           ,img_src_nm, img_nail_nm, doc_from, doc_url
 	           ,doc_read, doc_rcmnd, doc_like,doc_sad,doc_angry
 	           , DATE_FORMAT(show_dtm,'%Y-%m-%d %H:%i:%s') AS show_dtm
@@ -335,19 +335,18 @@
         ]]>
     </update>
  
-    <select id="selectLatestList"  resultType="com.ilmare.carbonbank.model.NewsCommonModel">
+    <select id="selectLatestList" parameterType="String"  resultType="com.ilmare.carbonbank.model.NewsCommonModel">
         <![CDATA[
 		    /*
 		    1. ID: selectLatestList
-		    2. 업무명: 모바일의 최근 5건 조회 리스트
+		    2. 업무명: 모바일의 최근 3건 조회 리스트
 		    3. 업무설명:
 		    */
 	        select 
 	           doc_seq, doc_title
-	           ,img_src_nm, img_nail_nm, doc_from, doc_url
-	           , DATE_FORMAT(show_dtm,'%Y-%m-%d %H:%i:%s') AS show_dtm
-	         from CRBN_ENV_NEWS  WHERE doc_stat = 'V'
-	         order by show_dtm desc limit 0, 5
+	           ,img_src_nm, img_nail_nm, doc_from, doc_url, show_dtm
+	         from CRBN_ENV_NEWS  WHERE  party_cd = #{partyCd} and doc_stat = 'V'
+	         order by show_dtm desc limit 0, 3
         ]]>
     </select>
 

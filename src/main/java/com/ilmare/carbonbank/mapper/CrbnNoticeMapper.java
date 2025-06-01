@@ -24,7 +24,7 @@ public interface CrbnNoticeMapper {
 	int updateCancelStat(CrbnNoticeModel crbnNotice);
 	int updateDelStat(CrbnNoticeModel crbnNotice);
 	int addReadCnt(CrbnNoticeModel crbnNotice);
-	List<CrbnNoticeModel> selectLatestList();
+	List<CrbnNoticeModel> selectLatestList(String partyCd);
 
 	
 	

@@ -70,21 +70,21 @@
 	            <div class="main-event">
 	                <div class="swiper mySwiper">
 	                    <div class="swiper-wrapper">
-	                        <div class="swiper-slide"><img src="../resources/images/main_event_01.png"></div>
-	                        <div class="swiper-slide"><img src="../resources/images/main_event_02.png"></div>
+	                        <div class="swiper-slide"><img src="/resources/images/main_event_01.png"></div>
+	                        <div class="swiper-slide"><img src="/resources/images/main_event_02.png"></div>
 	                    </div>
 	                    <div class="swiper-pagination"></div>
 	                </div>
 	            </div>
 
 	             <!-- 환경뉴스 -->
-	            <div class="main-natural" th:each="docdesc : ${envNewsList}">>
+	            <div class="main-natural">
 	                <h2>환경뉴스</h2>
-	                <div class="main-naturinfo">
-	                    <a href="#">
+	                <div class="main-naturinfo" th:each="docdesc : ${envNewsList}">
+	                    <a th:href="@{'/main/cbEnvNewsList.do?docSeq=' + ${docdesc.docSeq}}" >
 	                        <div class="naturalList">
 	                            <div class="natural-photo">
-	                                <img  th:src="${docdesc.imgNailNm}">
+	                                <img  th:src="${'/img' + docdesc.imgNailNm}">
 	                            </div>
 	                            <div class="natual-title">
 	                                <em th:text="${docdesc.docTitle}">인천 서구, 텀블러로 환경 지키고 탄소중립포인트 혜택 탄소 중립포인트</em>
@@ -94,8 +94,7 @@
 	                        </div>
 	                    </a>
 	                </div>
-
-	                <a href="#" class="main-more">더보기</a>
+	                <a href="/main/cbEnvNewsList.do" class="main-more">더보기</a>
     	        </div>
 
 	            <!-- 녹색실천 매장 -->
@@ -125,26 +124,22 @@
 	            <!-- 기관 뉴스 -->
 	            <div class="main-news">
 	                <h2>기관 핫 뉴스</h2>
-	                <ul>
+					<ul th:each="docdesc : ${hotNewsList}">
 	                    <li>
-	                        <a href="#">탄소중립 교실을 조성하려는 노력이 노력이 노력이</a>
-	                        <span>2025.04.23</span>
-	                    </li>
-	                    <li>
-	                        <a href="#">기후변화·탄소중립, 기후변화·탄소중립, 기후변화</a>
-	                        <span>2025.04.23</span>
+	                    <a th:href="@{'/main/cbHotNewsDesc.do?docSeq=' + ${docdesc.docSeq}}" th:text="${docdesc.docTitle}"></a>
+	                        <span th:text="${docdesc != null ? docdesc.showDtm : ''}"></span>
 	                    </li>
 	                </ul>
-	                <a href="#" class="main-more">더보기</a>
+	                <a href="/main/cbHotNewsList.do" class="main-more">더보기</a>
 	            </div>
 
 	            <!-- 광고 -->
 	            <div class="main-adbanner" >
 	                <a href="#">
-	                    <img src="../resources/images/main_ad_01.png">
+	                    <img src="/resources/images/main_ad_01.png">
 	                </a>
 	                <a href="#">
-	                    <img src="../resources/images/main_ad_02.png">
+	                    <img src="/resources/images/main_ad_02.png">
 	                </a>
 	            </div>
 
@@ -156,8 +151,8 @@
 	</div>
 	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
 
-    <script type="text/javascript" src="../resources/js/content.js"></script>
-    <script type="text/javascript" src="../resources/js/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="/resources/js/content.js"></script>
+    <script type="text/javascript" src="/resources/js/swiper-bundle.min.js"></script>
 
 </body>
 </html>

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ilmare.carbonbank.mapper.CrbnEnvNewsMapper;
+import com.ilmare.carbonbank.mapper.CrbnMunVideoMapper;
 import com.ilmare.carbonbank.model.NewsCommonModel;
 
 import lombok.extern.slf4j.Slf4j;
@@ -13,9 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class CrbnEnvNewsService {
+public class CrbnMunVideoService {
 	@Autowired
-	public CrbnEnvNewsMapper mapper;
+	public CrbnMunVideoMapper mapper;
 	
 
 	public NewsCommonModel selectAdmDesc(NewsCommonModel param){
@@ -27,7 +27,7 @@ public class CrbnEnvNewsService {
 	}
 
 	/*
-	 * 관리자 리스트 조회
+	 * 리스트 조회
 	 */
 	public List<NewsCommonModel> selectAdmList(NewsCommonModel param){
 		return mapper.selectAdmList(param);
@@ -51,7 +51,7 @@ public class CrbnEnvNewsService {
 	}
 
 	/*
-	 * 관리자 등록
+	 * 등록
 	 */
 	public int insert(NewsCommonModel nModel)
 	{

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layour}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+
+
+<body>
+<div class="wrap">
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
+
+	<div layout:fragment="content">
+	    <div class="content-wrap">
+	    
+	    
+        <section class="carbon-content">
+
+            <div class="board-list">
+            
+				<th:block th:each="docdesc : ${municipalNewsList}">
+					<a th:href="@{'/main/cbEnvNewsDesc.do?docSeq=' + ${docdesc.docSeq}}">
+					<div class="photo-list">
+                       	<img th:src="${'/img' + docdesc.imgNailNm}" >
+                       	<div class="photo-title">
+                       	 	<em th:text="${docdesc.docTitle}">환경뉴스제목</em>
+		                    <span th:text="${docdesc.docFrom}">출처</span>
+		                    <span th:text="${docdesc.showDtm}">날짜</span>
+						</div> <!-- // photo-list -->
+					</div> <!-- // photo-list -->
+					</a>
+				</th:block>
+
+            </div> 
+            <!-- // board-list -->
+
+        </section>
+        <!-- //carbon-content -->
+    	</div>
+    	<!-- //content-wrap -->
+    </div>
+    <!-- //content -->
+</div>
+<!-- //wrap -->
+	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
+
+
+    <script type="text/javascript" src="../resources/js/content.js"></script>
+
+
+</body>
+</html>
+

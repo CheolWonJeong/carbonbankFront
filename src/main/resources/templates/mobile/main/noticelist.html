@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layour}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+
+
+<body>
+<div class="wrap">
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
+
+	<div layout:fragment="content">
+	    <div class="content-wrap">
+	    
+	    
+        <section class="carbon-content">
+
+            <div class="board-list">
+				<th:block th:each="docdesc : ${noticeList}">
+					<div class="notice-list">
+					<a th:href="@{'/main/cbNoticeDesc.do?docSeq=' + ${docdesc.docSeq}}" th:text="${docdesc.docTitle}"></a>
+                    <span th:text="${docdesc != null ? docdesc.showDtm : ''}"></span>
+					</div> <!-- // notice-list -->
+				</th:block>
+            </div> 
+            <!-- // board-list -->
+
+        </section>
+        <!-- //carbon-content -->
+    	</div>
+    	<!-- //content-wrap -->
+    </div>
+    <!-- //content -->
+</div>
+<!-- //wrap -->
+
+
+	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
+    <script type="text/javascript" src="/resources/js/content.js"></script>
+
+
+</body>
+</html>
+

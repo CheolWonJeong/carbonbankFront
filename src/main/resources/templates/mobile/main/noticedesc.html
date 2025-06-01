@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layout}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+
+
+<body>
+<div class="wrap">
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
+
+	
+	<div layout:fragment="content">
+	    <div class="content-wrap">
+	        <section class="carbon-content">
+	
+	            <div class="board-view">
+	                <div class="view-title" th:text="${docview.docTitle}">
+	                    2025년 탄소중립포인트제 참여 기업·기관 업무 협약식
+	                </div>
+	                <!-- 조회수 추가 -->
+	                <div class="view-info">
+	                    <span th:text="${'조회수: ' + docview.docRead}">조회수: </span>
+	                    <span th:text="${docview.showDtm}">연합뉴스</span>
+	                </div>
+	                <div class="view-content"  th:text="${docview.docInfo}">
+	                    (서울=연합뉴스) 김완섭 환경부 장관이 21일 서울 강서구 코엑스마곡에서 열린 2025년 기후변화주간 개막식에서 탄소중립포인트제에 신규로 참가한 기업과 업무협약을 체결한 후 관계자들과 기념 촬영하고 있다.
+	                    <br><br>
+	                    2025.4.21 [환경부 제공. 재판매 및 DB 금지]
+	                    <br><br>
+	                    photo@yna.co.kr
+	                </div>
+	            </div>
+	        </section>
+	
+	    </div>
+    <!-- //content-wrap -->
+	</div>
+	
+	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
+</div><!-- //wrap -->
+</body>
+</html>

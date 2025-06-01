@@ -82,7 +82,7 @@
 			                ,s.store_id  
 				          from CRBN_MBR_INFO m  LEFT JOIN CRBN_STORE_INFO s ON m.mbr_cell_num = s.store_cell_num
               			WHERE m.mbr_cell_num = #{mbrCellNum} and mbr_pwd =#{mbrPwd} 
-			union
+			union all
 				         select 
 							''	, store_ceo_nm	,'','','', lst_lgn_dtm, party_cd, ''
 			                ,store_id  

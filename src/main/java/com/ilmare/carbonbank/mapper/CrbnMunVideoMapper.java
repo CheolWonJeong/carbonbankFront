@@ -9,7 +9,7 @@ import com.ilmare.carbonbank.model.NewsCommonModel;
 
 @Repository
 @Mapper
-public interface CrbnEnvNewsMapper {
+public interface CrbnMunVideoMapper {
 	NewsCommonModel selectAdmDesc(NewsCommonModel commModel);
 	NewsCommonModel selectBeforeAfter(NewsCommonModel commModel);
 	List<NewsCommonModel> selectAdmList(NewsCommonModel commModel);

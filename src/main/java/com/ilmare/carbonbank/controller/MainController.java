@@ -1,6 +1,5 @@
 package com.ilmare.carbonbank.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,13 +15,15 @@ import com.ilmare.carbonbank.cmn.controller.ConfigConstants.enMenuList;
 import com.ilmare.carbonbank.cmn.controller.ConfigConstants.mainUrl;
 import com.ilmare.carbonbank.cmn.mgr.SessInfo;
 import com.ilmare.carbonbank.cmn.mgr.SessionManager;
-import com.ilmare.carbonbank.cmn.vo.CommonVo;
-import com.ilmare.carbonbank.mapper.CrbnEnvNewsMapper;
-import com.ilmare.carbonbank.model.CarbonInfoModel;
+import com.ilmare.carbonbank.cmn.util.AES256Util;
 import com.ilmare.carbonbank.model.CrbnNoticeModel;
 import com.ilmare.carbonbank.model.CrbnStoreInfoModel;
 import com.ilmare.carbonbank.model.NewsCommonModel;
 import com.ilmare.carbonbank.service.CarbonInfoService;
+import com.ilmare.carbonbank.service.CrbnEnvNewsService;
+import com.ilmare.carbonbank.service.CrbnHotNewsService;
+import com.ilmare.carbonbank.service.CrbnMunNewsService;
+import com.ilmare.carbonbank.service.CrbnMunVideoService;
 import com.ilmare.carbonbank.service.CrbnNoticeService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,7 +41,16 @@ public class MainController {
 	private CarbonInfoService carbonSvc;
 
 	@Autowired
-	private CrbnEnvNewsMapper envSvc;
+	private CrbnEnvNewsService envSvc;
+	
+	@Autowired
+	private CrbnHotNewsService hotSvc;
+
+	@Autowired
+	private CrbnMunNewsService munNewsSvc;
+
+	@Autowired
+	private CrbnMunVideoService munVideoSvc;
 
 	@Autowired
 	private SessionManager sessMgr;
@@ -61,22 +71,7 @@ public class MainController {
 
 		SessInfo sess = sessMgr.getSession(request);
 		model.addAttribute("sess", sess);
-		//소속에 따른 view 결정
-		String partyCd = sess.getPartyCd();
-		String viewNm = null;
-		
-		if ( partyCd.equals(mainUrl.CARBONBANK.getCode())) {
-			viewNm = mainUrl.CARBONBANK.getLinkUrl();
-		} else if ( partyCd.equals(mainUrl.INCHEON.getCode())) {
-			viewNm = mainUrl.INCHEON.getLinkUrl();
-			
-		} else {
-			viewNm = mainUrl.CARBONBANK.getLinkUrl();
-		}
-		log.info("viewNm = {} | {}", sess.getPartyCd(), viewNm);
-		
-		//2 자료 조회
-		//파람 set
+
 		
 		//나의실천점수
 		int useCnt = carbonSvc.getMbrUseTotal(sess.getMbrId());
@@ -85,7 +80,7 @@ public class MainController {
 		model.addAttribute("myLank", myLank);
 		
 		//공지사항
-		List<CrbnNoticeModel> noticeList = noticeSvc.selectLatestList();
+		List<CrbnNoticeModel> noticeList = noticeSvc.selectLatestList(sess.getPartyCd());
 		log.info( "noticeList.size()=" + noticeList.size());
 		if ( noticeList.size() > 0 )  {
 			for (CrbnNoticeModel tmpdoc : noticeList) {
@@ -96,14 +91,7 @@ public class MainController {
 		model.addAttribute("noticeList", noticeList);
 
 		//환경뉴스
-		List<NewsCommonModel> envNewsList = envSvc.selectLatestList();
-/*		
-		NewsCommonModel tmpm = new NewsCommonModel();
-		tmpm.setDocTitle("인천 서구, 텀블러로 환경 지키고 탄소중립포인트 혜택 탄소 중립포인트");
-		tmpm.setImgNailNm("/resources/images/thumb_01.png");
-		tmpm.setDocFrom("YTN");
-		envNewsList.add(tmpm);
-*/
+		List<NewsCommonModel> envNewsList = envSvc.selectLatestList(sess.getPartyCd());
 		model.addAttribute("envNewsList", envNewsList);
 		
 		//가맹점
@@ -116,9 +104,36 @@ public class MainController {
 
 		model.addAttribute("storeList", storeList);
 
-		//핫뉴스
-		List<NewsCommonModel> hotNewsList = null;
-		model.addAttribute("hotNewsList", hotNewsList);
+
+		//소속에 따른 view 결정
+		String partyCd = sess.getPartyCd();
+		String viewNm = null;
+		
+		if ( partyCd.equals(mainUrl.CARBONBANK.getCode())) {
+			viewNm = mainUrl.CARBONBANK.getLinkUrl();
+			//핫뉴스
+			List<NewsCommonModel> hotNewsList = hotSvc.selectLatestList(sess.getPartyCd());
+			model.addAttribute("hotNewsList", hotNewsList);
+			
+		} else if ( partyCd.equals(mainUrl.INCHEON.getCode())) {
+			viewNm = mainUrl.INCHEON.getLinkUrl();
+			
+			//시정뉴스
+			List<NewsCommonModel> munNewsList = munNewsSvc.selectLatestList(sess.getPartyCd());
+			model.addAttribute("munNewsList", munNewsList);
+			
+			//시정활동 영상
+			List<NewsCommonModel> munVideoList = munVideoSvc.selectLatestList(sess.getPartyCd());
+			model.addAttribute("munVideoList", munVideoList);
+			
+		} else {
+			viewNm = mainUrl.CARBONBANK.getLinkUrl();
+			//핫뉴스
+			List<NewsCommonModel> hotNewsList = null;
+			model.addAttribute("hotNewsList", hotNewsList);
+			
+		}
+		log.info("viewNm = {} | {}", sess.getPartyCd(), viewNm);
 		
 		return viewNm;
 	}
@@ -140,5 +155,162 @@ public class MainController {
 		return "/mobile/main/main_mypage";
 	}
 
+	@RequestMapping("/AddDocRcmnd")
+	public @ResponseBody  HashMap AddDocRcmnd(HttpServletRequest request, final NewsCommonModel paramVo, Model model) throws Exception {
+		
+		HashMap result = new HashMap();
+		log.info("AddDocRcmnd Start");
 
+		//1.세션검사
+		if ( !sessMgr.isSession(request) ) {
+			log.info("Viewhome 세션 없음 상태");
+			result.put("procInd", "N");  // 
+			return result;
+			
+		}
+		
+		switch (paramVo.getDocStat()) {
+			case "1":
+				// 1 환경뉴스
+				envSvc.addRcmndCnt(paramVo);
+				break;
+			case "2":
+				// 2	기관핫뉴스
+				hotSvc.addRcmndCnt(paramVo);
+				break;
+			case "3":
+				// 3	시정뉴스
+				munNewsSvc.addRcmndCnt(paramVo);
+				break;
+			case "4":
+				// 3	시정뉴스
+				munVideoSvc.addRcmndCnt(paramVo);
+				break;
+			default:
+				// 모두 해당되지 않을 때 실행
+		}
+		
+
+		return result;
+	}
+
+
+	@RequestMapping("/AddDocLike")
+	public @ResponseBody  HashMap AddDocLike(HttpServletRequest request, final NewsCommonModel paramVo, Model model) throws Exception {
+		
+		HashMap result = new HashMap();
+		log.info("AddDocRcmnd Start");
+
+		//1.세션검사
+		if ( !sessMgr.isSession(request) ) {
+			log.info("Viewhome 세션 없음 상태");
+			result.put("procInd", "N");  // 
+			return result;
+			
+		}
+		
+		switch (paramVo.getDocStat()) {
+			case "1":
+				// 1 환경뉴스
+				envSvc.addLikeCnt(paramVo);
+				break;
+			case "2":
+				// 2	기관핫뉴스
+				hotSvc.addLikeCnt(paramVo);
+				break;
+			case "3":
+				// 3	시정뉴스
+				munNewsSvc.addLikeCnt(paramVo);
+				break;
+			case "4":
+				// 3	시정뉴스
+				munVideoSvc.addLikeCnt(paramVo);
+				break;
+			default:
+				// 모두 해당되지 않을 때 실행
+		}
+		
+
+		return result;
+	}
+
+	@RequestMapping("/AddDocSad")
+	public @ResponseBody  HashMap AddDocSad(HttpServletRequest request, final NewsCommonModel paramVo, Model model) throws Exception {
+		
+		HashMap result = new HashMap();
+		log.info("AddDocRcmnd Start");
+
+		//1.세션검사
+		if ( !sessMgr.isSession(request) ) {
+			log.info("Viewhome 세션 없음 상태");
+			result.put("procInd", "N");  // 
+			return result;
+			
+		}
+		
+		switch (paramVo.getDocStat()) {
+			case "1":
+				// 1 환경뉴스
+				envSvc.addSadCnt(paramVo);
+				break;
+			case "2":
+				// 2	기관핫뉴스
+				hotSvc.addSadCnt(paramVo);
+				break;
+			case "3":
+				// 3	시정뉴스
+				munNewsSvc.addSadCnt(paramVo);
+				break;
+			case "4":
+				// 3	시정뉴스
+				munVideoSvc.addSadCnt(paramVo);
+				break;
+			default:
+				// 모두 해당되지 않을 때 실행
+		}
+		
+
+		return result;
+	}
+
+	@RequestMapping("/AddDocAngry")
+	public @ResponseBody  HashMap AddDocAngry(HttpServletRequest request, final NewsCommonModel paramVo, Model model) throws Exception {
+		
+		HashMap result = new HashMap();
+		log.info("AddDocRcmnd Start");
+
+		//1.세션검사
+		if ( !sessMgr.isSession(request) ) {
+			log.info("Viewhome 세션 없음 상태");
+			result.put("procInd", "N");  // 
+			return result;
+			
+		}
+		
+		switch (paramVo.getDocStat()) {
+			case "1":
+				// 1 환경뉴스
+				envSvc.addAngryCnt(paramVo);
+				break;
+			case "2":
+				// 2	기관핫뉴스
+				hotSvc.addAngryCnt(paramVo);
+				break;
+			case "3":
+				// 3	시정뉴스
+				munNewsSvc.addAngryCnt(paramVo);
+				break;
+			case "4":
+				// 3	시정뉴스
+				munVideoSvc.addAngryCnt(paramVo);
+				break;
+			default:
+				// 모두 해당되지 않을 때 실행
+		}
+		
+
+		return result;
+	}
+
+	
 }

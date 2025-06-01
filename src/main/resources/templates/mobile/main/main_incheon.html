@@ -44,9 +44,9 @@
                 <div class="main-carbonList">
                     <div class="main-carbon-01">
                         실천건수
-                        <span>36</span>
+                        <span th:text="${ useCnt }">36</span>
                     </div>
-                    <div class="main-carbon-02">
+                    <div class="main-carbon-02" th:text="${ myLank }">
                         랭킹순위
                         <span>125</span>
                     </div>
@@ -56,21 +56,13 @@
             <!-- 공지사항 -->
             <div class="main-notice">
                 <h2>공지사항</h2>
-                <ul>
+				<ul th:each="docdesc : ${noticeList}">
                     <li>
-                        <a href="#">탄소중립 교실을 조성하려는 노력이 노력이 노력이</a>
-                        <span>2025.04.23</span>
-                    </li>
-                    <li>
-                        <a href="#">기후변화·탄소중립, 기후변화·탄소중립, 기후변화</a>
-                        <span>2025.04.23</span>
-                    </li>
-                    <li>
-                        <a href="#">탄소중립 교실을 조성하려는 노력이</a>
-                        <span>2025.04.23</span>
+                    <a th:href="@{'/main/cbNoticeDesc.do?docSeq=' + ${docdesc.docSeq}}" th:text="${docdesc.docTitle}"></a>
+                        <span th:text="${docdesc != null ? docdesc.showDtm : ''}"></span>
                     </li>
                 </ul>
-                <a href="#" class="main-more">더보기</a>
+                <a href="/main/cbNoticeList.do" class="main-more">더보기</a>
             </div>
 
             <!-- 이벤트 -->
@@ -87,39 +79,22 @@
              <!-- 환경뉴스 -->
             <div class="main-natural">
                 <h2>환경뉴스</h2>
-                <div class="main-naturinfo">
-                    <a href="#">
+                <div class="main-naturinfo" th:each="docdesc : ${envNewsList}">
+                    <a th:href="@{'/main/cbEnvNewsList.do?docSeq=' + ${docdesc.docSeq}}" >
                         <div class="naturalList">
                             <div class="natural-photo">
-                                <img src="../resources/images/thumb_01.png">
+                                <img  th:src="${'/img' + docdesc.imgNailNm}">
                             </div>
                             <div class="natual-title">
-                                <em>인천 서구, 텀블러로 환경 지키고 탄소중립포인트 혜택 탄소중립포인트</em>
-                                <span>YTN</span>
-                                <span>2025.04.23</span>
+                                <em th:text="${docdesc.docTitle}">인천 서구, 텀블러로 환경 지키고 탄소중립포인트 혜택 탄소 중립포인트</em>
+                                <span th:text="${docdesc.docFrom}">YTN</span>
+                                <span th:text="${docdesc.showDtm}">2025.04.23</span>
                             </div>
                         </div>
-
                     </a>
                 </div>
-
-                <div class="main-naturinfo">
-                    <a href="#">
-                        <div class="naturalList">
-                            <div class="natural-photo">
-                                <img src="../resources/images/thumb_01.png">
-                            </div>
-                            <div class="natual-title">
-                                <em>인천 서구, 텀블러로 환경 지키고 탄소중립포인트 혜택 탄소중립포인트</em>
-                                <span>YTN</span>
-                                <span>2025.04.23</span>
-                            </div>
-                        </div>
-
-                    </a>
-                </div>
-                <a href="#" class="main-more">더보기</a>
-            </div>
+                <a href="/main/cbEnvNewsList.do" class="main-more">더보기</a>
+   	        </div>
 
             <!-- 녹색실천 매장 -->
             <div class="main-store">
@@ -150,43 +125,35 @@
             <!-- 시정 뉴스 -->
             <div class="main-news">
                 <h2>시정 뉴스</h2>
-                <ul>
-                    <li>
-                        <a href="#">탄소중립 교실을 조성하려는 노력이 노력이 노력이</a>
-                        <span>2025.04.23</span>
-                    </li>
-                    <li>
-                        <a href="#">기후변화·탄소중립, 기후변화·탄소중립, 기후변화</a>
-                        <span>2025.04.23</span>
-                    </li>
-                </ul>
-                <a href="#" class="main-more">더보기</a>
+					<ul th:each="docdesc : ${munNewsList}">
+	                    <li>
+	                    <a th:href="@{'/main/cbNoticeDesc.do?docSeq=' + ${docdesc.docSeq}}" th:text="${docdesc.docTitle}"></a>
+	                        <span th:text="${docdesc != null ? docdesc.showDtm : ''}"></span>
+	                    </li>
+	                </ul>
+	                <a href="/main/cbMunicipalNewsList.do" class="main-more">더보기</a>
             </div>
 
             <!-- 광고 -->
             <div class="main-adbanner" >
                 <a href="#">
-                    <img src="../resources/images/main_ad_01.png">
+                    <img src="/resources/images/main_ad_01.png">
                 </a>
                 <a href="#">
-                    <img src="../resources/images/main_ad_02.png">
+                    <img src="/resources/images/main_ad_02.png">
                 </a>
             </div>
 
             <!-- 시정활동 영상 -->
             <div class="main-movie">
                 <h2>시정활동 영상</h2>
-                <div class="movie-list">
-                    <a href="#">
-                        <img src="../resources/images/thumb_03.png">
-                        ESG 경영에서 탄소 중립
-                    </a>
-                    <a href="#">
-                        <img src="../resources/images/thumb_03.png">
-                        ESG 경영에서 탄소 중립
+                <div class="movie-list" th:each="docdesc : ${munVideoList}">>
+                    <a th:href="@{'/main/cbHotNewsDesc.do?docSeq=' + ${docdesc.docSeq}}" >
+						<img  th:src="${'/img' + docdesc.imgNailNm}">
+                        [[${sess.lstLgnDtm}]]
                     </a>
                 </div>
-                <a href="#" class="main-more">더보기</a>
+                <a href="/main/cbMunicipalVideoList.do" class="main-more">더보기</a>
             </div>
 
         </section>
@@ -197,8 +164,8 @@
 	</div>
 	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
 
-    <script type="text/javascript" src="../resources/js/content.js"></script>
-    <script type="text/javascript" src="../resources/js/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="/resources/js/content.js"></script>
+    <script type="text/javascript" src="/resources/js/swiper-bundle.min.js"></script>
 
 </body>
 </html>

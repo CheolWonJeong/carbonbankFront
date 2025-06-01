@@ -188,7 +188,7 @@ public class MyController {
 
 		SessInfo sess = sessMgr.getSession(request);
 		model.addAttribute("sess", sess);
-		model.addAttribute("pagenm", enMenuList.cbPersonal.getName());
+		model.addAttribute("pagenm", enMenuList.cbCustSvc.getName());
 		
 		return "/mobile/my/custsvc";
 	}

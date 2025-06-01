@@ -9,7 +9,7 @@ import com.ilmare.carbonbank.model.NewsCommonModel;
 
 @Repository
 @Mapper
-public interface CrbnEnvNewsMapper {
+public interface CrbnEventInfoMapper {
 	NewsCommonModel selectAdmDesc(NewsCommonModel commModel);
 	NewsCommonModel selectBeforeAfter(NewsCommonModel commModel);
 	List<NewsCommonModel> selectAdmList(NewsCommonModel commModel);
@@ -27,6 +27,6 @@ public interface CrbnEnvNewsMapper {
 	int addLikeCnt(NewsCommonModel commModel);
 	int addSadCnt(NewsCommonModel commModel);
 	int addAngryCnt(NewsCommonModel commModel);
-	List<NewsCommonModel> selectLatestList(String partyCd);
+	List<NewsCommonModel> selectLatestList();
 	
 }

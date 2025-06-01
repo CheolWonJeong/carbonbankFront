@@ -81,6 +81,7 @@ public class ConfigConstants {
 		cbQrList("QR관리"),
 		cbMyPage("마이페이지"),
 		cbPersonal("개인/보안"),
+		cbCustSvc("고객센타"),
 		cbPwdChange("비밀번호 변경");
 		private String name;
 
