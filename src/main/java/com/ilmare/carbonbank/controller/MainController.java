@@ -1,6 +1,7 @@
 package com.ilmare.carbonbank.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ilmare.carbonbank.cmn.controller.ConfigConstants;
 import com.ilmare.carbonbank.cmn.controller.ConfigConstants.enMenuList;
@@ -16,6 +18,7 @@ import com.ilmare.carbonbank.cmn.mgr.SessInfo;
 import com.ilmare.carbonbank.cmn.mgr.SessionManager;
 import com.ilmare.carbonbank.cmn.vo.CommonVo;
 import com.ilmare.carbonbank.mapper.CrbnEnvNewsMapper;
+import com.ilmare.carbonbank.model.CarbonInfoModel;
 import com.ilmare.carbonbank.model.CrbnNoticeModel;
 import com.ilmare.carbonbank.model.CrbnStoreInfoModel;
 import com.ilmare.carbonbank.model.NewsCommonModel;
@@ -120,41 +123,21 @@ public class MainController {
 		return viewNm;
 	}
 
-	/*
-	 * 공지사항 상세 조회
-	 */
-	@RequestMapping("/cbNoticeDesc.do")
-	public String NoticeDesc(HttpServletRequest request, final CrbnNoticeModel paramVo, Model model) throws Exception {
+	@RequestMapping(value = "/cbMyPage.do", method=RequestMethod.GET)
+	public String cbMyPage(HttpServletRequest request,  Model model) {
 		
-		log.info("NoticeDesc Start");
-/*
-		sessMgr.createSession(request, false);
-		if ( !sessMgr.isSession() ) {
-			log.info("AdmNoticeView 세션 없음 상태");
+		//1.세션검사
+		if ( !sessMgr.isSession(request) ) {
+			log.info("Viewhome 세션 없음 상태");
 			return "redirect:" + conConst.lgnUrl;
+			
 		}
+
+		SessInfo sess = sessMgr.getSession(request);
+		model.addAttribute("sess", sess);
+		model.addAttribute("pagenm", enMenuList.cbMyPage.getName());
 		
-		log.info("NoticeDesc 로그인 상태");
-		SessInfo sessInfo = sessMgr.getSessInfo();
-		log.info("NoticeDesc sessInfo=" + sessInfo.toString());
-
-		//권한 검사
-		log.info("NoticeDesc PartyGrp=" + sessInfo.getPartyGrp());
-		if ( !commSvc.checkContentUse(sessInfo.getPartyGrp()) ) {
-			log.info("NoticeDesc 권한 없음 상태");
-			return "redirect:" + conConst.lgnUrl;
-		}
-*/		
-		//공지사항 한건 조회
-		CrbnNoticeModel rtnModel = noticeSvc.selectDesc(paramVo);
-		log.info("NoticeDesc " + rtnModel);
-
-		model.addAttribute("title", enMenuList.cbEnvNewsDesc.getName());
-		model.addAttribute("docview", rtnModel);
-		//model.addAttribute("menuList", menuList);
-		log.info("NoticeDesc End");
-
-		return "/mobile/main/noticedesc";
+		return "/mobile/main/main_mypage";
 	}
 
 

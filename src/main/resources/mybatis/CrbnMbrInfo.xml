@@ -147,12 +147,31 @@
         ]]>
     </update>
  
-    <update id="updatePasswd" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+    <select id="compPasswd" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel" resultType="int">
+        <![CDATA[
+        	SELECT sum(cnt) from (
+            SELECT  COUNT(1) cnt FROM CRBN_MBR_INFO  where mbr_id = #{mbrId} and mbr_pwd =#{mbrPwd}
+            UNION ALL
+			SELECT  COUNT(1) cnt from CRBN_STORE_INFO  WHERE store_id = #{mbrId} and store_pwd =#{mbrPwd}
+			) a 
+        ]]>
+    </select>
+ 
+    <update id="updateMemberPasswd" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
         <![CDATA[
             UPDATE CRBN_MBR_INFO
                SET
                     mbr_pwd =#{mbrPwd}     ,chg_pwd_dtm   = now()
               WHERE mbr_id = #{mbrId}
+        ]]>
+    </update>
+ 
+    <update id="updateStorePasswd" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+        <![CDATA[
+            UPDATE CRBN_STORE_INFO
+               SET
+                    store_pwd =#{mbrPwd}     ,chg_pwd_dtm   = now()
+              WHERE store_id = #{storeId}
         ]]>
     </update>
  

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layout}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+<script type="text/javascript">
+	function viewModal (divId) {
+		document.getElementById(divId).style.display='block'
+	}
+
+	function closeModal (divId) {
+		document.getElementById(divId).style.display='none'
+	}
+	
+
+	function logout () {
+		$.ajax({
+	        url : '/my/cbLogOutProc'
+	            , type : 'POST'
+	            , dataType : 'JSON'
+	            , cache : false
+	            , beforeSend : function( xhr, settings ) { 
+	                //loadingbar_show(); 
+	            }
+	            , success : function(data, stauts, request) {
+       				if (data.procInd == "S") {
+                        alert('로그아웃이 정상적으로 처리 되었습니다.\n다시로그인 햬 주세요.');
+    				} else {
+    					alert("처리중 오류가 발생 했습니다.");
+    				}
+					location.href = "/home/cbLogin.do";
+                }
+               , error : function(xhr, status) {
+                   alert('서비스 장애발생 관리자에게 문의해 주십시요.');
+               }
+               , complete : function(xhr, status) {
+                   //loadingbar_hide();
+               }    
+	    });
+	}
+
+	
+	$(document).ready(function(){
+    	
+		//조회버튼 클릭
+        $('#cancel').on('click', function(event) {
+        	closeModal ('idname-01');
+	    });
+
+        $('#Withdrawal').on('click', function(event) {
+        	closeModal ('idname-01');
+    		$.ajax({
+    	        url : '/main/cbMemberExitProc'
+    	            , type : 'POST'
+    	            , dataType : 'JSON'
+    	            , cache : false
+    	            , beforeSend : function( xhr, settings ) { 
+    	                //loadingbar_show(); 
+    	            }
+    	            , success : function(data, stauts, request) {
+                       alert('탈퇴 처리가 정상적으로 처리 되었습니다.\n다시 이영하려면 가입 후 이용하세요.');
+                       location.href = "/home/cbLogin.do";
+                    }
+                   , error : function(xhr, status) {
+                       alert('서비스 장애발생 관리자에게 문의해 주십시요.');
+                   }
+                   , complete : function(xhr, status) {
+                       //loadingbar_hide();
+                   }    
+    	    });
+	    });
+
+	
+     });
+	
+</script>
+
+<body>
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
+	
+	<div layout:fragment="content">
+	    <div class="content-wrap">
+	        <section class="carbon-content">
+	            <ul class="mypage-list">
+	                <!-- <li class="sec-01"><a href="#">개인정보 관리</a></li> -->
+	                <li class="sec-02"><a href="/my/cbPwdChange.do">비밀번호변경</a></li>
+	                <li class="sec-03"><a href="javascript:logout();">로그아웃</a></li>
+	                <li class="sec-04"><a href="javascript:viewModal ('idname-01')">회원탈퇴</a></li>
+	            </ul>
+	        </section>
+	    </div>
+	</div>
+	
+    <!-- modal -->
+    <div id="idname-01" class="modal-wrap">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-base">
+                    회원 탈퇴를 하시겠습니까?<br>
+                    회원 탈퇴를 하시면 탄소 중립 실천건수가 지워집니다.
+                </div>
+            </div>
+            <div class="modal-btn">
+                <button type="button" class="btn-blue" id="cancel">취소</button>
+                <button type="button" class="btn-blue" id="Withdrawal">확인</button>
+            </div>
+            <button onclick="closeModal ('idname-01')" class="modal-close"></button>
+        </div>
+    </div>
+    <!--  //modal  -->
+	
+	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
+
+    <script type="text/javascript" src="../resources/js/content.js"></script>
+    <script type="text/javascript" src="../resources/js/swiper-bundle.min.js"></script>
+
+</body>
+</html>

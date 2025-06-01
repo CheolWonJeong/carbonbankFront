@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layout}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+    	
+		//조회버튼 클릭
+        $('#pwdUpdate').on('click', function(event) {
+        	var curPwd = $('#curPwd').val();
+        	var mbrPwd = $('#mbrPwd').val();
+        	var mbrPwd1 = $('#mbrPwd1').val();
+        	
+        	if (mbrPwd != mbrPwd1) {
+        		alert("새로운 비밀번호와 비밀번호 확인은 다릅니다.\n확인 부탁합니다");
+        		return;
+        	}
+            var param = {
+                    "curPwd" : curPwd
+                    , "mbrPwd" : mbrPwd 
+            };
+	       	$.ajax({
+               url : '/my/cbPwdChangeProc'
+                   , type : 'POST'
+                   , dataType : 'JSON'
+                   , cache : false
+                   , data : param
+                   , beforeSend : function( xhr, settings ) { 
+                       //loadingbar_show(); 
+                   }
+                   , success : function(data, stauts, request) {
+	   	            	if (data.procInd == "S") {
+	    	                   alert('로그아웃이 정상적으로 처리 되었습니다.\n다시로그인 햬 주세요.');
+	     					location.href = "/main/cbMain.do";
+	     				} else if (data.procInd == "X") {
+	     					alert("전화번호 또는 비밀번호가 틀립니다. ");
+	     				} else {
+	     					alert("비밀번호 변경 처리중 오류가 발생 했습니다.");
+	     				}
+	                           
+                     }
+                    , error : function(xhr, status) {
+	                          alert('서비스 장애발생 관리자에게 문의해 주십시요 we');
+                     }
+                      , complete : function(xhr, status) {
+                          //loadingbar_hide();
+                      }    
+           	});
+	    });
+
+	
+     });
+	
+</script>
+
+<body>
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
+	
+	<div layout:fragment="content">
+	    <div class="content-wrap">
+	
+	        <section class="carbon-content">
+	           <ul class="myinfo-change">
+	                <li>
+	                    <label for="">현재 비밀번호</label>
+	                    <input type="password" name="" id="curPwd" class="w100" maxlength=6/>
+	                </li>
+	                <li>
+	                    <label for="">새로운 비밀번호</label>
+	                    <input type="password" name="" id="mbrPwd" class="w100" maxlength=6 />
+	                </li>
+	                <li>
+	                    <label for="">새로운 비밀번호 재입력</label>
+	                    <input type="password" name="" id="mbrPwd1" class="w100" maxlength=6 />
+	                </li>
+	                <li>
+	                    <label for="">비밀번호는 숫자 6자리 입니다.</label>
+	                </li>
+	
+	           </ul>
+	           <button type="button" class="btn-blue w100 mT20" id="pwdUpdate">확인</button>
+	        </section>
+	
+	    </div>
+	    <!-- //content-wrap -->
+	</div>
+	
+	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
+
+    <script type="text/javascript" src="../resources/js/content.js"></script>
+    <script type="text/javascript" src="../resources/js/swiper-bundle.min.js"></script>
+
+</body>
+</html>

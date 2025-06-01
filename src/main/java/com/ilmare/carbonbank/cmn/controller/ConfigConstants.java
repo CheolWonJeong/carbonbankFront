@@ -78,7 +78,10 @@ public class ConfigConstants {
 		cbPerformanceQuery("실적조회"),
 		cbSaleList("매출관리"),
 		cbQrScan("QR 스캔"),
-		cbQrList("QR관리");
+		cbQrList("QR관리"),
+		cbMyPage("마이페이지"),
+		cbPersonal("개인/보안"),
+		cbPwdChange("비밀번호 변경");
 		private String name;
 
 		enMenuList(final String _name) {

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layout}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+
+
+<body>
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
+	
+	<div layout:fragment="content">
+    <div class="content-wrap">
+        <div class="myprofile">
+            <!--- 사진 업로드 되었을때 -->
+            <div class="myphoto" >
+                <img src="/resources/images/profile_sample.png">
+            </div>
+            <div class="photo-up">사진업로드</div>
+        </div>
+
+        <ul class="myinfo">
+            <li class="name" th:text="${ sess.mbrNm }">홍길동</li>
+            <li>회원번호 <span th:text="${ sess.mbrId }">123456</span></li>
+        </ul>
+
+        <ul class="mymenu">
+            <li class="my-01"><a href="/my/cbPersonal.do">개인/보안</a></li>
+            <li class="my-02"><a href="/my/cbCustSvc.do">고객센터</a></li>
+            <li class="my-03"><a href="#">설정</a></li>
+        </ul>
+
+    </div>
+    <!-- //content-wrap -->
+	</div>
+	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
+
+    <script type="text/javascript" src="../resources/js/content.js"></script>
+    <script type="text/javascript" src="../resources/js/swiper-bundle.min.js"></script>
+
+</body>
+</html>

@@ -105,5 +105,39 @@ public class CrbnMbrInfoService {
 	}
 
 	
+	/*
+	 * 패스워드 확인
+	 * 
+	 */
+	public int compPasswd(CrbnMbrInfoModel nModel)
+	{
+		//가맹점 로그인
+		return mapper.compPasswd(nModel);
+		
+	}
+
+	/*
+	 * 회원 비밀번호 변경 처리
+	 * 
+	 */
+	@Transactional
+	public int updatePasswd(CrbnMbrInfoModel nModel)
+	{
+		int rtn =0;
+		//회원로그인
+		//가맹점 로그인
+		if ( nModel.getMbrId() != null && !nModel.getMbrId().isEmpty()) {
+			rtn = mapper.updateMemberPasswd(nModel);
+		}
+		
+		if ( rtn > 0)  return rtn;
+		//가맹점 로그인
+		if ( nModel.getRegStoreId() != null && !nModel.getRegStoreId().isEmpty()) {
+			rtn = mapper.updateStorePasswd(nModel);
+		}
+		return rtn;
+		
+	}
+
 	
 }

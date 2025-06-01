@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layout}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+<body>
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
+	
+	<div layout:fragment="content">
+    <div class="content-wrap">
+        <section class="carbon-content">
+            <ul class="mypage-list">
+                <li class="cus-01"><a href="#">공지사항</a></li>
+                <li class="cus-02"><a href="/mobile/member_policy2.1.html">이용약관</a></li>
+                <li class="cus-03"><a href="/mobile/member_policy2.2.html">개인정보처리방침</a></li>
+                <li class="cus-04"><a href="#">문의 및 제안</a></li>
+                <li class="cus-05"><a href="/mobile/company.html">회사소개</a></li>
+            </ul>
+        </section>
+    </div>
+    <!-- //content-wrap -->
+	</div>
+	
+	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
+
+    <script type="text/javascript" src="../resources/js/content.js"></script>
+    <script type="text/javascript" src="../resources/js/swiper-bundle.min.js"></script>
+
+</body>
+</html>

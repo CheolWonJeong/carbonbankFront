@@ -60,6 +60,10 @@ public class LoginController {
 		//멤버 조회
 		CrbnMbrInfoModel info = svc.selectLoginData(paramVo);
 
+		if ( info == null ) {
+			result.put("procInd", "N");  // 정상
+			return result;
+		}
 		String loginInd = null;		//로그인 구분:M:회원, S:가맹점, A:회원, 가맹점 둘다 가입
 		if (info.getMbrId() != null && info.getStoreId() != null) {
 			loginInd = "A";

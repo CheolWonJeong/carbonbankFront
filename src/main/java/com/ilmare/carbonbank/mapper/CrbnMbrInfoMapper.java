@@ -11,21 +11,23 @@ import com.ilmare.carbonbank.model.CrbnMbrInfoModel;
 @Repository
 @Mapper
 public interface CrbnMbrInfoMapper {
-	CrbnMbrInfoModel selectAdmDesc(CrbnMbrInfoModel commVo);
-	List<CrbnMbrInfoModel> selectAdmList(CrbnMbrInfoModel commVo);
-	String selectAdmListCount(CrbnMbrInfoModel commVo);
+	CrbnMbrInfoModel selectAdmDesc(CrbnMbrInfoModel nbrInfo);
+	List<CrbnMbrInfoModel> selectAdmList(CrbnMbrInfoModel nbrInfo);
+	String selectAdmListCount(CrbnMbrInfoModel nbrInfo);
 	String dgtQrCdNextVal();
 	String memberNextVal();
-	CrbnMbrInfoModel selectLoginData(CrbnMbrInfoModel commVo);
-	int selectCount(CrbnMbrInfoModel crbnNotice);
-	int insertMbr(CrbnMbrInfoModel crbnNotice);
-	int insertDgtImg(CrbnMbrInfoModel crbnNotice);
-	int updateMbrQrUse(CrbnMbrInfoModel crbnNotice);
-	int updatePasswd(CrbnMbrInfoModel crbnNotice);
-	int updateLgnHist(CrbnMbrInfoModel crbnNotice);
-	int insertLgnHist(CrbnMbrInfoModel crbnNotice);
+	CrbnMbrInfoModel selectLoginData(CrbnMbrInfoModel nbrInfo);
+	int selectCount(CrbnMbrInfoModel nbrInfo);
+	int compPasswd(CrbnMbrInfoModel nbrInfo);
+	int insertMbr(CrbnMbrInfoModel nbrInfo);
+	int insertDgtImg(CrbnMbrInfoModel nbrInfo);
+	int updateMbrQrUse(CrbnMbrInfoModel nbrInfo);
+	int updateMemberPasswd(CrbnMbrInfoModel nbrInfo);
+	int updateStorePasswd(CrbnMbrInfoModel nbrInfo);
+	int updateLgnHist(CrbnMbrInfoModel nbrInfo);
+	int insertLgnHist(CrbnMbrInfoModel nbrInfo);
 
-	int updateStoreLgnHist(CrbnMbrInfoModel crbnNotice);
-	int insertStoreLgnHist(CrbnMbrInfoModel crbnNotice);
+	int updateStoreLgnHist(CrbnMbrInfoModel nbrInfo);
+	int insertStoreLgnHist(CrbnMbrInfoModel nbrInfo);
 	
 }

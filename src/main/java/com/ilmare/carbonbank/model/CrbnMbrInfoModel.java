@@ -25,7 +25,16 @@ public class CrbnMbrInfoModel {
 	private String lgnBrowser;    //로그인 브라우저
 
 	private String regStoreId;    //가입된 가맹점
+	private String curPwd;    	//현재 비밀번호
 	
+    public void setCurPwd(String curPwd) {
+        this.curPwd = curPwd;
+    }
+
+    public String getCurPwd() {
+        return curPwd;
+    }
+
     public void setRegStoreId(String regStoreId) {
         this.regStoreId = regStoreId;
     }
