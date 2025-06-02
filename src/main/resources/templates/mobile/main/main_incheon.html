@@ -80,7 +80,7 @@
             <div class="main-natural">
                 <h2>환경뉴스</h2>
                 <div class="main-naturinfo" th:each="docdesc : ${envNewsList}">
-                    <a th:href="@{'/main/cbEnvNewsList.do?docSeq=' + ${docdesc.docSeq}}" >
+                    <a th:href="@{'/main/cbEnvNewsDesc.do?docSeq=' + ${docdesc.docSeq}}" >
                         <div class="naturalList">
                             <div class="natural-photo">
                                 <img  th:src="${'/img' + docdesc.imgNailNm}">
@@ -99,14 +99,14 @@
             <!-- 녹색실천 매장 -->
             <div class="main-store">
                 <h2>녹색실천 매장</h2>
-                <div class="store-area">
-                    <a href="#">
+                <div class="store-area" th:each="storeInfo : ${storeList}">>
+                    <a  th:href="@{'/main/cbStoreDesc.do?storeId=' + ${storeInfo.storeId}}" >
                         <div class="storeList">
                             <img src="../resources/images/thumb_02.png">
-                            <em>케이크러버스</em>
+                            <em>케이크러버스</em><span class="dis">500원 할인</span>
                             <span>인천광역시 서구 당하동 962-1</span>
                             <span>050-71302-5056</span>
-                            <span class="dis">500원 할인</span>
+                            
                         </div>
                     </a>
                     <a href="#">

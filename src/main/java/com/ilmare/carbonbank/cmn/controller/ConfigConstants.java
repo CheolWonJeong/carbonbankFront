@@ -73,6 +73,7 @@ public class ConfigConstants {
 		cbMunicipalNewsList("시정뉴스"),
 		cbMunicipalVideoDesc("시정활동영상"),
 		cbMunicipalVideoList("시정활동영상"),
+		cbQna("문의 및 제안"),
 		cbQRView("QR보기"),
 		cbStoreSearch("매장착기"),
 		cbPerformanceQuery("실적조회"),

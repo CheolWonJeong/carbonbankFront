@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ilmare.carbonbank.mapper.CrbnQnaMapper">
+
+    <select id="selectAdmDesc" parameterType="com.ilmare.carbonbank.model.CrbnQnaModel" resultType="com.ilmare.carbonbank.model.CrbnQnaModel">
+    <![CDATA[
+            /*
+            1. ID: selectAdmDesc
+            2. 업무명: 관리자의 상세보기
+            3. 업무설명:
+            */
+        select
+	           doc_seq, doc_title, doc_info, audit_id, ans_content,ans_dtm
+        from CRBN_QNA
+            WHERE doc_seq = #{docSeq}
+     ]]>
+    </select>
+    
+    <select id="selectAdmList" parameterType="com.ilmare.carbonbank.model.CrbnQnaModel" resultType="com.ilmare.carbonbank.model.CrbnQnaModel">
+        <![CDATA[
+            /*
+            1. ID: selectAdmList
+            2. 업무명: 관리자의 리스트
+            3. 업무설명:
+            */
+            SELECT *
+              FROM (
+                    SELECT
+	           			doc_seq, doc_title, cre_dtm, doc_stat, ans_dtm
+                    from CRBN_QNA
+	               WHERE party_cd = #{partyCd}
+         ]]>
+                <if test="searchValue != null and searchValue != '' " >
+                    <if test="searchType != null and searchType != '' " >
+                        <if test='searchType == "TITLE"'>
+                            <![CDATA[       
+                                and doc_title like CONCAT('%',#{searchValue},'%')
+                             ]]>
+                        </if>
+                        <if test='searchType == "INFO"'>
+                            <![CDATA[       
+                                and doc_info like CONCAT('%',#{searchValue},'%')
+                            ]]>
+                        </if>
+                    </if>
+                </if>
+                     ORDER BY doc_seq DESC
+                   ) A
+             LIMIT #{pageNo}, #{listSize}
+    </select>
+ 
+    <select id="selectAdmListCount" parameterType="com.ilmare.carbonbank.model.CrbnQnaModel" resultType="String">
+        <![CDATA[
+            /*
+                1. ID: selectAdmListCount
+                2. 업무명: 뉴스
+                3. 업무설명: 관리자 뉴스 리스트 총갯수
+            */
+        
+            SELECT
+                COUNT(1)
+            FROM CRBN_QNA
+	         WHERE party_cd = #{partyCd}
+        ]]>
+
+        <if test="searchValue != null and searchValue != '' " >
+            <if test="searchType != null and searchType != '' " >
+                <if test='searchType == "TITLE"'>
+                    <![CDATA[       
+                        and doc_title like CONCAT('%',#{searchValue},'%')
+                     ]]>
+                </if>
+                <if test='searchType == "INFO"'>
+                    <![CDATA[       
+                       and doc_info like CONCAT('%',#{searchValue},'%')
+                    ]]>
+                </if>
+            </if>
+        </if>
+    </select>
+ 
+    <select id="selectList" parameterType="com.ilmare.carbonbank.model.CrbnQnaModel" resultType="com.ilmare.carbonbank.model.CrbnQnaModel">
+		    /*
+		    1. ID: selectList
+		    2. 업무명: 모바일의 리스트
+		    3. 업무설명:
+		    */
+	         select 
+	           doc_seq, doc_title, cre_dtm, doc_stat, ans_dtm
+	          from CRBN_QNA
+	         WHERE party_cd = #{partyCd}
+	          order by cre_dtm desc
+        	  LIMIT #{pageNo} , #{listSize}
+    </select>
+    
+    <select id="selectListCount" parameterType="com.ilmare.carbonbank.model.CrbnQnaModel" resultType="String">
+            /*
+                1. ID: selectListCount
+                2. 업무명: 뉴스
+                3. 업무설명: 뉴스 리스트 총갯수
+            */
+        
+            SELECT
+                COUNT(1)
+            FROM CRBN_QNA
+              WHERE  party_cd = #{partyCd} 
+             LIMIT #{pageNo}, #{listSize}
+    </select>
+ 
+    <select id="selectDesc" parameterType="com.ilmare.carbonbank.model.CrbnQnaModel" resultType="com.ilmare.carbonbank.model.CrbnQnaModel">
+    /*
+    1. ID: selectList
+    2. 업무명: 모바일의 상세조회
+    3. 업무설명:
+    */
+	         select 
+	           doc_seq, doc_title, doc_info, audit_id, ans_content,ans_dtm
+	          from CRBN_QNA  WHERE doc_seq = #{docSeq}
+	          
+    </select>
+    
+    <insert id="insert" parameterType="com.ilmare.carbonbank.model.CrbnQnaModel">
+        <![CDATA[
+            /*
+                1. ID: insert
+                2. 업무명: 뉴스
+                3. 업무설명: 뉴스 등록
+            */
+            INSERT INTO CRBN_QNA (
+                party_cd, mbr_id, doc_title, doc_info
+            ) VALUES (
+              #{partyCd}
+            , #{mbrId}
+            , #{docTitle}
+            , #{docInfo}
+            )
+        ]]>
+    </insert>
+    
+    <update id="update" parameterType="com.ilmare.carbonbank.model.CrbnQnaModel">
+        <![CDATA[
+            /*
+                1. ID: update
+                2. 업무명: 뉴스
+                3. 업무설명: 뉴스 변경
+            */
+            UPDATE CRBN_QNA
+               SET
+                    doc_title = #{docTitle}
+                    , doc_info = #{docInfo}
+                    ,cre_dtm = now()
+              WHERE doc_seq = #{docSeq}
+        ]]>
+    </update>
+ 
+ 
+    <update id="updateReply" parameterType="com.ilmare.carbonbank.model.CrbnQnaModel">
+        <![CDATA[
+            /*
+                1. ID: updateReply
+                2. 업무명: QNA
+                3. 업무설명: 답글
+            */
+            UPDATE CRBN_QNA
+               SET
+                    audit_ㅑd = #{auditId}
+                    , ans_content = #{ansContent}
+                    ,ans_dtm = now()
+              WHERE doc_seq = #{docSeq}
+        ]]>
+    </update>
+ 
+ 
+    <update id="addReadCnt" parameterType="com.ilmare.carbonbank.model.CrbnQnaModel">
+        <![CDATA[
+            /*
+            1. ID: addReadCnt
+            2. 업무명: 읽음 건수 추가
+            3. 업무설명:
+            */
+                UPDATE CRBN_QNA
+                   SET
+                        doc_read = doc_read + 1
+                  WHERE doc_seq = #{docSeq}
+        ]]>
+    </update>
+ 
+</mapper>

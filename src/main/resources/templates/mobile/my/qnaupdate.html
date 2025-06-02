@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layout}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			//조회버튼 클릭
+	        $('#docUpdate').on('click', function(event) {
+	            var param = {
+	                    "docTitle" : $('#docTitle').val()
+	                    , "docInfo" : $('#docInfo').val()
+	                    , "docSeq" : $('#docSeq').val()
+	            };
+	       		$.ajax({
+	               url : '/my/cbQnaUpdateProc'
+	                   , type : 'POST'
+	                   , dataType : 'JSON'
+	                   , cache : false
+	                   , data : param
+	                   , beforeSend : function( xhr, settings ) { 
+	                       //loadingbar_show(); 
+	                   }
+	                   , success : function(data, stauts, request) {
+		   	            	if (data.procInd == "S") {
+		    	                   alert('정상적으로 처리 되었습니다.');
+		     					location.href = "/my/cbQnaList.do";
+		     				} else {
+		     					alert("처리중 오류가 발생 했습니다.");
+		     				}
+	                           
+	                       }
+	                      , error : function(xhr, status) {
+	                          alert('서비스 장애발생 관리자에게 문의해 주십시요.');
+	                      }
+	                      , complete : function(xhr, status) {
+	                          //loadingbar_hide();
+	                      }    
+
+	        	});
+			
+		    });
+	    });
+	</script>
+
+
+<body>
+<div class="wrap">
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
+
+	
+	<div layout:fragment="content">
+	    <div class="content-wrap">
+	        <div class="contact-01">
+	            문의해 주세요. 언제나 환영입니다.
+	        </div>
+	        <section class="carbon-content">
+	            <div class="board-view">
+	                <input type="hidden" name="" id="docSeq" th:value="${docview.docSeq}">
+	                <input type="text" name="" id="docTitle" class="w100" placeholder="제목을 입력해 주세요" th:value="${docview.docTitle}">
+	                <textarea name=""  id="docInfo" placeholder="내용을 입력해 주세요" class="mT10" th:text="${docview.docInfo}"></textarea>
+	            </div>
+	            <button type="button" id="docUpdate" class="btn-blue w100 mT20">변경하기</button>
+	
+	        </section>
+	        <!-- //carbon-content -->
+	    </div>
+	    <!-- //content-wrap -->
+	</div>
+	
+	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
+</div><!-- //wrap -->
+</body>
+</html>

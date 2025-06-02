@@ -11,12 +11,14 @@ import com.ilmare.carbonbank.model.CrbnStoreInfoModel;
 @Repository
 @Mapper
 public interface CrbnStoreInfoMapper {
-	CrbnStoreInfoModel selectAdmDesc(CrbnStoreInfoModel commVo);
-	List<CrbnStoreInfoModel> selectAdmList(CrbnStoreInfoModel commVo);
-	String selectAdmListCount(CrbnStoreInfoModel commVo);
+	CrbnStoreInfoModel selectDesc(CrbnStoreInfoModel commVo);
+	List<CrbnStoreInfoModel> selectList(CrbnStoreInfoModel commVo);
+	String selectListCount(CrbnStoreInfoModel commVo);
 	String storeNextVal();
 	int selectCount(CrbnStoreInfoModel crbnNotice);
 	int updatePasswd(CrbnStoreInfoModel crbnNotice);
 
-
+	List<CrbnStoreInfoModel> selectKakaoData(CrbnStoreInfoModel commVo);
+	List<CrbnStoreInfoModel> selectLatestList(String partyCd);
+	
 }

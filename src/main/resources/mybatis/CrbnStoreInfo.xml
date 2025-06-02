@@ -3,34 +3,26 @@
 
 <mapper namespace="com.ilmare.carbonbank.mapper.CrbnStoreInfoMapper">
 
-    <select id="selectAdmDesc" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="com.ilmare.carbonbank.model.CrbnStoreInfoModel">
+    <select id="selectDesc" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="com.ilmare.carbonbank.model.CrbnStoreInfoModel">
     <![CDATA[
         select
 			store_id
 			,party_cd
-			,bis_num
-			,store_pwd
 			,store_cell_num
 			,store_ceo_nm
 			,store_nm
-			,store_no_img
 			,store_img
-			,store_email
 			,store_addr
 			,store_event
 			,store_cacao_id
 			,store_latitude
 			,store_longitude
-			,chg_pwd_dtm
-			,lst_lgn_dtm
-			,cre_dtm
-			,chg_dtm
         from CRBN_STORE_INFO
-            WHERE store_id = #{storeId} or store_cell_num = #{storeCellNum}
+            WHERE store_id = #{storeId}
      ]]>
     </select>
     
-    <select id="selectAdmList" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="com.ilmare.carbonbank.model.CrbnStoreInfoModel">
+    <select id="selectList" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="com.ilmare.carbonbank.model.CrbnStoreInfoModel">
         <![CDATA[
             /*
             1. ID: selectAdmList
@@ -43,22 +35,15 @@
 						store_id
 						,party_cd
 						,bis_num
-						,store_pwd
 						,store_cell_num
 						,store_ceo_nm
 						,store_nm
-						,store_no_img
 						,store_img
-						,store_email
 						,store_addr
 						,store_event
 						,store_cacao_id
 						,store_latitude
 						,store_longitude
-						,chg_pwd_dtm
-						,lst_lgn_dtm
-						,cre_dtm
-						,chg_dtm
                     from CRBN_STORE_INFO
                    where party_cd = #{partyCd}
                      ORDER BY doc_seq DESC
@@ -67,7 +52,7 @@
          ]]>
     </select>
  
-    <select id="selectAdmListCount" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="String">
+    <select id="selectistCount" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="String">
         <![CDATA[
             /*
                 1. ID: selectAdmListCount
@@ -107,6 +92,36 @@
         ]]>
     </update>
  
+
+    <select id="selectKakaoData" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="com.ilmare.carbonbank.model.CrbnStoreInfoModel">
+    <![CDATA[
+        select
+			store_id
+			,party_cd
+			,store_cacao_id
+			,store_latitude
+			,store_longitude
+        from CRBN_STORE_INFO
+            WHERE party_cd = #{partyCd}
+     ]]>
+    </select>
+    
+
+    <select id="selectLatestList"  parameterType="String" resultType="com.ilmare.carbonbank.model.CrbnStoreInfoModel">
+        <![CDATA[
+		    /*
+		    1. ID: selectLatestList
+		    2. 업무명: 모바일의 최근 2건 조회 리스트
+		    3. 업무설명:
+		    */
+	        select 
+				store_id, store_cell_num, store_ceo_nm
+				,store_nm, store_img, store_addr, store_event
+				,store_kakao_id, store_latitude, store_longitude
+	         from CRBN_STORE_INFO  WHERE party_cd = #{partyCd}
+	         order by cre_dtm desc limit 0, 2
+        ]]>
+    </select>
 
  
  </mapper>

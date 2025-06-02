@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layour}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+<script type="text/javascript">
+	$(function(){ 
+	});
+
+	$(document).ready(function(){
+    	
+		// 검색 버튼 클릭
+		$('#cbQnaIns').on('click', function() {
+            location.href = "/my/cbQnaIns.do";
+		});
+
+    });
+</script>
+
+
+<body>
+<div class="wrap">
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
+
+	<div layout:fragment="content">
+	    <div class="content-wrap">
+	        <div class="contact-01">
+	            문의해 주세요. 언제나 환영입니다.
+	        </div>
+	        <section class="carbon-content">
+	            <ul class="contact-list">
+				<th:block th:each="docdesc : ${qnaList}">
+	                <li>
+						<a th:if="${docdesc.docStat == 'Q'}"
+						    th:href="@{'/my/cbQnaUpdate.do?docSeq=' + ${docdesc.docSeq}}">
+	                        <em th:text="${docdesc.docTitle}">문의 및 제안 제목이 나옵니다</em>
+	                        <span th:text="${docdesc.creDtm}">2025.04.29</span>
+	                    </a>
+	                    <div class="state-wait" th:if="${docdesc.docStat == 'Q' }">답변대기</div>
+	                    <div class="state-ok" th:if="${docdesc.docStat == 'A' }">답변완료</div>
+	                </li>
+				</th:block>
+	            </ul>
+	
+	            <button type="button" id="cbQnaIns" class="btn-blue w100 mT20">등록하기</button>
+	
+	        </section>
+	        <!-- //carbon-content -->
+	    </div>
+	    <!-- //content-wrap -->
+	
+    </div>
+    <!-- //content -->
+</div>
+<!-- //wrap -->
+
+
+	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
+    <script type="text/javascript" src="/resources/js/content.js"></script>
+
+
+</body>
+</html>
+

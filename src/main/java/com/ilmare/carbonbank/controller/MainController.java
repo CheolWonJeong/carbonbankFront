@@ -25,6 +25,7 @@ import com.ilmare.carbonbank.service.CrbnHotNewsService;
 import com.ilmare.carbonbank.service.CrbnMunNewsService;
 import com.ilmare.carbonbank.service.CrbnMunVideoService;
 import com.ilmare.carbonbank.service.CrbnNoticeService;
+import com.ilmare.carbonbank.service.CrbnStoreInfoService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -51,6 +52,9 @@ public class MainController {
 
 	@Autowired
 	private CrbnMunVideoService munVideoSvc;
+
+	@Autowired
+	private CrbnStoreInfoService storeSvc;
 
 	@Autowired
 	private SessionManager sessMgr;
@@ -95,13 +99,7 @@ public class MainController {
 		model.addAttribute("envNewsList", envNewsList);
 		
 		//가맹점
-		List<CrbnStoreInfoModel>  storeList = null;
-		NewsCommonModel tmpS = new NewsCommonModel();
-		tmpS.setDocTitle("인천 서구, 텀블러로 환경 지키고 탄소중립포인트 혜택 탄소 중립포인트");
-		tmpS.setImgNailNm("/resources/images/thumb_01.png");
-		tmpS.setDocFrom("YTN");
-		envNewsList.add(tmpS);
-
+		List<CrbnStoreInfoModel>  storeList = storeSvc.selectLatestList(sess.getPartyCd());
 		model.addAttribute("storeList", storeList);
 
 
@@ -189,8 +187,7 @@ public class MainController {
 			default:
 				// 모두 해당되지 않을 때 실행
 		}
-		
-
+		result.put("procInd", "S");  // 
 		return result;
 	}
 
@@ -229,8 +226,7 @@ public class MainController {
 			default:
 				// 모두 해당되지 않을 때 실행
 		}
-		
-
+		result.put("procInd", "S");  // 
 		return result;
 	}
 
@@ -268,8 +264,7 @@ public class MainController {
 			default:
 				// 모두 해당되지 않을 때 실행
 		}
-		
-
+		result.put("procInd", "S");  // 
 		return result;
 	}
 
@@ -307,8 +302,7 @@ public class MainController {
 			default:
 				// 모두 해당되지 않을 때 실행
 		}
-		
-
+		result.put("procInd", "S");  // 
 		return result;
 	}
 

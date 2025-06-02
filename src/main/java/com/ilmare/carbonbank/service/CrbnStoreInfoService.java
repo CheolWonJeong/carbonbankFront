@@ -19,19 +19,19 @@ public class CrbnStoreInfoService {
 	public CrbnStoreInfoMapper mapper;
 	
 
-	public CrbnStoreInfoModel selectAdmDesc(CrbnStoreInfoModel param){
-		return mapper.selectAdmDesc(param);
+	public CrbnStoreInfoModel selectDesc(CrbnStoreInfoModel param){
+		return mapper.selectDesc(param);
 	}
 
 	/*
 	 * 관리자 리스트 조회
 	 */
-	public List<CrbnStoreInfoModel> selectAdmList(CrbnStoreInfoModel param){
-		return mapper.selectAdmList(param);
+	public List<CrbnStoreInfoModel> selectList(CrbnStoreInfoModel param){
+		return mapper.selectList(param);
 	}
 	
-	public String  selectAdmListCount(CrbnStoreInfoModel param){
-		return mapper.selectAdmListCount(param);
+	public String  selectListCount(CrbnStoreInfoModel param){
+		return mapper.selectListCount(param);
 	}
 
 	
@@ -46,6 +46,14 @@ public class CrbnStoreInfoService {
 		return mapper.updatePasswd(param);
 	}
 
+	public List<CrbnStoreInfoModel> selectKakaoData(CrbnStoreInfoModel param){
+		return mapper.selectKakaoData(param);
+	}
+	
+	public List<CrbnStoreInfoModel> selectLatestList(String partyCd){
+		return mapper.selectLatestList(partyCd);
+	}
+	
 	
 	
 }
