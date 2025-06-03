@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{web/layout/layour}">
+	<th:block layout:fragment="head" th:insert="~{@{/web/layout/head}}"></th:block>
+
+<body>
+	<th:block layout:fragment="header" th:insert="~{@{/web/layout/header}}"></th:block>
+
+	<div layout:fragment="content">
+<script>
+    dep1 = 5;
+    dep2 = 1;
+    dep3 = 0;
+</script>
+
+<div class="entry">
+    <div class="sub-visual bg05">
+        <h2>고객센터</h2>
+    </div>
+</div>
+
+<div class="container">
+    <h3 class="bbs">공지사항</h3>
+    <ul class="bbs-list">
+        <li th:block th:each="docdesc : ${noticeList}">
+            <div class="num" th:text="${docdesc.docSeq}">5</div>
+            <div class="t-left"><a th:href="@{'/web/webNoticeDesc.do?docSeq=' + ${docdesc.docSeq}}" th:text="${docdesc.docTitle}"></a></div>
+            <div class="date"  th:text="${docdesc != null ? docdesc.showDtm : ''}">2025.00.00</div>
+        </li>
+      </ul>
+
+     <!-- page number
+     <div class="page-num">
+        <div class="inner">
+            <li><a href="#" class="page-first">first</a></li>
+            <li><a href="#" class="page-prev">prev</a></li>
+            <li>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+            </li>
+            <li><a href="#" class="page-next">next</a></li>
+            <li><a href="#" class="page-last">last</a></li>
+        </div>
+    </div> -->
+    <!--// page number -->
+</div>
+    </div>
+    <!-- //content -->
+
+
+	<th:block layout:fragment="footer" th:insert="~{@{/web/layout/footer}}"></th:block>
+
+
+</body>
+</html>
+

@@ -21,7 +21,7 @@
 				<th:block th:each="docdesc : ${envNewsList}">
 					<a th:href="@{'/main/cbEnvNewsDesc.do?docSeq=' + ${docdesc.docSeq}}">
 					<div class="photo-list">
-                       	<img th:src="${'/img' + docdesc.imgNailNm}" >
+                       	<img th:src="${docdesc.imgNailNm}" >
                        	<div class="photo-title">
                        	 	<em th:text="${docdesc.docTitle}">환경뉴스제목</em>
 		                    <span th:text="${docdesc.docFrom}">출처</span>

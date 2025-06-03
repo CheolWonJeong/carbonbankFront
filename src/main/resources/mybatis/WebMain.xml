@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ilmare.carbonbank.mapper.WebMainMapper">
+
+    <select id="getCarbonData" parameterType="String" resultType="com.ilmare.carbonbank.model.WebMainModel">
+    /*
+    1. ID: getCarbonData
+    2. 업무명: 소고 메인
+    3. 업무설명:  실적조회
+    */
+	select
+        (select count(*) from CRBN_MBR_INFO where party_cd = #{partyCd}) as member_cnt,
+        (select count(*) from CRBN_STORE_INFO where party_cd = #{partyCd}) as store_cnt,
+        (select count(*) 
+         from CRBN_QR_USE_HST h, CRBN_MBR_INFO m 
+         where h.mbr_id = m.mbr_id and m.party_cd = #{partyCd}) as use_cnt
+    </select>
+    
+
+ </mapper>

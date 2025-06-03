@@ -83,7 +83,7 @@
                     <a th:href="@{'/main/cbEnvNewsDesc.do?docSeq=' + ${docdesc.docSeq}}" >
                         <div class="naturalList">
                             <div class="natural-photo">
-                                <img  th:src="${'/img' + docdesc.imgNailNm}">
+                                <img  th:src="${docdesc.imgNailNm}">
                             </div>
                             <div class="natual-title">
                                 <em th:text="${docdesc.docTitle}">인천 서구, 텀블러로 환경 지키고 탄소중립포인트 혜택 탄소 중립포인트</em>
@@ -140,7 +140,7 @@
                 <h2>시정활동 영상</h2>
                 <div class="movie-list" th:each="docdesc : ${munVideoList}">>
                     <a th:href="@{'/main/cbHotNewsDesc.do?docSeq=' + ${docdesc.docSeq}}" >
-						<img  th:src="${'/img' + docdesc.imgNailNm}">
+						<img  th:src="${docdesc.imgNailNm}">
                         [[${sess.lstLgnDtm}]]
                     </a>
                 </div>

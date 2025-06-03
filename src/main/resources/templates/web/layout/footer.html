@@ -1,0 +1,53 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <div th:fragment="footer">
+<footer>
+    <div class="footer">
+      <div class="f01">
+        <img src="images/logo_footer.svg" alt="탄소뱅크">
+      </div>
+      <div class="f02">
+            <ul class="company_info1">
+                <li><a href="/web/webNoticeList.do">고객센터</a></li>
+                <li><a href="/web/sub06_infomation.html">이용약관</a></li>
+                <li><a href="/web/sub06_privacy.html">개인정보처리방침</a></li>
+            </ul>
+           <ul class="company_info2">
+                <li>(주)탄소뱅크</li>
+                <li>주소 : 서울시 광진구 능동로3길 63, 2층201-18(자양동)</li>
+                <li>대표 : 한영수</li>
+                <li>사업자등록번호 : 670-87-03184</li>
+            </ul>
+            <div class="f03">
+                Copyright © 탄소뱅크.  All Rights Reserved.
+            </div>
+      </div>
+    </div>
+</footer>
+</body>
+</html>
+
+<script src="js/menu.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+AOS.init();
+</script>
+
+<script>
+    var nava = $('header');
+    var page = $('.container');
+    var pageOffsetTop = page.offset().top;
+    $(window).resize(function(){
+      pageOffsetTop = page.offset().top;
+    });
+
+    $(window).on('scroll', function(){
+      if($(window).scrollTop() >= pageOffsetTop) {
+        nava.addClass('scroll-active');
+      } else {
+        nava.removeClass('scroll-active');
+      }
+    });
+</script>
+    </div>
+</html>
