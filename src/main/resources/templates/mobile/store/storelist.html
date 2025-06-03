@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layour}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+    	
+    	queryData ("");	//초기 실행
+		//조회버튼 클릭
+        $('#searchStore').on('click', function(event) {
+    		alert("searchStore  클릭");	
+            var qryYmd =  $('#storeNm').val();
+        	queryData (storeNm);
+	    });
+	
+     });
+
+	function queryData (storeNm) {
+	    
+		alert("queryData  start");	
+			var param = {
+		             "storeNm" : storeNm
+		     };
+			$.ajax({
+		        url : '/store/cbStoreListProc'
+		            , type : 'POST'
+		            , dataType : 'JSON'
+		            , cache : false
+		            , data : param
+		            , beforeSend : function( xhr, settings ) { 
+		                //loadingbar_show(); 
+		            }
+		            , success : function(data, stauts, request) {
+		                var values = data.storeList;
+		                var strHtml = "";
+		                
+		                if (values.length > 0) {
+		                    $.each(values, function(index, value){
+		                        strHtml += '<div class="store-list">';
+		                        strHtml += '   <img src=' + value.storeImg + ' >';
+		                        strHtml += '   <div>';
+		                        strHtml += '       <em>' + value.storeNm+ '</em>';
+		                        strHtml += '       <span>' + value.storeEvent + '</span>';
+		                        strHtml += '       <span>' + value.storeAddr + '</span>';
+		                        strHtml += '       <span>' + value.storeCellNum + '</span>';
+		                        strHtml += '   <div>';
+		                        strHtml += ' <div>';
+		                    } else {
+		                        strHtml = '<div class="store-list">검색 결과가 없습니다.</div>';
+		                    }
+		                    $('#storeList').html(strHtml);
+		                    
+		                }
+		               , error : function(xhr, status) {
+		                   alert('서비스 장애발생 관리자에게 문의해 주십시요             }
+		               , complete : function(xhr, status) {
+		                   //loadingbar_hide();
+		               }    
+		    });
+		}
+
+	
+</script>
+
+
+<body>
+<div class="wrap">
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
+
+	<div layout:fragment="content">
+	
+	    <div class="content-wrap">
+	       <section class="search-top">
+	            <h2>녹색실천 매장</h2>
+	            <p>탄소중립을 실천하는 매장을 만나보세요</p>
+	            <div class="search-store">
+	                <input type="text"  id="storeNm" name="" class="w100">
+	                <button type="button" id="searchStore">검색</button>
+	            </div>
+	        </section>
+	
+	        <section class="carbon-content">
+	            <div id="storeList" class="store-result" th:block th:each="storeInfo : ${storeList}">
+					<!-- <a th:href="@{'/store/cbStoreDesc.do?storeId=' + ${storeInfo.storeId}}"> -->
+	                    <div class="store-list">
+                            <img  th:src="${storeInfo.storeImg}" >
+	                        <div>
+	                            <em th:src="${storeInfo.storeNm}">케이크러버스</em>
+	                            <span  th:src="${storeInfo.storeEvent}" class="dis">500원 할인</span>
+	                            <span th:src="${storeInfo.storeAddr}">인천광역시 서구 당하동 962-1</span>
+	                            <span th:src="${storeInfo.storeCellNum}">050-71302-5056</span>
+	                        </div>
+	                    </div>
+	                <!-- </a> -->
+	            </div>
+	
+	        </section>
+	        <!-- //carbon-content -->
+	    </div>
+	    <!-- //content-wrap -->
+	
+    </div>
+    <!-- //content -->
+</div>
+<!-- //wrap -->
+	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
+
+</body>
+</html>
+

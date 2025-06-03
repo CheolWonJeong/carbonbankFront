@@ -14,7 +14,7 @@
 			,store_img
 			,store_addr
 			,store_event
-			,store_cacao_id
+			,store_kakao_id
 			,store_latitude
 			,store_longitude
         from CRBN_STORE_INFO
@@ -25,7 +25,7 @@
     <select id="selectList" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="com.ilmare.carbonbank.model.CrbnStoreInfoModel">
         <![CDATA[
             /*
-            1. ID: selectAdmList
+            1. ID: selectList
             2. 업무명: 관리자의 리스트
             3. 업무설명:
             */
@@ -41,12 +41,19 @@
 						,store_img
 						,store_addr
 						,store_event
-						,store_cacao_id
+						,store_kakao_id
 						,store_latitude
 						,store_longitude
                     from CRBN_STORE_INFO
                    where party_cd = #{partyCd}
-                     ORDER BY doc_seq DESC
+         ]]>
+                    <if test="storeNm != null and storeNm != '' " >
+                           <![CDATA[       
+                               and store_nm like CONCAT('%',#{storeNm},'%')
+                            ]]>
+                    </if>
+        <![CDATA[
+                     ORDER BY store_nm
                    ) A
              LIMIT #{pageNo}, #{listSize}
          ]]>
@@ -55,7 +62,7 @@
     <select id="selectistCount" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="String">
         <![CDATA[
             /*
-                1. ID: selectAdmListCount
+                1. ID: selectCount
                 2. 업무명: 뉴스
                 3. 업무설명: 관리자 뉴스 리스트 총갯수
             */
@@ -98,7 +105,7 @@
         select
 			store_id
 			,party_cd
-			,store_cacao_id
+			,store_kakao_id
 			,store_latitude
 			,store_longitude
         from CRBN_STORE_INFO

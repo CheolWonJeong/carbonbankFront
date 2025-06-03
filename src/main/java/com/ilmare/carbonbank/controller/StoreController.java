@@ -3,6 +3,7 @@ package com.ilmare.carbonbank.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.ilmare.carbonbank.cmn.controller.ConfigConstants;
+import com.ilmare.carbonbank.cmn.controller.ConfigConstants.enMenuList;
 import com.ilmare.carbonbank.cmn.mgr.SessInfo;
 import com.ilmare.carbonbank.cmn.mgr.SessionManager;
 import com.ilmare.carbonbank.cmn.util.KakoMapUtil;
 import com.ilmare.carbonbank.model.CrbnStoreInfoModel;
+import com.ilmare.carbonbank.service.CrbnStoreInfoService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +33,9 @@ public class StoreController {
 
 	@Autowired
 	KakoMapUtil kakoMapUtil;
+
+	@Autowired
+	private CrbnStoreInfoService storeSvc;
 
 	@Autowired
 	private SessionManager sessMgr;
@@ -95,4 +101,116 @@ public class StoreController {
 
 	}
 
+	/*
+	 * 환경뉴스 목록
+	 */
+	@RequestMapping("/cbStoreList.do")
+	public String cbStoreList(HttpServletRequest request, final CrbnStoreInfoModel paramVo, Model model) throws Exception {
+		
+		log.info("cbStoreList Start");
+		//1.세션검사
+		if ( !sessMgr.isSession(request) ) {
+			log.info("Viewhome 세션 없음 상태");
+			return "redirect:" + conConst.lgnUrl;
+			
+		}
+
+		SessInfo sess = sessMgr.getSession(request);
+		model.addAttribute("sess", sess);
+
+        int pageSize = conConst.pageSize;    //페이지당 row 건수
+        int pageNo   = (paramVo.getPageNo() < 1? 1: paramVo.getPageNo()); //조회할 페이지 번호
+        int sRowNum = ((pageNo - 1) * pageSize);    //조회할 row의 시작값
+        
+		log.info("cbStoreList {} ~ {}", sRowNum, pageSize);
+		paramVo.setPageNo(sRowNum);
+		paramVo.setListSize(pageSize);
+		paramVo.setPartyCd(sess.getPartyCd());
+		
+		//환경뉴스 목록
+		List<CrbnStoreInfoModel> storeList = storeSvc.selectList(paramVo);
+
+		model.addAttribute("pagenm", enMenuList.cbStoreDesc.getName());
+		model.addAttribute("storeList", storeList);
+		log.info("cbStoreList End");
+
+		return "/mobile/store/storelist";
+	}
+
+
+	/*
+	 * 초기조회 밒 버튼 클릭 
+	 */
+	@RequestMapping("/cbStoreListProc")
+	public  @ResponseBody HashMap EnvNewsQueryList(
+			HttpServletRequest request, 
+			final CrbnStoreInfoModel paramVo, 
+			Model model
+			) throws Exception {
+		
+		log.info("cbStoreListProd Start");
+		HashMap result = new HashMap();
+
+		//1.세션검사
+		if ( !sessMgr.isSession(request) ) {
+			log.info("Viewhome 세션 없음 상태");
+			result.put("procInd", "E");  // 오류
+			result.put("errorId", "NotLogin");  // 오류 종류
+			result.put("errorMsg", "로그인 후 이용 하세요");  // 오류 메시지
+			return result;
+		}
+
+		SessInfo sess = sessMgr.getSession(request);
+		model.addAttribute("sess", sess);
+
+        int pageSize = conConst.pageSize;    //페이지당 row 건수
+        int pageNo   = (paramVo.getPageNo() < 1? 1: paramVo.getPageNo()); //조회할 페이지 번호
+        int sRowNum = ((pageNo - 1) * pageSize);    //조회할 row의 시작값
+        
+		log.info("cbStoreList {} ~ {}", sRowNum, pageSize);
+		paramVo.setPageNo(sRowNum);
+		paramVo.setListSize(pageSize);
+		paramVo.setPartyCd(sess.getPartyCd());
+		
+		//환경뉴스 목록
+		List<CrbnStoreInfoModel> storeList = storeSvc.selectList(paramVo);
+
+		result.put("storeList", storeList);
+		log.info("cbStoreList End");
+
+		return result;
+	}
+
+	/*
+	 * 환경뉴스 상세
+	 */
+	@RequestMapping("/cbStoreDesc.do")
+	public String cbStoreDesc(HttpServletRequest request, final CrbnStoreInfoModel paramVo, Model model) throws Exception {
+		
+		log.info("cbStoreDesc Start");
+		//1.세션검사
+		if ( !sessMgr.isSession(request) ) {
+			log.info("Viewhome 세션 없음 상태");
+			return "redirect:" + conConst.lgnUrl;
+			
+		}
+
+		SessInfo sess = sessMgr.getSession(request);
+		model.addAttribute("sess", sess);
+
+
+		//읽음 건수 추가
+		CrbnStoreInfoModel rtnModel = storeSvc.selectDesc(paramVo);
+		
+		model.addAttribute("pagenm", enMenuList.cbStoreDesc.getName());
+		
+		model.addAttribute("docview", rtnModel);
+		//model.addAttribute("menuList", enMenuList);
+		log.info("cbStoreDesc End");
+
+		return "/mobile/store/storedesc";
+	}
+
+
+	
 }

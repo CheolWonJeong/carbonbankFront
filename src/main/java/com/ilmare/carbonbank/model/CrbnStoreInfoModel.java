@@ -31,6 +31,15 @@ public class CrbnStoreInfoModel {
 	private String storeX;			// 가맹점 x 좌표 
 	private String storeY;			// 가맹점 y 좌표 	
 	
+	//조회
+	private int pageNo  = 1;	//조회시작 위치 
+	private int listSize  ;		//조회 건수  
+	private int totalCount  ;	//총 건수  
+
+	private String searchType;
+	private String searchValue;
+	
+	
 	public CrbnStoreInfoModel(String storeUuid, String storeNm, String storeX, String storeY) {
 		this.storeUuid = storeUuid;
 		this.storeNm = storeNm;
@@ -213,4 +222,36 @@ public class CrbnStoreInfoModel {
         return chgDtm;
     }
 
+	public int getPageNo() {
+		return pageNo;
+	}
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+	public int getListSize() {
+		return listSize;
+	}
+	public void setListSize(int listSize) {
+		this.listSize = listSize;
+	}
+	public int getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	public String getSearchValue() {
+		return searchValue;
+	}
+	public void setSearchValue(String searchValue) {
+		this.searchValue = searchValue;
+	}
+	
 }

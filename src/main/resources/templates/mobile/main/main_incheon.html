@@ -99,27 +99,18 @@
             <!-- 녹색실천 매장 -->
             <div class="main-store">
                 <h2>녹색실천 매장</h2>
-                <div class="store-area" th:each="storeInfo : ${storeList}">>
-                    <a  th:href="@{'/main/cbStoreDesc.do?storeId=' + ${storeInfo.storeId}}" >
-                        <div class="storeList">
-                            <img src="../resources/images/thumb_02.png">
-                            <em>케이크러버스</em><span class="dis">500원 할인</span>
-                            <span>인천광역시 서구 당하동 962-1</span>
-                            <span>050-71302-5056</span>
-                            
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="storeList">
-                            <img src="../resources/images/thumb_02.png">
-                            <em>서원안길</em>
-                            <span>인천광역시 서구 당하동 962-1</span>
-                            <span>050-71302-5056</span>
-                            <span class="dis">500원 할인</span>
-                        </div>
-                    </a>
-                </div>
-                <a href="#" class="main-more">더보기</a>
+                	<div class="store-area" th:each="storeInfo : ${storeList}">
+                    	<!-- <a  th:href="@{'/store/cbStoreDesc.do?storeId=' + ${storeInfo.storeId}}" > -->
+	                        <div class="storeList">
+	                            <img  th:src="${storeInfo.storeImg}" >
+	                            <em th:src="${storeInfo.storeNm}">케이크러버스</em>
+	                            <span  th:src="${storeInfo.storeEvent}" class="dis">500원 할인</span>
+	                            <span th:src="${storeInfo.storeAddr}">인천광역시 서구 당하동 962-1</span>
+	                            <span th:src="${storeInfo.storeCellNum}">050-71302-5056</span>
+	                        </div>
+	                    <!-- </a> -->
+	                </div>
+	                <a href="/store/cbStoreList.do" class="main-more">더보기</a>
             </div>
 
             <!-- 시정 뉴스 -->

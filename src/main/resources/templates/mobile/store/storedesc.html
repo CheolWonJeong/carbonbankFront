@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layour}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+   <script type="text/javascript" src="/resources/js/newsCommon.js"></script>
+
+<body>
+<div class="wrap">
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
+
+	
+	<div layout:fragment="content">
+	    <div class="content-wrap">
+	        <section class="carbon-content">
+	
+	            <div class="board-view">
+	                <div class="view-title" th:text="${docview.docTitle}">
+	                    2025년 탄소중립포인트제 참여 기업·기관 업무 협약식
+	                </div>
+	                <!-- 조회수 추가 -->
+	                <div class="view-info">
+	                    <span th:text="${docview.docRead}">조회수: </span>
+	                    <span th:text="${docview.showDtm}">연합뉴스</span>
+	                </div>
+	                <div class="view-content">
+	                    <img   th:src="${'/img' + docview.imgNailNm}">
+	                </div>
+	                <div class="view-content" th:text="${docview.docInfo}">
+	                    <!-- <iframe src="/my-page.html" width="100%" height="600"></iframe> -->
+	                </div>
+	            </div>
+	        </section>
+	
+	        <ul class="view-think">
+	            <!-- 상태 클릭했을때 active 활성화 -->
+	            <li class="think-like">
+	                <a href="#"  th:onclick="|AddDocRcmnd('${docview.docSeq}', '1'); return false;|" class="active" >추천해요 <span id="DocRcmnd" th:text="${docview.docRcmnd}">100</span></a>
+	            </li>
+	            <li class="think-good">
+	                <a href="#" th:onclick="|AddDocLike('${docview.docSeq}', '1'); return false;|" >좋아요 <span id="DocLike" th:text="${docview.docLike}">15</span></a>
+	            </li>
+	            <li class="think-sad">
+	                <a href="#"  th:onclick="|AddDocSad('${docview.docSeq}', '1'); return false;|">슬퍼요 <span id="DocSad" th:text="${docview.docSad}">0</span></a>
+	            </li>
+	            <li class="think-angry">
+	                <a href="#"  th:onclick="|AddDocAngry('${docview.docSeq}', '1'); return false;|">화나요 <span id="DocAngry" th:text="${docview.docAngry}">8</span></a>
+	            </li>
+	        </ul>
+	        <!-- //carbon-content -->
+	    </div>
+	    <!-- //content-wrap -->
+	
+	</div>
+	<!-- //content -->
+	
+	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
+</div><!-- //wrap -->
+</body>
+</html>
