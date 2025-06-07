@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,9 @@ public class LoginController {
 	@Autowired
 	private SessionManager sessMgr;
 	
+	@Value("${comm.imgServerPath}")
+    private String imgServerPath;	
+
 	@RequestMapping(value = "/cbLogin.do", method=RequestMethod.GET)
 	public String cbLogin(HttpServletRequest request,  Model model) {
 
@@ -112,6 +116,7 @@ public class LoginController {
 	public @ResponseBody  HashMap viewSession(HttpServletRequest request, final CrbnMbrInfoModel paramVo, Model model) throws Exception {
 		
 		HashMap result = new HashMap();
+		result.put("imgServerPath",  imgServerPath);
 
 		//1.세션검사
 		if ( !sessMgr.isSession(request) ) {
@@ -131,6 +136,7 @@ public class LoginController {
 		result.put("creDtm", sess.getCreDtm());
 		result.put("loginInd", sess.getLoginInd());
 		result.put("storeId",  sess.getStoreId());
+		
 		return result;
 	}
 

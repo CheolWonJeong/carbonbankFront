@@ -11,6 +11,7 @@ import com.ilmare.carbonbank.cmn.controller.ConfigConstants;
 import com.ilmare.carbonbank.cmn.controller.ConfigConstants.enMenuList;
 import com.ilmare.carbonbank.cmn.mgr.SessInfo;
 import com.ilmare.carbonbank.cmn.mgr.SessionManager;
+import com.ilmare.carbonbank.cmn.util.StringUtil;
 import com.ilmare.carbonbank.model.CrbnNoticeModel;
 import com.ilmare.carbonbank.service.CrbnNoticeService;
 
@@ -55,7 +56,6 @@ public class CrbnNoticeController {
 
 		//공지사항 한건 조회
 		CrbnNoticeModel rtnModel = noticeSvc.selectDesc(paramVo);
-		log.info("### NoticeDesc " + rtnModel);
 
 		// Head Title
 		model.addAttribute("pagenm", enMenuList.cbNoticeDesc.getName());

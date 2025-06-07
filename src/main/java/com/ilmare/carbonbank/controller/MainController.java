@@ -101,6 +101,7 @@ public class MainController {
 		//가맹점
 		List<CrbnStoreInfoModel>  storeList = storeSvc.selectLatestList(sess.getPartyCd());
 		model.addAttribute("storeList", storeList);
+		log.info( "storeList.size()=" + storeList.size());
 
 
 		//소속에 따른 view 결정

@@ -6,7 +6,7 @@
     <select id="selectAdmDesc" parameterType="com.ilmare.carbonbank.model.CrbnNoticeModel" resultType="com.ilmare.carbonbank.model.CrbnNoticeModel">
     <![CDATA[
             /*
-            1. ID: selectDesc
+            1. ID: selectAdmDesc
             2. 업무명: 관리자의 상세보기
             3. 업무설명:
             */
@@ -135,12 +135,12 @@
     
     <select id="selectDesc" parameterType="com.ilmare.carbonbank.model.CrbnNoticeModel" resultType="com.ilmare.carbonbank.model.CrbnNoticeModel">
     /*
-    1. ID: selectList
+    1. ID: selectDesc
     2. 업무명: 모바일의 상세조회
     3. 업무설명:
     */
 	         select 
-	           doc_seq, doc_title, show_dtm, doc_read
+	           doc_seq, doc_title, doc_info, show_dtm, doc_read
 	          from CRBN_NOTICE  WHERE doc_seq = #{docSeq} and doc_stat = 'V'
 	          
     </select>

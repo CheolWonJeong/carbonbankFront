@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,12 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/carbon")
 public class CarbonController {
+
+	@Value("${comm.imgServerPath}")
+    private String imgServerPath;	
+
+	@Value("${comm.imgUri}")
+    private String imgUri;	
 
 	@Autowired
 	private CarbonInfoService svc;
@@ -75,15 +82,12 @@ public class CarbonController {
 			//회원
 			
             //디지털 QR 이미지 생성
-			String fileUrl = sessMgr.getDgtQrUri(request);
-			
-			String filePath = FileUtil.dgtQrPath + sess.getCreDtm();
-			String fileSavePath = FileUtil.imgServerPath + filePath;
+			String fileName = sess.getDgtQrCd() + ".png";
+			String fileSavePath = imgServerPath + sess.getCreDtm();
+			String fileFullName = fileSavePath +File.separator+ fileName;  //저장될 파일 이름
 
-			String fileName = File.separator + sess.getDgtQrCd() + ".png";
-			String fileFullName = fileSavePath +fileName;
-	        fileUrl = (fileUrl == null || fileUrl.isEmpty()? FileUtil.imgUri + filePath + fileName : fileUrl);
-			log.info("QR IMG {} |{}", fileFullName, fileUrl);
+			String fileUri = imgUri + sess.getCreDtm()  +"/"+  fileName;	//이미지 uri
+			log.info("QR IMG {} |{}", fileFullName, fileUri);
             //서버에 파일 이미지 존재 검사
             File file = new File(fileFullName);
             
@@ -93,21 +97,21 @@ public class CarbonController {
             		
 	        		byte[] qrImgBytes = QRCodeCreate.generateQRCodeImage(sess.getDgtQrCd(), null);
 					
-					//이미지 임시 경로에 파일 저장
-					try (FileOutputStream fos = new FileOutputStream(fileFullName)) {
-			            fos.write(qrImgBytes);
+					//경로 미존재시 생성
+	    		    FileUtil.createDirectory(fileSavePath);
+	                // 파일 저장
+	    		    try (FileOutputStream fos = new FileOutputStream(fileFullName)) {
+	    	            fos.write(qrImgBytes);
+	    	            System.out.println("이미지 저장 완료: " + fileFullName);
 			        } catch (IOException e) {
 			            e.printStackTrace();
 			        }
 		        } catch (Exception e) {
 		            e.printStackTrace();
             	}
-            }	            
-			
-			sessMgr.setDgtQrUri(request, fileUrl);
-			model.addAttribute("dgtQrImgUrl", fileUrl);
+            }
+			model.addAttribute("dgtQrImgUrl", fileUri);
 
-            
 			//나의실천점수
 			int useCnt = svc.getMbrUseTotal(sess.getMbrId());
 			String myLank = svc.getMbrRanking(sess.getMbrId());
@@ -147,15 +151,12 @@ public class CarbonController {
 		model.addAttribute("pagenm", enMenuList.cbQRView.getName());
 		
         //디지털 QR 이미지 생성
-		String fileUrl = sessMgr.getDgtQrUri(request);
-		
-		String filePath = FileUtil.dgtQrPath + sess.getCreDtm();
-		String fileSavePath = FileUtil.imgServerPath + filePath;
+		String fileName = sess.getDgtQrCd() + ".png";
+		String fileSavePath = imgServerPath + sess.getCreDtm();
+		String fileFullName = fileSavePath +File.separator+ fileName;  //저장될 파일 이름
 
-		String fileName = File.separator + sess.getDgtQrCd() + ".png";
-		String fileFullName = fileSavePath +fileName;
-        fileUrl = (fileUrl == null || fileUrl.isEmpty()? FileUtil.imgUri + filePath + fileName : fileUrl);
-		log.info("QR IMG {} |{}", fileFullName, fileUrl);
+		String fileUri = imgUri + sess.getCreDtm()  +"/"+  fileName;	//이미지 uri
+		log.info("QR IMG {} |{}", fileFullName, fileUri);
         //서버에 파일 이미지 존재 검사
         File file = new File(fileFullName);
         
@@ -165,19 +166,20 @@ public class CarbonController {
         		
         		byte[] qrImgBytes = QRCodeCreate.generateQRCodeImage(sess.getDgtQrCd(), null);
 				
-				//이미지 임시 경로에 파일 저장
-				try (FileOutputStream fos = new FileOutputStream(fileFullName)) {
-		            fos.write(qrImgBytes);
+				//경로 미존재시 생성
+    		    FileUtil.createDirectory(fileSavePath);
+                // 파일 저장
+    		    try (FileOutputStream fos = new FileOutputStream(fileFullName)) {
+    	            fos.write(qrImgBytes);
+    	            System.out.println("이미지 저장 완료: " + fileFullName);
 		        } catch (IOException e) {
 		            e.printStackTrace();
 		        }
 	        } catch (Exception e) {
 	            e.printStackTrace();
         	}
-        }	            
-		
-		sessMgr.setDgtQrUri(request, fileUrl);
-		model.addAttribute("dgtQrImgUrl", fileUrl);
+        }
+		model.addAttribute("dgtQrImgUrl", fileUri);
 
 		return "/mobile/carbon/qrview";
 	}

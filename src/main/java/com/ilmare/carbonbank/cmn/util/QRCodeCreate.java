@@ -11,6 +11,8 @@ import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageConfig;
@@ -18,7 +20,14 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
+
 public class QRCodeCreate {
+
+	@Value("${comm.imgServerPath}")
+    private String imgServerPath;	
+
+	@Value("${comm.imgUri}")
+    private String imgUri;	
 
 	private static int width = 300;
 	private static int height = 300;
@@ -31,7 +40,7 @@ public class QRCodeCreate {
 		    String logoPath = "D:\\myProject\\Carbon(카본)\\설계\\받은디자인\\carbonbank\\resources\\images\\appico.png";
 		    byte[] qrImgBytes = generateQRCodeImage(qrContent, null);
 		    
-		    String fileName = "qrMain_" + System.currentTimeMillis() + ".png";
+		    String fileName = qrContent + ".png";
 		    String tmpDir = outputDir +"\\"+ fileName;
             // 파일 저장
 		    try (FileOutputStream fos = new FileOutputStream(tmpDir)) {

@@ -444,13 +444,13 @@ public class StringUtil {
 	 *            <code>java.lang.String</code> : 내용
 	 * @return contents <code>java.lang.String</code> : 변환된 내용
 	 */
-	/*public static String html3text(String contents) {
+	public static String html3text(String contents) {
 		contents = contents.replaceAll("<", "&lt;");
 		contents = contents.replaceAll(">", "&gt;");
 		contents = contents.replaceAll(" ", "&nbsp;");
 
 		return contents;
-	}*/
+	}
 
 	/**
 	 * html2text : html tag를 text형식에 맞춰 변환 &lt; 를 &amp;lt; 로 변경, &gt; 를 &amp;gt;
@@ -460,14 +460,14 @@ public class StringUtil {
 	 *            <code>java.lang.String</code> : 내용
 	 * @return contents <code>java.lang.String</code> : 변환된 내용
 	 */
-	/*public static String html2text(String contents) {
+	public static String html2text(String contents) {
 		contents = contents.replaceAll("<", "&lt;");
 		contents = contents.replaceAll(">", "&gt;");
 		contents = contents.replaceAll(" ", "&nbsp;");
 		contents = contents.replaceAll("\n", "<br>");
 
 		return contents;
-	}*/
+	}
 
 	/**
 	 * isNull : 인자값이 null 인지를 체크
@@ -799,7 +799,7 @@ public class StringUtil {
 		return ret;
 	}
 
-	/*public static String convertHtmlBr(String comment) {
+	public static String convertHtmlBr(String comment) {
 		int length = comment.length();
 		StringBuffer buffer = new StringBuffer();
 		if (comment.equals(null)) {
@@ -855,7 +855,7 @@ public class StringUtil {
 		}
 
 		return ct;
-	}*/
+	}
 
 	public static String strSmsCut(final String str, final int size) {
 		// Vector returnsStr = new Vector();

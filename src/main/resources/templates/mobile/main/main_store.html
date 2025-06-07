@@ -5,6 +5,64 @@
       layout:decorate="~{mobile/layout/layout}">
 	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
 
+<script type="text/javascript">
+
+//QR카메라 호출 javascript 함수
+function qr_camera_call(){
+alert("qr_camera_call");
+	var param = {
+		action:"qrcamera",
+		callback:"get_code" //읽혀진 코드값 전달받을 javascript함수명(웹소스에 정의필요)
+	};
+	webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify(param));
+
+}
+
+function get_code(val){
+	alert(val);  //읽혀진 값 확인(해당값을 사용하는 로직에 적용하면됩니다.)
+}
+
+
+	$(function(){ 
+	});
+
+	$(document).ready(function(){
+    	
+		//저장버튼 클릭
+        $('#LgnProc').on('click', function(event) {
+            var param = {
+                     "mbrCellNum" : $('#mbrCellNum').val() 
+                     , "mbrPwd" : $('#mbrPwd').val() 
+               };        
+            $.ajax({
+                url : '/home/cbLgnProc'
+                , type : 'POST'
+                , dataType : 'JSON'
+                , cache : false
+                , data : param
+                , beforeSend : function( xhr, settings ) { 
+                	//loadingbar_show(); 
+                }
+                , success : function(data, stauts, request) {
+    				if (data.procInd == "S") {
+    					location.href = "/main/cbMain.do";
+    				} else {
+    					alert("전화번호 또는 비밀번호가 틀립니다. ");
+    				}
+
+                }
+                , error : function(xhr, status) {
+                    alert('서비스 장애발생 관리자에게 문의해 주십시요');
+                }
+                , complete : function(xhr, status) {
+                    //loadingbar_hide();
+                }    
+            });
+        });
+        
+    });
+</script>
+
 
 <body>
 	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headercarbon}}"></th:block>
@@ -44,10 +102,11 @@
                 <div class="store-member">
                     회원등록 <span  th:text="${ storeMemTotalCnt }">236</span>
                 </div>
-                <a href="#" class="store-scan">
-                    <img src="../resources/images/scan.svg">
+				<a href="#"  onlick="qr_camera_call()" class="store-scan">
+                    <img src="/resources/images/scan.svg">
                     OR 스캔
                 </a>
+                <input type="file" accept="image/*" capture>
             </div>
 
             <!-- QR -->

@@ -38,10 +38,10 @@ spring:
 
 #Mysql 
   datasource:
-    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:mysql://52.78.180.119:32698/carbonbankDB?characterEncoding=UTF-8&serverTimezone=UTC
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://52.78.180.119:32698/carbonbankDB?characterEncoding=UTF-8&serverTimezone=UTC
+#    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#    url: jdbc:log4jdbc:mysql://52.78.180.119:32698/carbonbankDB?characterEncoding=UTF-8&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://52.78.180.119:32698/carbonbankDB?characterEncoding=UTF-8&serverTimezone=UTC
     username: carbonbank
     password: Bank2504!@
 
@@ -64,12 +64,7 @@ logging:
 
 # 파일업로드 경로
 comm:
-  UpPathStoreBis: /app/data/upload/store_bis/    #가맹점 사업자등록증
-  UpPathStore: /app/data/upload/uploadFiles/store/     #가맹점 매장
-  UpPathEnvNews: /app/data/upload/uploadFiles/env_news/   #환경뉴스
-  UpPathMunicipalNews: /app/data/upload/uploadFiles/municipal_news/   #시정뉴스
-  UpPathVideoNews: /app/data/upload/uploadFiles/video_news/  #영상뉴스
-  UpPathHotNews: /app/data/upload/uploadFiles/hot_news/    #기관 핫뉴스
-  UploadTemp: /app/data/upload/temp/ #업로드된 파일의 임시 저장 공간
+  imgServerPath: /app/data/upload/uploadFiles/dgt_qr/    #서버 기본 경로
+  imgUri: /img/uploadFiles/dgt_qr/     #uri 기본경로
 
  
