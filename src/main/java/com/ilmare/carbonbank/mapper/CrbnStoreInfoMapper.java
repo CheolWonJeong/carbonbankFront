@@ -15,10 +15,13 @@ public interface CrbnStoreInfoMapper {
 	List<CrbnStoreInfoModel> selectList(CrbnStoreInfoModel commVo);
 	String selectListCount(CrbnStoreInfoModel commVo);
 	String storeNextVal();
-	int selectCount(CrbnStoreInfoModel crbnNotice);
-	int updatePasswd(CrbnStoreInfoModel crbnNotice);
+	int selectCount(CrbnStoreInfoModel model);
+	int updatePasswd(CrbnStoreInfoModel model);
 
 	List<CrbnStoreInfoModel> selectKakaoData(CrbnStoreInfoModel commVo);
 	List<CrbnStoreInfoModel> selectLatestList(String partyCd);
+
+	String queryQrStat(String useQrCd);
+	void insertQrUseHist(CrbnStoreInfoModel model);
 	
 }

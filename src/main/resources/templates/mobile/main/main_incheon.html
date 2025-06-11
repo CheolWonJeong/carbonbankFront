@@ -7,7 +7,7 @@
 
 
 <body>
-	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/header}}"></th:block>
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/header_incheon}}"></th:block>
 	
 	<div layout:fragment="content">
     <div class="content-wrap">
@@ -105,7 +105,7 @@
 	                        <div class="storeList">
 	                            <img  th:src="${storeInfo.storeImg}" >
 	                            <em th:text="${storeInfo.storeNm}">케이크러버스</em>
-                           		<span  th:text="${storeInfo.storeEvent+ '00원 할인'}" class="dis">500원 할인</span>
+                           		<span  th:text="${storeInfo.storeEventTxt}" class="dis">500원 할인</span>
 	                            <span th:text="${storeInfo.storeAddr}">인천광역시 서구 당하동 962-1</span>
 	                            <span th:text="${storeInfo.storeCellNum}">050-71302-5056</span>
 	                        </div>

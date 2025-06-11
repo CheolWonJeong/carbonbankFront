@@ -14,6 +14,7 @@
 			,store_img
 			,store_addr
 			,store_event
+			,IF(store_event is NULL, '할인 없음', concat(store_event, '00원 할인')) store_event_txt
 			,store_kakao_id
 			,store_latitude
 			,store_longitude
@@ -41,6 +42,7 @@
 						,store_img
 						,store_addr
 						,store_event
+						,IF(store_event is NULL, '할인 없음', concat(store_event, '00원 할인')) store_event_txt
 						,store_kakao_id
 						,store_latitude
 						,store_longitude
@@ -124,11 +126,29 @@
 	        select 
 				store_id, store_cell_num, store_ceo_nm
 				,store_nm, store_img, store_addr, store_event
+				,IF(store_event is NULL, '할인 없음', concat(store_event, '00원 할인')) store_event_txt
 				,store_kakao_id, store_latitude, store_longitude
 	         from CRBN_STORE_INFO  WHERE party_cd = #{partyCd}
 	         order by cre_dtm desc limit 0, 2
         ]]>
     </select>
 
+    <select id="queryQrStat" parameterType="String" resultType="String">
+    <![CDATA[
+        select
+			qr_stat
+ 		from CRBN_PPR_QR_INFO
+ 		where ppr_qr_cd = #{useQrCd}
+     ]]>
+    </select>
+    
+    <insert id="insertQrUseHist" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel">
+        <![CDATA[
+ 			INSERT CRBN_QR_USE_HST  (QR_CD, STORE_ID, MBR_ID)
+				select #{useQrCd}, #{storeId}, mbr_id
+      			  from CRBN_QR_USE_INFO
+    			where qr_cd = #{useQrCd}  
+        ]]>
+    </insert>
  
  </mapper>

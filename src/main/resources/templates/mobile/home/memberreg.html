@@ -50,8 +50,8 @@
                 }
                 , success : function(data, stauts, request) {
     				if (data.procInd == "S") {
-    					alert("정상 처리 되었습니다.");
-    					location.href = "/main/cbMain.do";
+    					alert("가입을 감사합니다.\n로그인 후 이용하세요.");
+    					location.href = "/home/cbLogin.do";
     				}else if (data.procInd == "D") {
     					alert("기 가입된 전화번호 입니다.");
     				} else {

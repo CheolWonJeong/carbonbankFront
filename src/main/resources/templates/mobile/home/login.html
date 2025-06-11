@@ -6,8 +6,6 @@
 	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/nohead}}"></th:block>
 
 <script type="text/javascript">
-	$(function(){ 
-	});
 
 	$(document).ready(function(){
     	
@@ -27,8 +25,10 @@
                 	//loadingbar_show(); 
                 }
                 , success : function(data, stauts, request) {
-    				if (data.procInd == "S") {
+    				if (data.procInd == "M") {
     					location.href = "/main/cbMain.do";
+    				} else if (data.procInd == "S") {
+    					location.href = "/carbon/cbCarbonMain.do?viewInd=T";
     				} else {
     					alert("전화번호 또는 비밀번호가 틀립니다. ");
     				}
@@ -51,7 +51,8 @@
 
     <ul class="carbon-login">
         <li>
-            <input type="text" name="" id="mbrCellNum"  placeholder="휴대폰 번호를 입력하세요">
+            <input type="text" id="mbrCellNum" maxlength="13" placeholder="01012345678" oninput="formatPhoneNumber(this)">
+            
         </li>
         <li>
             <input type="password" name="" id="mbrPwd"  placeholder="비밀번호를 입력하세요">
@@ -59,7 +60,7 @@
         <li>
             <button type="button" class="btn-blue mT10" id="LgnProc">로 그 인</button>
         </li>
-        <li class="login-pw"><a href="#">아이디 비밀번호 찾기</a></li>
+        <li class="login-pw"><a href="/carbonbank_intro.html">아이디 비밀번호 찾기</a></li>
     </ul>
     <ul class="carbon-joinlink">
         <li class="join-person"><a href="/home/cbRegMmeber.do">회원가입</a></li>

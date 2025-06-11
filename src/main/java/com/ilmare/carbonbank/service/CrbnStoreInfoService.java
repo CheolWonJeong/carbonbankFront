@@ -55,5 +55,13 @@ public class CrbnStoreInfoService {
 	}
 	
 	
+	public String queryQrStat(String useQrCd){
+		return mapper.queryQrStat(useQrCd);
+	}
+	
+	public void insertQrUseHist(CrbnStoreInfoModel param){
+		mapper.insertQrUseHist(param);
+	}
+	
 	
 }

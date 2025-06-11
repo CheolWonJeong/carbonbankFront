@@ -36,7 +36,7 @@ public class QRCodeCreate {
     	try
 		{
         	String outputDir = "D:\\app\\data\\upload";
-		    String qrContent = "M0000000001";
+		    String qrContent = "PPR000000001";
 		    String logoPath = "D:\\myProject\\Carbon(카본)\\설계\\받은디자인\\carbonbank\\resources\\images\\appico.png";
 		    byte[] qrImgBytes = generateQRCodeImage(qrContent, null);
 		    

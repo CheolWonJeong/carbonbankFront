@@ -19,6 +19,7 @@ public class CrbnStoreInfoModel {
 	private String storeEmail;        //메일주소
 	private String storeAddr;        //사업장 주소
 	private String storeEvent;        //할인행사
+	private String storeEventTxt;        //할인행사 한글
 	private String storeCacaoId;        //카카오 등록 아이디
 	private String storeLatitude;        //위도
 	private String storeLongitude;        //경도
@@ -39,6 +40,7 @@ public class CrbnStoreInfoModel {
 	private String searchType;
 	private String searchValue;
 	
+	private String useQrCd;		//사용 qr 코드:qr 사용 이력 저장에 이용
 	
 	public CrbnStoreInfoModel(String storeUuid, String storeNm, String storeX, String storeY) {
 		this.storeUuid = storeUuid;
@@ -182,6 +184,14 @@ public class CrbnStoreInfoModel {
         return storeEvent;
     }
 
+    public void setStoreEventTxt(String storeEventTxt) {
+        this.storeEventTxt = storeEventTxt;
+    }
+
+    public String getStoreEventTxt() {
+        return storeEventTxt;
+    }
+
     public void setPartyCd(String partyCd) {
         this.partyCd = partyCd;
     }
@@ -253,5 +263,12 @@ public class CrbnStoreInfoModel {
 	public void setSearchValue(String searchValue) {
 		this.searchValue = searchValue;
 	}
-	
+
+	public String getUseQrCd() {
+		return useQrCd;
+	}
+	public void setUseQrCd(String useQrCd) {
+		this.useQrCd = useQrCd;
+	}
+		
 }
