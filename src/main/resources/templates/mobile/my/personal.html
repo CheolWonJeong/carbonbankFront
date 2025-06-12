@@ -13,6 +13,13 @@
 		document.getElementById(divId).style.display='none'
 	}
 	
+	//3.웹에서 로그아웃시(옵션)
+	//- 로그아웃시에는 저장된 정보를 지웁니다.
+	//- 기존 로그아웃 함수 및 url호출 전에 아래가 먼저 호출되도록 해주세요.(페이지 이동처리전 실행되도록 함)
+	setTimeout(function(){
+		webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "offlogin"}))
+	},100);
+
 
 	function logout () {
 		$.ajax({
@@ -24,15 +31,10 @@
 	                //loadingbar_show(); 
 	            }
 	            , success : function(data, stauts, request) {
-       				if (data.procInd == "S") {
-                        alert('로그아웃이 정상적으로 처리 되었습니다.\n다시로그인 햬 주세요.');
-    				} else {
-    					alert("처리중 오류가 발생 했습니다.");
-    				}
 					location.href = "/home/cbLogin.do";
                 }
                , error : function(xhr, status) {
-                   alert('서비스 장애발생 관리자에게 문의해 주십시요.');
+					location.href = "/home/cbLogin.do";
                }
                , complete : function(xhr, status) {
                    //loadingbar_hide();
@@ -43,6 +45,10 @@
 	
 	$(document).ready(function(){
     	
+		setTimeout(function(){
+			webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "offlogin"}))
+		},100);
+
 		//조회버튼 클릭
         $('#cancel').on('click', function(event) {
         	closeModal ('idname-01');

@@ -65,12 +65,17 @@ public class MyController {
 	@RequestMapping(value = "/cbLogOutProc", method=RequestMethod.POST)
 	public @ResponseBody HashMap cbLogOutProc(HttpServletRequest request,  Model model) {
 		HashMap rtnmap = new HashMap();
+		log.info("cbLogOutProc start");
 		
 		//1.세션검사
 		if ( !sessMgr.isSession(request) ) {
-			sessMgr.deleteSession(request);
-			
+			log.info("cbLogOutProc Not session");
+			rtnmap.put("procind", "S");
+			return rtnmap;
 		}
+		sessMgr.deleteSession(request);
+		rtnmap.put("procind", "S");
+		log.info("cbLogOutProc session");
 		return rtnmap;
 	}
 

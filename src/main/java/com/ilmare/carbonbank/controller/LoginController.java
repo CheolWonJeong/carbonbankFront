@@ -122,6 +122,7 @@ public class LoginController {
 		//세션이 존재하고,  파라머터와 id, pwd가 같으면 로그인 성공으로 리턴
 		//1.세션검사
 		if ( sessMgr.isSession(request) ) {
+			log.info("cbAutoLgnProc 세션 존재");
 			SessInfo sess = sessMgr.getSession(request);
 			if (sess.getMbrId() != null && sess.getStoreId() != null) {
 				loginInd = "A";
@@ -142,6 +143,7 @@ public class LoginController {
 		}
 
 		
+		log.info("cbAutoLgnProc 세션 업슴");
 		// 패스워드가 암호화되어 있어 암호화 필요 없음
 		//멤버 조회
 		CrbnMbrInfoModel info = svc.selectLoginData(paramVo);
