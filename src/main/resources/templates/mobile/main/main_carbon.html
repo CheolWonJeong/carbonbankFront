@@ -27,6 +27,39 @@ waitForCallHandler(function() {
   window.webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "savelogin","loginid": "[[${sess.mbrId}]]","passwd": "[[${sess.mbrPwd}]]"}));
 });
 
+//javascript 함수선언(푸시id를 받을수 있는 함수)
+function get_pushid(pushid) {
+	//푸시아이디 확인(푸시아이디 저장처리등의 로직이 들어가면 됨)
+	alert(pushid);  //푸시아이디 확인(테스트용)
+    var param = {
+            "pushToken" : pushid
+      };        
+   $.ajax({
+       url : '/home/cbSetPushKey'
+       , type : 'POST'
+       , dataType : 'JSON'
+       , cache : false
+       , data : param
+       , beforeSend : function( xhr, settings ) { 
+       	//loadingbar_show(); 
+       }
+       , success : function(data, stauts, request) {
+
+       }
+       , error : function(xhr, status) {
+       }
+       , complete : function(xhr, status) {
+           //loadingbar_hide();
+       }    
+   });
+}
+
+
+//메세지 핸들러 호출함수
+waitForCallHandler(function() {
+    window.webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "getpushid","callback": "get_pushid"}));
+});
+
 </script>
 
 <body>
@@ -167,8 +200,6 @@ waitForCallHandler(function() {
 		</div>
 	<!-- //content-wrap -->
 	</div>
-	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
-
     <script type="text/javascript" src="/resources/js/content.js"></script>
     <script type="text/javascript" src="/resources/js/swiper-bundle.min.js"></script>
 

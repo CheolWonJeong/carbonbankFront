@@ -94,7 +94,7 @@ em {font-style:normal; font-weight: 400}
 .carbon-head .sub-head {font-size: 1.12rem; font-weight: 600;   line-height: 50px; width: auto; position: absolute; left:50%; transform:translateX(-50%); top:0; }
 .carbon-head .back {background: url('../images/ico_back.svg') no-repeat left center; width: 26px; height: 50px; font-size: 0;}
 
-.content-wrap {width: 100%; background: #fff; padding-top: 50px; padding-bottom: 80px;}
+.content-wrap {width: 100%; background: #fff; padding-top: 50px; padding-bottom: 20px;}
 
 #menu-toggle {opacity: 0;}
 #menu-toggle:checked + .menu-btn > span {transform: rotate(45deg);}
