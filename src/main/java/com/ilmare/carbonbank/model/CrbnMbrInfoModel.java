@@ -27,7 +27,17 @@ public class CrbnMbrInfoModel {
 	private String regStoreId;    //가입된 가맹점
 	private String curPwd;    	//현재 비밀번호
 	
-    public void setCurPwd(String curPwd) {
+	private String pushToken;    	//푸시 ID
+
+	public void sePushToken(String pushToken) {
+        this.pushToken = pushToken;
+    }
+
+    public String getPushToken() {
+        return pushToken;
+    }
+
+	public void setCurPwd(String curPwd) {
         this.curPwd = curPwd;
     }
 

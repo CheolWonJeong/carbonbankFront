@@ -108,14 +108,14 @@ public class MainController {
 		String partyCd = sess.getPartyCd();
 		String viewNm = null;
 		
-		if ( partyCd.equals(mainUrl.CARBONBANK.getCode())) {
-			viewNm = mainUrl.CARBONBANK.getLinkUrl();
+		if ( partyCd.equals(mainUrl.carbonbank.getCode())) {
+			viewNm = mainUrl.carbonbank.getLinkUrl();
 			//핫뉴스
 			List<NewsCommonModel> hotNewsList = hotSvc.selectLatestList(sess.getPartyCd());
 			model.addAttribute("hotNewsList", hotNewsList);
 			
-		} else if ( partyCd.equals(mainUrl.INCHEON.getCode())) {
-			viewNm = mainUrl.INCHEON.getLinkUrl();
+		} else if ( partyCd.equals(mainUrl.incheon.getCode())) {
+			viewNm = mainUrl.incheon.getLinkUrl();
 			
 			//시정뉴스
 			List<NewsCommonModel> munNewsList = munNewsSvc.selectLatestList(sess.getPartyCd());
@@ -126,7 +126,7 @@ public class MainController {
 			model.addAttribute("munVideoList", munVideoList);
 			
 		} else {
-			viewNm = mainUrl.CARBONBANK.getLinkUrl();
+			viewNm = mainUrl.carbonbank.getLinkUrl();
 			//핫뉴스
 			List<NewsCommonModel> hotNewsList = null;
 			model.addAttribute("hotNewsList", hotNewsList);

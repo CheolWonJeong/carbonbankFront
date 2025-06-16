@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layout}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+<script type="text/javascript">
+var appVersion = localStorage.getItem('version');
+$('appVersion').text("최신버전 " + appVersion); 
+
+</script>
+
+<body>
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
+	
+	<div layout:fragment="content">
+    <div class="content-wrap">
+        <section class="carbon-content">
+            <ul class="mypage-setting">
+                <!-- 
+                <li>
+                    <div>
+                        알림수신
+                        <span>긴급공지, 거래내역등</span>
+                    </div>
+                    <div class="setting-toggle">
+                        <input type="checkbox" id="switch-1" /><label for="switch-1">선택</label>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        마케팅 정보 수신
+                        <span>신규 쿠폰발행, 이벤트 소식 등</span>
+                    </div>
+                    <div class="setting-toggle">
+                        <input type="checkbox" id="switch-2" /><label for="switch-2">선택</label>
+                    </div>
+                </li>
+                 -->
+                <li>
+                    <div>
+                        버전 정보
+                        <span id="appVersion"> V.1.0</span>
+                    </div>
+                </li>
+                <!-- 최신정보가 아닐때
+                <li>
+                    <div>
+                        버전 정보
+                        <span id="appVersion">최신버전 V.1.06</span>
+                    </div>
+                    <a href="#" class="state-ok">업데이트하기</a>
+                </li>
+                 -->
+
+            </ul>
+        </section>
+    </div>
+    <!-- //content-wrap -->
+	</div>
+    <script type="text/javascript" src="/resources/js/content.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layoutsub}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+
+<body>
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
+	
+	<div layout:fragment="content">
+    <div class="content-wrap">
+        <div class="faq-01">
+            <span>자주하는 질문</span>
+            <p>탄소뱅크에 궁금하신가요?</p>
+        </div>
+        <!-- <ul class="faq-category">
+            <li><a href="#" class="active">전체</a></li>
+            <li><a href="#">회원</a></li>
+            <li><a href="#">포인트</a></li>
+            <li><a href="#">가맹점</a></li>
+        </ul>
+         -->
+        <section class="carbon-content">
+
+            <ul class="faq-content">
+                <li>
+                    <a><span>[포인트]</span>탄소중립 실천 포인트란? </a>
+                    <div>
+                    일상생활에서 탄소 배출을 줄이기 위한 친환경 활동을 실천하는 국민에게 민간 기업의 친환경 활동 참여 실적에 따라 인센티브를 제공하는 제도입니다. 이 제도는 일반 국민의 탄소 중립 생활 실천을 장려하고 친환경 문화 확산에 기여하기 위해 마련되었습니다. 
+                    </div>
+                </li>
+                <li>
+                    <a><span>[회원]</span> 회원가입 방법은?</a>
+                    <div>
+                    회원가입은 이용자가 약관의 내용에 대하여 동의를 하고 회원가입신청을 한 후 회사가 이러한 신청에 대하여 승낙함으로써 체결됩니다.
+                    </div>
+                </li>
+                <li>
+                    <a><span>[회원]</span> 회원 가입시 탄소중립실천포인트와 ID가 같으면 유리한 점은?</a>
+                    <div>
+                    하나의 ID만 기억하면 복잡한 회원 가입 절차를 거치지 않고, 다양한 서비스를 쉽게 이용할 수 있습니다. 또한, 하나의 ID로 여러 서비스에 로그인하면, 각 서비스마다 별도의 비밀번호를 설정하고 관리하는 번거로움이 줄어듭니다. 이러한 편리함은 사용자 경험을 향상시키고, ID 관리의 부담을 줄여줍니다.
+                    </div>
+                </li>
+                <li>
+                    <a><span>[포인트]</span> 탄소중립실천포인트 지급은 어떻게 되나요?</a>
+                    <div>
+                    한국산업환경기술원의 카본페이 앱을 설치하고 회원가입 후 탄소중립 가맹점에서 물품 구매 시 사용 건에 따라 약정된 포인트를 입력한 계좌로 입금 합니다. 
+                    </div>
+                </li>
+                <li>
+                    <a><span>[가맹점]</span> 가맹점 회원은 어떻게 가입이 되나요?</a>
+                    <div>
+                    가맹점 회원의 가입은 이용자가 약관의 내용에 대하여 동의를 하고 회원가입 신청을 한 후 회사가 이러한 신청에 대하여 승낙함으로써 체결됩니다. 
+                    </div>
+                </li>
+                <li>
+                    <a><span>[회원]</span> QR코드는 어떻게 생성, 관리 되나요?</a>
+                    <div>
+                    탄소뱅크 앱을 설치 후 회원가입을 완료하면 시스템에서 자동으로 QR코드를 발급하며 탄소중립 활동 시 거래내역을 포함한 일체의 데이터는 엄격한 보안시스템으로 안전하게 관리됩니다.
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <!-- //carbon-content -->
+    </div>
+    <!-- //content-wrap -->
+	</div>
+    <script type="text/javascript" src="../resources/js/content.js"></script>
+    <script type="text/javascript" src="../resources/js/swiper-bundle.min.js"></script>
+
+</body>
+</html>

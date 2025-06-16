@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ilmare.carbonbank.cmn.controller.ConfigConstants;
 import com.ilmare.carbonbank.cmn.mgr.SessInfo;
 import com.ilmare.carbonbank.cmn.mgr.SessionManager;
 import com.ilmare.carbonbank.cmn.util.AES256Util;
+import com.ilmare.carbonbank.cmn.util.CommUtil;
 import com.ilmare.carbonbank.cmn.util.DateUtil;
 import com.ilmare.carbonbank.cmn.util.QRCodeCreate;
 import com.ilmare.carbonbank.cmn.vo.CommonVo;
@@ -44,12 +46,6 @@ public class HomeController {
 	@ResponseBody
 	public String goHome(HttpServletRequest request,  Model model) {
 
-/*
-		log.info("main 로그인 상태");
-		SessInfo sessInfo = sessMgr.getSessInfo();
-		log.info("main sessInfo=" + sessInfo.toString());
-		model.addAttribute("sessInfo", sessInfo);
-*/
 		return "/mobile/home/passwdinit";
 	}
 
@@ -65,6 +61,7 @@ public class HomeController {
 		log.info("cbRegMmeberProc Start");
 
 		//기 가입여부 확인
+		paramVo.setPartyCd(CommUtil.getPartyCd(request));
 		int iTmp =  svc.selectCount(paramVo);
 		if (iTmp > 0)  {
 			//이미 가입된 휴대폰 번호
@@ -84,6 +81,7 @@ public class HomeController {
 		String encParamPasswd = AES256Util.encrypt(paramVo.getMbrPwd());
 		log.info("loginProc pwd  {} ", encParamPasswd);
 		paramVo.setMbrPwd(encParamPasswd);
+		paramVo.setPartyCd(CommUtil.getPartyCd(request));
 		
 		//멤버 저장
 		svc.insertMbr(paramVo);
@@ -130,6 +128,7 @@ public class HomeController {
 		String encParamPasswd = AES256Util.encrypt(paramVo.getStorePwd());
 		log.info("cbRegStoreProc pwd  {} ", encParamPasswd);
 		paramVo.setStorePwd(encParamPasswd);
+		paramVo.setPartyCd(CommUtil.getPartyCd(request));
 		
 		//멤버 저장
 		storeSvc.updatePasswd(paramVo);
@@ -140,5 +139,29 @@ public class HomeController {
 	}
 
 	
+	@RequestMapping("/cbSetPushKey")
+	public @ResponseBody  HashMap cbSetPushKey(HttpServletRequest request, final CrbnMbrInfoModel paramVo, Model model) throws Exception {
+		
+		HashMap result = new HashMap();
+		log.info("cbSetPushKey Start");
+
+		//1.세션검사
+		if ( !sessMgr.isSession(request) ) {
+			result.put("procInd", "N");  // 정상
+			return result;
+			
+		}
+
+		SessInfo sess = sessMgr.getSession(request);
+		paramVo.setMbrId(sess.getMbrId());
+		paramVo.setStoreId(sess.getStoreId());
+
+		log.info("cbSetPushKey PushToken  {} ", paramVo.getPushToken());
+		
+		log.info("cbSetPushKey End");
+
+		return result;
+	}
+
 	
 }

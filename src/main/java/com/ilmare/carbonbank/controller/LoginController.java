@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ilmare.carbonbank.cmn.controller.ConfigConstants;
 import com.ilmare.carbonbank.cmn.mgr.SessInfo;
 import com.ilmare.carbonbank.cmn.mgr.SessionManager;
 import com.ilmare.carbonbank.cmn.util.AES256Util;
@@ -40,14 +41,9 @@ public class LoginController {
     private String imgServerPath;	
 
 	@RequestMapping(value = "/cbLogin.do", method=RequestMethod.GET)
-	public String cbLogin(HttpServletRequest request,  Model model) {
-
-/*
-		log.info("main 로그인 상태");
-		SessInfo sessInfo = sessMgr.getSessInfo();
-		log.info("main sessInfo=" + sessInfo.toString());
-		model.addAttribute("sessInfo", sessInfo);
-*/
+	public String cbLogin(HttpServletRequest request,  final CrbnMbrInfoModel paramVo, Model model) {
+		
+		//
 		return "/mobile/home/login";
 	}
 
@@ -61,6 +57,7 @@ public class LoginController {
 		// 패스워드 암호화
 		String encParamPasswd = AES256Util.encrypt(paramVo.getMbrPwd());
 		paramVo.setMbrPwd(encParamPasswd);
+		paramVo.setPartyCd(CommUtil.getPartyCd(request));
 
 		//멤버 조회
 		CrbnMbrInfoModel info = svc.selectLoginData(paramVo);
@@ -143,9 +140,11 @@ public class LoginController {
 		}
 
 		
-		log.info("cbAutoLgnProc 세션 업슴");
+		log.info("cbAutoLgnProc 세션 업슴 ");
 		// 패스워드가 암호화되어 있어 암호화 필요 없음
 		//멤버 조회
+		paramVo.setPartyCd(CommUtil.getPartyCd(request));
+		log.info("cbAutoLgnProc {} | {} | {} ", paramVo.getMbrId(), paramVo.getMbrPwd(), paramVo.getPartyCd());
 		CrbnMbrInfoModel info = svc.selectLoginData(paramVo);
 
 		if ( info == null ) {

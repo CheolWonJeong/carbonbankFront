@@ -30,4 +30,7 @@ public interface CrbnMbrInfoMapper {
 	int updateStoreLgnHist(CrbnMbrInfoModel nbrInfo);
 	int insertStoreLgnHist(CrbnMbrInfoModel nbrInfo);
 	
+	CrbnMbrInfoModel selectPushTokens(CrbnMbrInfoModel nbrInfo);
+	int insertPushTokens(CrbnMbrInfoModel nbrInfo);
+	int insertPushTokensHist(CrbnMbrInfoModel nbrInfo);
 }

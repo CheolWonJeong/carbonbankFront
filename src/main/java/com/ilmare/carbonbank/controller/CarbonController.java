@@ -373,5 +373,25 @@ public class CarbonController {
 		return rtnmap;
 	}
 
+
+	@RequestMapping(value = "/cbFaq.do", method=RequestMethod.GET)
+	public String cbFaq(HttpServletRequest request,  CarbonInfoModel cbnInfo, Model model) {
+		
+		//1.세션검사
+		if ( !sessMgr.isSession(request) ) {
+			log.info("Viewhome 세션 없음 상태");
+			return "redirect:" + conConst.lgnUrl;
+			
+		}
+		
+		SessInfo sess = sessMgr.getSession(request);
+		model.addAttribute("sess", sess);
+		model.addAttribute("pagenm", enMenuList.cbFaq.getName());
+		
+		
+		return "/mobile/carbon/faq";
+	}
+
+	
 	
 }

@@ -36,9 +36,33 @@ public class ConfigConstants {
 
 	}
 
+	public static enum partyCdUrl{
+		carbonbank("carbonbank", "www.carbonbank.re.kr"),
+		incheon("incheon", "incheon.carbonbank.re.kr"),
+		local("incheon", "localhost");
+
+		private String code;
+		private String linkUrl;
+
+		partyCdUrl(final String _code, final String linkUrl) {
+			this.code = _code;
+			this.linkUrl = linkUrl;
+		}
+
+		public String getCode() {
+			return code;
+		}
+
+		public String getLinkUrl() {
+			return linkUrl;
+		}
+
+
+	}
+
 	public static enum mainUrl{
-		CARBONBANK("CARBONBANK", "/mobile/main/main_carbon"),
-		INCHEON("INCHEON", "/mobile/main/main_incheon"),
+		carbonbank("carbonbank", "/mobile/main/main_carbon"),
+		incheon("incheon", "/mobile/main/main_incheon"),
 		member("member", "/mobile/main/main_member"),
 		store("store", "/mobile/main/main_store");
 
@@ -74,6 +98,7 @@ public class ConfigConstants {
 		cbMunicipalVideoDesc("시정활동영상"),
 		cbMunicipalVideoList("시정활동영상"),
 		cbQna("문의 및 제안"),
+		cbFaq("자주하는 질문"),
 		cbQRView("QR보기"),
 		cbStoreSearch("매장착기"),
 		cbPerformanceQuery("실적조회"),
@@ -83,9 +108,10 @@ public class ConfigConstants {
 		cbMyPage("마이페이지"),
 		cbPersonal("개인/보안"),
 		cbCustSvc("고객센타"),
+		cbSetting("설정"),
 		cbPwdChange("비밀번호 변경");
 		private String name;
-
+		
 		enMenuList(final String _name) {
 			this.name = _name;
 		}

@@ -7,10 +7,12 @@
 	            <div class="perstore" th:if="${sess.loginInd == 'S'}" > 가맹점회원 </div>
 	            <div class="perstore" th:if="${sess.loginInd == 'A'}" > <a href="/carbon/cbCarbonMain.do">일반</a>+<a href="/carbon/cbCarbonMain.do?viewInd=T">가맹점회원</a> </div>
 	            <h1><img src="/resources/images/logo.svg"></h1>
+	            <a href="#" OnClick="webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({'action':'push_popupview'}));">
 	            <div class="i-notice">
 	                <span class="on"></span>
 	                <img src="/resources/images/ico_noitce.svg">
 	            </div>
+	            </a>
 	        </div>
 	        <div class="menu-wrap">
 	            <input id="menu-toggle" type="checkbox" />

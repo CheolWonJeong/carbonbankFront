@@ -5,10 +5,12 @@
         <div class="carbon-head">
             <button type="button" id="befBackBtn" class="back">뒤로</button>
             <h1 class="sub-head" th:text="${ pagenm }">Title</h1>
+            <a href="#" OnClick="webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({'action':'push_popupview'}));">
             <div class="i-notice">
                 <img src="/resources/images/ico_noitce.svg">
                 <span class="on"></span>
             </div>
+            </a>
         </div>
         <div class="menu-wrap">
             <input id="menu-toggle" type="checkbox" />

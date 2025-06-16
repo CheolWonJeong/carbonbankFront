@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.ilmare.carbonbank.cmn.controller.ConfigConstants.partyCdUrl;
+
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
@@ -137,6 +139,18 @@ public class CommUtil {
 			}
 		}
 		return browser;
+	}
+	
+	public static String getPartyCd(HttpServletRequest request) {
+		
+		String serverName = request.getServerName();
+		String partyCd = "";
+		if (serverName.equalsIgnoreCase(partyCdUrl.carbonbank.getLinkUrl())) {
+			partyCd = partyCdUrl.carbonbank.getCode();
+		} else if (serverName.equalsIgnoreCase(partyCdUrl.incheon.getLinkUrl())) {
+			partyCd = partyCdUrl.incheon.getCode();
+		}
+		return partyCd;
 	}
 	
 	public static String getOs(HttpServletRequest request) {

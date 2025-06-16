@@ -199,4 +199,21 @@ public class MyController {
 	}
 
 
+	@RequestMapping(value = "/cbSetting.do", method=RequestMethod.GET)
+	public String cbSetting(HttpServletRequest request,  Model model) {
+		
+		//1.세션검사
+		if ( !sessMgr.isSession(request) ) {
+			log.info("Viewhome 세션 없음 상태");
+			return "redirect:" + conConst.lgnUrl;
+			
+		}
+
+		SessInfo sess = sessMgr.getSession(request);
+		model.addAttribute("sess", sess);
+		model.addAttribute("pagenm", enMenuList.cbSetting.getName());
+		
+		return "/mobile/my/mypage_setting";
+	}
+
 }

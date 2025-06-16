@@ -139,5 +139,24 @@ public class CrbnMbrInfoService {
 		
 	}
 
+	@Transactional
+	public int savePushTokens(CrbnMbrInfoModel nModel)
+	{
+		int rtn =0;
+		//회원로그인
+		//가맹점 로그인
+		if ( nModel.getMbrId() != null && !nModel.getMbrId().isEmpty()) {
+			rtn = mapper.updateLgnHist(nModel);
+			rtn =  mapper.insertLgnHist(nModel);
+		}
+		
+		//가맹점 로그인
+		if ( nModel.getRegStoreId() != null && !nModel.getRegStoreId().isEmpty()) {
+			rtn = mapper.updateStoreLgnHist(nModel);
+			rtn =  mapper.insertStoreLgnHist(nModel);
+		}
+		return rtn;
+		
+	}
 	
 }

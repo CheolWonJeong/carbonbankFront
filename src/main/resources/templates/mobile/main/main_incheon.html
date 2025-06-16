@@ -101,15 +101,15 @@
                 <h2>녹색실천 매장</h2>
                 	<div class="store-area" th:each="storeInfo : ${storeList}">
                     	<!-- <a  th:href="@{'/store/cbStoreDesc.do?storeId=' + ${storeInfo.storeId}}" > -->
-                    	<a  href="#"  th:each="storeInfo : ${storeList}">
-	                        <div class="storeList">
+                    	<!-- <a  href="#"  th:each="storeInfo : ${storeList}"> -->
+	                        <div class="storeList"  th:each="storeInfo : ${storeList}">
 	                            <img  th:src="${storeInfo.storeImg}" >
 	                            <em th:text="${storeInfo.storeNm}">케이크러버스</em>
                            		<span  th:text="${storeInfo.storeEventTxt}" class="dis">500원 할인</span>
 	                            <span th:text="${storeInfo.storeAddr}">인천광역시 서구 당하동 962-1</span>
 	                            <span th:text="${storeInfo.storeCellNum}">050-71302-5056</span>
 	                        </div>
-	                     </a>
+	                     <!-- </a> -->
 	                </div>
 	                <a href="/store/cbStoreList.do" class="main-more">더보기</a>
             </div>
@@ -127,21 +127,22 @@
             </div>
 
             <!-- 광고 -->
-            <div class="main-adbanner" >
-                <a href="#">
-                    <img src="/resources/images/main_ad_01.png">
-                </a>
-                <a href="#">
-                    <img src="/resources/images/main_ad_02.png">
-                </a>
+			<div class="main-event">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="/resources/images/main_ad_01.png"></div>
+                        <div class="swiper-slide"><img src="/resources/images/main_ad_02.png"></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
             </div>
 
             <!-- 시정활동 영상 -->
             <div class="main-movie">
                 <h2>시정활동 영상</h2>
                 <div class="movie-list" th:each="docdesc : ${munVideoList}">>
-                    <a th:href="@{'/main/cbHotNewsDesc.do?docSeq=' + ${docdesc.docSeq}}" >
-						<img  th:src="${docdesc.imgNailNm}">
+                    <a th:href="@{'/main/cbMunicipalVideoDesc.do?docSeq=' + ${docdesc.docSeq}}"  th:text="${docdesc.docTitle}">
+						<!-- <img  th:src="${docdesc.imgNailNm}"> -->
                         [[${sess.lstLgnDtm}]]
                     </a>
                 </div>
