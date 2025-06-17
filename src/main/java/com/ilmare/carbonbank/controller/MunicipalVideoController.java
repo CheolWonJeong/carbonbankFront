@@ -89,7 +89,7 @@ public class MunicipalVideoController {
         int pageNo   = (paramVo.getPageNo() < 1? 1: paramVo.getPageNo()); //조회할 페이지 번호
         int sRowNum = ((pageNo - 1) * pageSize);    //조회할 row의 시작값
         
-		log.info("EnvNewsList {} ~ {}", sRowNum, pageSize);
+		log.info("MunicipalVideoList {} ~ {}", sRowNum, pageSize);
 		paramVo.setPageNo(sRowNum);
 		paramVo.setListSize(pageSize);
 		paramVo.setPartyCd(sess.getPartyCd());
@@ -102,10 +102,11 @@ public class MunicipalVideoController {
 
 		model.addAttribute("municipalVideoList", municipalVideoList);
 
-		log.info("municipalVideoList " + model);
+		log.info("municipalVideoList " + municipalVideoList.size());
 		log.info("municipalVideoList End");
 
 		return "/mobile/main/municipalvideolist";
+
 	}
 
 }

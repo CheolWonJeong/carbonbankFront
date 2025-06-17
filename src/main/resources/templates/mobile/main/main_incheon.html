@@ -140,10 +140,9 @@
             <!-- 시정활동 영상 -->
             <div class="main-movie">
                 <h2>시정활동 영상</h2>
-                <div class="movie-list" th:each="docdesc : ${munVideoList}">>
-                    <a th:href="@{'/main/cbMunicipalVideoDesc.do?docSeq=' + ${docdesc.docSeq}}"  th:text="${docdesc.docTitle}">
-						<!-- <img  th:src="${docdesc.imgNailNm}"> -->
-                        [[${sess.lstLgnDtm}]]
+                <div class="movie-list" th:each="docdesc : ${munVideoList}">
+                    <a th:href="@{${docdesc.docUrl}}"  th:text="${docdesc.docTitle}"  target="_blank">
+	                        <span th:text="${docdesc != null ? docdesc.showDtm : ''}"></span>
                     </a>
                 </div>
                 <a href="/main/cbMunicipalVideoList.do" class="main-more">더보기</a>

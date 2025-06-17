@@ -125,7 +125,7 @@
 	           doc_seq, doc_title
 	           ,img_src_nm, img_nail_nm, doc_from, doc_url
 	           , DATE_FORMAT(show_dtm,'%Y-%m-%d %H:%i:%s') AS show_dtm
-	          from CRBN_MUN_VIDEO  WHERE party_cd = #{partyCd} doc_stat = 'V'
+	          from CRBN_MUN_VIDEO  WHERE party_cd = #{partyCd} and doc_stat = 'V'
 	          order by show_dtm desc
         	  LIMIT #{pageNo} , #{listSize}
 	          
@@ -142,7 +142,7 @@
             SELECT
                 COUNT(1)
             FROM CRBN_MUN_VIDEO
-              WHERE party_cd = #{partyCd} doc_stat = 'V'
+              WHERE party_cd = #{partyCd} and doc_stat = 'V'
         ]]>
     </select>
  

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layout}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+
+
+<body>
+<div class="wrap">
+	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/headersub}}"></th:block>
+
+	<div layout:fragment="content">
+	    <div class="content-wrap">
+	    
+	    
+        <section class="carbon-content">
+
+            <div class="board-list" th:each="docdesc : ${municipalVideoList}">
+                    <a th:href="@{${docdesc.docUrl}}"  th:text="${docdesc.docTitle}"  target="_blank">
+						<!-- <img  th:src="${docdesc.imgNailNm}"> -->
+                        [[${docdesc.showDtm}]]
+                    </a>
+				</th:block>
+
+            </div> 
+            <!-- // board-list -->
+
+        </section>
+        <!-- //carbon-content -->
+    	</div>
+    	<!-- //content-wrap -->
+    </div>
+    <!-- //content -->
+</div>
+<!-- //wrap -->
+
+    <script type="text/javascript" src="../resources/js/content.js"></script>
+
+
+</body>
+</html>
+
