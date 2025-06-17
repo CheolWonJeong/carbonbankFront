@@ -48,7 +48,11 @@ public class CrbnMbrInfoService {
 	}
 
 	public CrbnMbrInfoModel  autoLoginData(CrbnMbrInfoModel param){
-		return mapper.selectLoginData(param);
+		return mapper.autoLoginData(param);
+	}
+
+	public CrbnMbrInfoModel  chechJoin(CrbnMbrInfoModel param){
+		return mapper.chechJoin(param);
 	}
 
 	public int  selectCount(CrbnMbrInfoModel nModel){

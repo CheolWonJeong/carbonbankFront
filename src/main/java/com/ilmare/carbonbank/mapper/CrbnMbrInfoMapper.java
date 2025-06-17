@@ -18,6 +18,7 @@ public interface CrbnMbrInfoMapper {
 	String memberNextVal();
 	CrbnMbrInfoModel selectLoginData(CrbnMbrInfoModel nbrInfo);
 	CrbnMbrInfoModel autoLoginData(CrbnMbrInfoModel nbrInfo);
+	CrbnMbrInfoModel chechJoin(CrbnMbrInfoModel nbrInfo);
 	int selectCount(CrbnMbrInfoModel nbrInfo);
 	int compPasswd(CrbnMbrInfoModel nbrInfo);
 	int insertMbr(CrbnMbrInfoModel nbrInfo);

@@ -116,6 +116,21 @@
 	          
     </select>
     
+    <select id="chechJoin" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel" resultType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+    /*
+    1. ID: chechJoin
+    2. 업무명: 모바일의 상세조회
+    3. 업무설명:
+    */
+			select * from (
+				   select mbr_id, '' store_id  from CRBN_MBR_INFO WHERE mbr_cell_num = #{mbrCellNum} and mbr_nm =#{mbrNm} and party_cd = #{partyCd}
+			       union all
+				   select '' mbr_id, store_id from CRBN_STORE_INFO   WHERE store_cell_num = #{mbrCellNum} and store_ceo_nm =#{mbrNm} and party_cd = #{partyCd} 
+			) as a
+			limit 0, 1
+	          
+    </select>
+    
     <select id="dgtQrCdNextVal"  resultType="String">
         <![CDATA[
 			SELECT NEXTVAL('DGT_QR_CD');
@@ -133,7 +148,7 @@
             SELECT
                 COUNT(1)
             FROM CRBN_MBR_INFO
-            where mbr_cell_num = #{mbrCellNum}
+            where mbr_cell_num = #{mbrCellNum} and  party_cd = #{partyCd} 
         ]]>
     </select>
  

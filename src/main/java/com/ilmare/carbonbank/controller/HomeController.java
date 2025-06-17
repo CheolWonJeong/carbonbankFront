@@ -43,12 +43,41 @@ public class HomeController {
 	private SessionManager sessMgr;
 	
 	@RequestMapping(value = "/cbPwdInit.do", method=RequestMethod.GET)
-	@ResponseBody
-	public String goHome(HttpServletRequest request,  Model model) {
+	public String cbPwdInit(HttpServletRequest request,  Model model) {
 
 		return "/mobile/home/passwdinit";
 	}
 
+	@RequestMapping("/cbPwdInitProc")
+	public @ResponseBody  HashMap cbPwdInitProc(HttpServletRequest request, final CrbnMbrInfoModel paramVo, Model model) throws Exception {
+		
+		HashMap result = new HashMap();
+		log.info("cbPwdInitProc Start");
+
+		//기 가입여부 확인
+		paramVo.setPartyCd(CommUtil.getPartyCd(request));
+		 CrbnMbrInfoModel rtnVo =  svc.chechJoin(paramVo);
+		if (rtnVo == null || rtnVo.getMbrId().isEmpty() && rtnVo.getStoreId().isEmpty())  {
+			result.put("procInd", "D");  // 미존재
+			return result;
+		}
+		
+		// 패승뤄드 암호화
+		String encParamPasswd = AES256Util.encrypt(paramVo.getMbrPwd());
+		log.info("cbPwdInitProc pwd  {} ", encParamPasswd);
+		rtnVo.setMbrPwd(encParamPasswd);
+		rtnVo.setPartyCd(paramVo.getPartyCd());
+		
+		//비번 update
+		svc.updatePasswd(rtnVo);
+		result.put("procInd", "S");  // 정상
+		log.info("cbPwdInitProc End");
+
+		return result;
+	}
+
+	
+	
 	@RequestMapping(value = "/cbRegMmeber.do", method=RequestMethod.GET)
 	public String htmlHome(HttpServletRequest request,  Model model) {
 		return "/mobile/home/memberreg";

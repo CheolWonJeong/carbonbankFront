@@ -2,36 +2,107 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{mobile/layout/layout}">
-	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
+      layout:decorate="~{mobile/layout/layoutno}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/nohead}}"></th:block>
+<script type="text/javascript">
+	$(function(){ 
+	});
+
+	$(document).ready(function(){
+    	
+		$("input:text[mbrCellNum]").on("keyup", function() {
+		      $(this).val($(this).val().replace(/[^0-9]/g,""));
+		   });		
+		//저장버튼 클릭
+        $('#memReg').on('click', function(event) {
+        	
+        	var mbrNm = $('#mbrNm').val();
+        	var mbrCellNum = $('#mbrCellNum').val();
+        	var mbrPwd = $('#mbrPwd').val();
+        	var pwd2 = $('#mbrPwd2nd').val();
+        	
+        	if ( mbrNm == "") {
+        		alert("이름을 입력 하세요.");
+        		return;
+        	}
+        	if ( mbrCellNum == "" ) {
+        		alert("휴대폰 번호을 입력 하세요.");
+        		return;
+        	}
+        	if (mbrPwd != "" && mbrPwd != pwd2) {
+        		alert("패스워드가 일치하지 않습니다.");
+        		return;
+        	}
+            var param = {
+                     "mbrNm" : mbrNm
+                     , "mbrCellNum" : mbrCellNum
+                     , "mbrPwd" : mbrPwd
+               };        
+            
+            $.ajax({
+                url : '/home/cbPwdInitProc'
+                , type : 'POST'
+                , dataType : 'JSON'
+                , cache : false
+                , data : param
+                , beforeSend : function( xhr, settings ) { 
+                    //loadingbar_show(); 
+                }
+                , success : function(data, stauts, request) {
+    				if (data.procInd == "S") {
+    					alert("비밀번호설정 하였습니다.");
+    					location.href = "/home/cbLogin.do";
+    				}else if (data.procInd == "D") {
+    					alert("전화번호, 이름이 일치하지 않습니다.");
+    				} else {
+    					alert("처리중 오류가 발생 했습니다.");
+    				}
+
+                }
+                , error : function(xhr, status) {
+                    alert('서비스 장애발생 관리자에게 문의해 주십시요');
+                }
+                , complete : function(xhr, status) {
+                    //loadingbar_hide();
+                }    
+            });
+        });
+
+        $('#regCan').on('click', function(event) {
+        	history.back();
+        });
+		
+    });
+</script>
 
 
 <body>
 <div class="wrap">
-	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/header}}"></th:block>
-	
 	<div layout:fragment="content">
-	<!-- //content-wrap -->
-    <ul class="carbon-join2">
-        <li>
-            <label for="">이름</label>
-            <input type="text" name="" id="">
-        </li>
-        <li>
-            <label for="">휴대폰 번호</label>
-            <input type="text" name="" id="">
-        </li>
-        <li>
-            <label for="">비밀번호</label>
-            <input type="password" name="" id="">
-        </li>
-    </ul>
-    <div class="join-btn">
-        <button type="button" class="btn-gray">가입취소</button>
-        <button type="button" class="btn-blue">회원가입</button>
-    </div>
+		<!-- //content-wrap -->
+	    <ul class="carbon-join2">
+	        <li>
+	            <label for="">이름</label>
+	            <input type="text" name="" id="mbrNm">
+	        </li>
+	        <li>
+	            <label for="">휴대폰 번호</label>
+	            <input type="text" name="" id="mbrCellNum" numberOnly>
+	        </li>
+	        <li>
+	            <label for="">비밀번호(숫자 6자리)</label>
+	            <input type="password" maxlength=6 name="" id="mbrPwd">
+	        </li>
+	        <li>
+	            <label for="">비밀번호 확인</label>
+	            <input type="password" maxlength=6 name="" id="mbrPwd2nd">
+	        </li>
+	    </ul>
+	    <div class="join-btn">
+	        <button type="button" class="btn-gray" id="regCan">취소</button>
+	        <button type="button" class="btn-blue" id="memReg">비밀번호 설정하기</button>
+	    </div>
 	</div>
-	<th:block layout:fragment="footer" th:insert="~{@{/mobile/layout/footer}}"></th:block>
 </div><!-- //wrap -->
 </body>
 </html>
