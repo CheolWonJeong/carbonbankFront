@@ -93,6 +93,29 @@
 	          
     </select>
     
+    <select id="autoLoginData" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel" resultType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+    /*
+    1. ID: selectDesc
+    2. 업무명: 모바일의 상세조회
+    3. 업무설명:
+    */
+			select * from (
+				         select 
+							mbr_id	,mbr_nm	,qr_stat,dgt_qr_cd,ppr_qr_cd,m.lst_lgn_dtm, m.party_cd, DATE_FORMAT(m.cre_dtm, '%Y%m%d') cre_dtm
+			                ,s.store_id  
+				          from CRBN_MBR_INFO m  LEFT JOIN CRBN_STORE_INFO s ON m.mbr_cell_num = s.store_cell_num
+              			WHERE m.mbr_id = #{mbrId} and mbr_pwd =#{mbrPwd} and m.party_cd = #{partyCd}
+			union all
+				         select 
+							null	, store_ceo_nm	,'','','', lst_lgn_dtm, party_cd, ''
+			                ,store_id  
+				          from CRBN_STORE_INFO
+			              WHERE store_id = #{mbrId} and store_pwd =#{mbrPwd} and party_cd = #{partyCd} 
+			) as a
+			limit 0, 1
+	          
+    </select>
+    
     <select id="dgtQrCdNextVal"  resultType="String">
         <![CDATA[
 			SELECT NEXTVAL('DGT_QR_CD');
@@ -247,5 +270,18 @@
                WHERE mbr_id = #{mbrId}
         ]]>
     </insert>
+
+    <delete id="deleteMember" parameterType="String">
+        <![CDATA[
+             delete from CRBN_MBR_INFO  where mbr_id = #{mbrId}
+        ]]>
+    </delete>
+ 
+     <delete id="deleteStore" parameterType="String">
+        <![CDATA[
+             delete from CRBN_STORE_INFO  where store_id = #{storeId}
+        ]]>
+    </delete>
+ 
  
  </mapper>

@@ -47,6 +47,10 @@ public class CrbnMbrInfoService {
 		return mapper.selectLoginData(param);
 	}
 
+	public CrbnMbrInfoModel  autoLoginData(CrbnMbrInfoModel param){
+		return mapper.selectLoginData(param);
+	}
+
 	public int  selectCount(CrbnMbrInfoModel nModel){
 		return mapper.selectCount(nModel);
 	}
@@ -82,7 +86,7 @@ public class CrbnMbrInfoService {
 		}
 		
 		//가맹점 로그인
-		if ( nModel.getRegStoreId() != null && !nModel.getRegStoreId().isEmpty()) {
+		if ( nModel.getStoreId() != null && !nModel.getStoreId().isEmpty()) {
 			rtn = mapper.updateStoreLgnHist(nModel);
 			rtn =  mapper.insertStoreLgnHist(nModel);
 		}
@@ -158,5 +162,27 @@ public class CrbnMbrInfoService {
 		return rtn;
 		
 	}
+
+	/*
+	 * 회원 로그인 처리
+	 * 
+	 */
+	@Transactional
+	public void exitProc(CrbnMbrInfoModel nModel)
+	{
+		//회원
+		//가맹점
+		//관련 테이블 삭제 추가
+		if ( nModel.getMbrId() != null && !nModel.getMbrId().isEmpty()) {
+			mapper.deleteMember(nModel.getMbrId());
+		}
+		
+		//가맹점 로그인
+		if ( nModel.getRegStoreId() != null && !nModel.getRegStoreId().isEmpty()) {
+			mapper.deleteStore(nModel.getRegStoreId());
+		}
+		
+	}
+
 	
 }

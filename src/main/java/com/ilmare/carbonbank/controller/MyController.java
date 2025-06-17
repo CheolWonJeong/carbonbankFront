@@ -83,14 +83,24 @@ public class MyController {
 	public @ResponseBody HashMap cbMemberExitProc(HttpServletRequest request,  Model model) {
 		HashMap rtnmap = new HashMap();
 		
+		log.info("cbMemberExitProc  start");
 		//1.세션검사
 		if ( !sessMgr.isSession(request) ) {
-			log.info("Viewhome 세션 없음 상태");
+			log.info("cbMemberExitProc 세션 없음 상태");
 			rtnmap.put("procind", "N");
 		} else {
 			
+			//회원정보
+			//로그인
+			SessInfo sess = sessMgr.getSession(request);
+			CrbnMbrInfoModel paramModel = new  CrbnMbrInfoModel();
+			paramModel.setMbrId(sess.getMbrId());
+			paramModel.setRegStoreId(sess.getStoreId());
+			mbrSvc.exitProc(paramModel);
+			
 			sessMgr.deleteSession(request);
 			
+			log.info("cbMemberExitProc  delete");
 			//탈퇴 처리
 			rtnmap.put("procind", "Y");
 			

@@ -39,7 +39,7 @@ public class ConfigConstants {
 	public static enum partyCdUrl{
 		carbonbank("carbonbank", "www.carbonbank.re.kr"),
 		incheon("incheon", "incheon.carbonbank.re.kr"),
-		local("incheon", "localhost");
+		local("carbonbank", "localhost");
 
 		private String code;
 		private String linkUrl;

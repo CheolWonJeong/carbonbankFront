@@ -64,11 +64,12 @@ public class MainController {
 	
 	
 	@RequestMapping(value = "/cbMain.do", method=RequestMethod.GET)
-	public String Viewhome(HttpServletRequest request,  Model model) {
+	public String cbMain(HttpServletRequest request,  Model model) {
 		
+		log.info("cbMain start");
 		//1.세션검사
 		if ( !sessMgr.isSession(request) ) {
-			log.info("Viewhome 세션 없음 상태");
+			log.info("cbMain 세션 없음 상태");
 			return "redirect:" + conConst.lgnUrl;
 			
 		}
@@ -76,6 +77,7 @@ public class MainController {
 		SessInfo sess = sessMgr.getSession(request);
 		model.addAttribute("sess", sess);
 
+		log.info("cbMain session");
 		
 		//나의실천점수
 		int useCnt = carbonSvc.getMbrUseTotal(sess.getMbrId());
@@ -132,7 +134,7 @@ public class MainController {
 			model.addAttribute("hotNewsList", hotNewsList);
 			
 		}
-		log.info("viewNm = {} | {}", sess.getPartyCd(), viewNm);
+		log.info("cbMain  viewNm = {} | {}", sess.getPartyCd(), viewNm);
 		
 		return viewNm;
 	}

@@ -17,6 +17,7 @@ public interface CrbnMbrInfoMapper {
 	String dgtQrCdNextVal();
 	String memberNextVal();
 	CrbnMbrInfoModel selectLoginData(CrbnMbrInfoModel nbrInfo);
+	CrbnMbrInfoModel autoLoginData(CrbnMbrInfoModel nbrInfo);
 	int selectCount(CrbnMbrInfoModel nbrInfo);
 	int compPasswd(CrbnMbrInfoModel nbrInfo);
 	int insertMbr(CrbnMbrInfoModel nbrInfo);
@@ -32,5 +33,6 @@ public interface CrbnMbrInfoMapper {
 	
 	CrbnMbrInfoModel selectPushTokens(CrbnMbrInfoModel nbrInfo);
 	int insertPushTokens(CrbnMbrInfoModel nbrInfo);
-	int insertPushTokensHist(CrbnMbrInfoModel nbrInfo);
+	int deleteMember(String mbrId);
+	int deleteStore(String storeId);
 }

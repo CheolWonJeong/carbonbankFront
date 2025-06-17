@@ -149,6 +149,8 @@ public class CommUtil {
 			partyCd = partyCdUrl.carbonbank.getCode();
 		} else if (serverName.equalsIgnoreCase(partyCdUrl.incheon.getLinkUrl())) {
 			partyCd = partyCdUrl.incheon.getCode();
+		} else if (serverName.equalsIgnoreCase(partyCdUrl.local.getLinkUrl())) {
+			partyCd = partyCdUrl.local.getCode();
 		}
 		return partyCd;
 	}
