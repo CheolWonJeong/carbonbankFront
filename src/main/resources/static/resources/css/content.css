@@ -387,6 +387,8 @@ a.store-scan:hover {color: #fff; background: #3C64D3;}
 
 /* login & join */
 .carbon-login {background: url('../images/logo_02.svg') no-repeat center top 40px; min-height: 200px; box-sizing: border-box;  text-align: center; padding: 200px 24px 0 24px;}
+.carbon-login.incheon {background: url('../images/logo_02_incheon.svg') no-repeat center top 40px; }
+
 .carbon-login input {height: 50px!important; font-weight: 600; font-size: 1rem!important; width: 100%;}
 .carbon-login button {height: 50px!important; font-weight: 500; font-size: 1.12rem!important; width: 100%;}
 .carbon-login ::placeholder {font-weight: 400; font-size: 0.92rem;}
@@ -410,6 +412,8 @@ a.store-scan:hover {color: #fff; background: #3C64D3;}
 .join-btn button {border-radius: 0; height: 60px; font-size: 1.06rem;}
 
 .carbon-join2 {background: url('../images/logo_02.svg') no-repeat center top 20px; box-sizing: border-box;   padding: 140px 24px 100px 24px; background-size:64px;}
+.carbon-join2.incheon {background: url('../images/logo_02_incheon.svg') no-repeat center top 20px; background-size:110px;}
+
 .carbon-join2 li {display: block; margin-bottom: 5px;}
 .carbon-join2 li label {line-height: 2; font-size: 0.92rem;}
 .carbon-join2 li input {display: block; width: 100%;font-weight: 600; font-size: 1rem!important; }

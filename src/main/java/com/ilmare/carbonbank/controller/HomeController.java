@@ -45,7 +45,7 @@ public class HomeController {
 	@RequestMapping(value = "/cbPwdInit.do", method=RequestMethod.GET)
 	public String cbPwdInit(HttpServletRequest request,  Model model) {
 
-		return "/mobile/home/passwdinit";
+		return "/mobile/home/passwdinit_" + CommUtil.getPartyCd(request);
 	}
 
 	@RequestMapping("/cbPwdInitProc")
@@ -80,7 +80,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/cbRegMmeber.do", method=RequestMethod.GET)
 	public String htmlHome(HttpServletRequest request,  Model model) {
-		return "/mobile/home/memberreg";
+		return "/mobile/home/memberreg_" + CommUtil.getPartyCd(request);
 	}
 
 	@RequestMapping("/cbRegMmeberProc")
@@ -135,7 +135,7 @@ public class HomeController {
 		resultList.add("FFF");
 		
 		mav.addObject("resultList",resultList);
-		mav.setViewName("/mobile/home/storereg");
+		mav.setViewName("/mobile/home/storereg_" + CommUtil.getPartyCd(request));
 		
 		return mav;
 	}

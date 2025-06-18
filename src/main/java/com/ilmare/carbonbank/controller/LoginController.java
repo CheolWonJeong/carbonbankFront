@@ -43,8 +43,7 @@ public class LoginController {
 	@RequestMapping(value = "/cbLogin.do", method=RequestMethod.GET)
 	public String cbLogin(HttpServletRequest request,  final CrbnMbrInfoModel paramVo, Model model) {
 		
-		//
-		return "/mobile/home/login";
+		return "/mobile/home/login_" + CommUtil.getPartyCd(request);
 	}
 
 	@RequestMapping("/cbLgnProc")

@@ -119,7 +119,7 @@
                 <h2>시정 뉴스</h2>
 					<ul th:each="docdesc : ${munNewsList}">
 	                    <li>
-	                    <a th:href="@{'/main/cbNoticeDesc.do?docSeq=' + ${docdesc.docSeq}}" th:text="${docdesc.docTitle}"></a>
+	                    <a th:href="@{'/main/cbMunicipalNewsDesc.do?docSeq=' + ${docdesc.docSeq}}" th:text="${docdesc.docTitle}"></a>
 	                        <span th:text="${docdesc != null ? docdesc.showDtm : ''}"></span>
 	                    </li>
 	                </ul>

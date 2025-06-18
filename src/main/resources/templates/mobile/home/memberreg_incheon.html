@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layoutno}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/nohead}}"></th:block>
+<script type="text/javascript">
+	$(function(){ 
+	});
+
+	$(document).ready(function(){
+    	
+		$("input:text[mbrCellNum]").on("keyup", function() {
+		      $(this).val($(this).val().replace(/[^0-9]/g,""));
+		   });		
+		//저장버튼 클릭
+        $('#memReg').on('click', function(event) {
+        	
+        	var mbrNm = $('#mbrNm').val();
+        	var mbrCellNum = $('#mbrCellNum').val();
+        	var mbrPwd = $('#mbrPwd').val();
+        	var pwd2 = $('#mbrPwd2nd').val();
+        	
+        	if ( mbrNm == "") {
+        		alert("이름을 입력 하세요.");
+        		return;
+        	}
+        	if ( mbrCellNum == "" ) {
+        		alert("휴대폰 번호을 입력 하세요.");
+        		return;
+        	}
+        	if (mbrPwd != "" && mbrPwd != pwd2) {
+        		alert("패스워드가 일치하지 않습니다.");
+        		return;
+        	}
+            var param = {
+                     "mbrNm" : mbrNm
+                     , "mbrCellNum" : mbrCellNum
+                     , "mbrPwd" : mbrPwd
+               };        
+            
+            $.ajax({
+                url : '/home/cbRegMmeberProc'
+                , type : 'POST'
+                , dataType : 'JSON'
+                , cache : false
+                , data : param
+                , beforeSend : function( xhr, settings ) { 
+                    //loadingbar_show(); 
+                }
+                , success : function(data, stauts, request) {
+    				if (data.procInd == "S") {
+    					alert("가입을 감사합니다.\n로그인 후 이용하세요.");
+    					location.href = "/home/cbLogin.do";
+    				}else if (data.procInd == "D") {
+    					alert("기 가입된 전화번호 입니다.");
+    				} else {
+    					alert("처리중 오류가 발생 했습니다.");
+    				}
+
+                }
+                , error : function(xhr, status) {
+                    alert('서비스 장애발생 관리자에게 문의해 주십시요');
+                }
+                , complete : function(xhr, status) {
+                    //loadingbar_hide();
+                }    
+            });
+        });
+        
+        $('#regCan').on('click', function(event) {
+        	history.back();
+        });
+    });
+</script>
+
+
+<body>
+<div class="wrap">
+	<div layout:fragment="content">
+		<!-- //content-wrap -->
+	    <ul class="carbon-join2 incheon"> <!-- 6.18  incheon  인천시로고 변경 -->
+	        <li>
+	            <label for="">이름</label>
+	            <input type="text" name="" id="mbrNm">
+	        </li>
+	        <li>
+	            <label for="">휴대폰 번호</label>
+	            <input type="text" name="" id="mbrCellNum" numberOnly>
+	        </li>
+	        <li>
+	            <label for="">비밀번호(숫자 6자리)</label>
+	            <input type="password" maxlength=6 name="" id="mbrPwd">
+	        </li>
+	        <li>
+	            <label for="">비밀번호 확인</label>
+	            <input type="password" maxlength=6 name="" id="mbrPwd2nd">
+	        </li>
+	    </ul>
+	    <div class="join-btn">
+	        <button type="button" class="btn-gray" id="regCan">가입취소</button>
+	        <button type="button" class="btn-blue" id="memReg">회원가입</button>
+	    </div>
+	</div>
+</div><!-- //wrap -->
+</body>
+</html>

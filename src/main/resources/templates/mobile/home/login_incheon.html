@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layoutno}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/nohead}}"></th:block>
+
+<script type="text/javascript">
+
+
+	$(document).ready(function(){
+    	
+		//저장버튼 클릭
+        $('#LgnProc').on('click', function(event) {
+            var param = {
+                     "mbrCellNum" : $('#mbrCellNum').val() 
+                     , "mbrPwd" : $('#mbrPwd').val() 
+               };        
+            $.ajax({
+                url : '/home/cbLgnProc'
+                , type : 'POST'
+                , dataType : 'JSON'
+                , cache : false
+                , data : param
+                , beforeSend : function( xhr, settings ) { 
+                	//loadingbar_show(); 
+                }
+                , success : function(data, stauts, request) {
+    				if (data.procInd == "M") {
+    					location.href = "/main/cbMain.do";
+    				} else if (data.procInd == "S") {
+    					location.href = "/carbon/cbCarbonMain.do?viewInd=T";
+    				} else {
+    					alert("전화번호 또는 비밀번호가 틀립니다. ");
+    				}
+
+                }
+                , error : function(xhr, status) {
+                    alert('서비스 장애발생 관리자에게 문의해 주십시요');
+                }
+                , complete : function(xhr, status) {
+                    //loadingbar_hide();
+                }    
+            });
+        });
+        
+    });
+</script>
+
+
+<body>
+
+    <ul class="carbon-login incheon"> <!-- 6.18  incheon  인천시로고 변경 -->
+        <li>
+            <input type="text" id="mbrCellNum" maxlength="13" placeholder="01012345678" oninput="formatPhoneNumber(this)">
+            
+        </li>
+        <li>
+            <input type="password" name="" id="mbrPwd"  placeholder="비밀번호를 입력하세요">
+        </li>
+        <li>
+            <button type="button" class="btn-blue mT10" id="LgnProc">로 그 인</button>
+        </li>
+        <li class="login-pw"><a href="/home/cbPwdInit.do">비밀번호 초기화</a></li>
+    </ul>
+    <ul class="carbon-joinlink">
+        <li class="join-person"><a href="/home/cbRegMmeber.do">회원가입</a></li>
+        <li class="join-store"><a href="/home/cbRegStore.do">가맹점가입</a></li>
+    </ul>
+
+</body>
+</html>
+
