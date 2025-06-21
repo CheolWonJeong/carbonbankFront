@@ -99,7 +99,7 @@
             <!-- 녹색실천 매장 -->
             <div class="main-store">
                 <h2>녹색실천 매장</h2>
-                	<div class="store-area" th:each="storeInfo : ${storeList}">
+                	<div class="store-area" >
                     	<!-- <a  th:href="@{'/store/cbStoreDesc.do?storeId=' + ${storeInfo.storeId}}" > -->
                     	<!-- <a  href="#"  th:each="storeInfo : ${storeList}"> -->
 	                        <div class="storeList"  th:each="storeInfo : ${storeList}">
@@ -107,7 +107,7 @@
 	                            <em th:text="${storeInfo.storeNm}">케이크러버스</em>
                            		<span  th:text="${storeInfo.storeEventTxt}" class="dis">500원 할인</span>
 	                            <span th:text="${storeInfo.storeAddr}">인천광역시 서구 당하동 962-1</span>
-	                            <span th:text="${storeInfo.storeCellNum}">050-71302-5056</span>
+	                            <!-- <span th:text="${storeInfo.storeCellNum}">050-71302-5056</span> -->
 	                        </div>
 	                     <!-- </a> -->
 	                </div>
