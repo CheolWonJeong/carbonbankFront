@@ -82,21 +82,20 @@
 	            </div>
 	        </section>
 	
-	        <section class="carbon-content">
-	            <div id="storeList" class="store-result" >
-                  	<!-- <a  th:href="@{'/store/cbStoreDesc.do?storeId=' + ${storeInfo.storeId}}" > -->
-                  	<a  href="#"  th:each="storeInfo : ${storeList}">
-                       <div class="storeList">
-                           <img  th:src="${storeInfo.storeImg}" >
-                           <em th:text="${storeInfo.storeNm}">케이크러버스</em>
-                           <span  th:text="${storeInfo.storeEventTxt}" class="dis">500원 할인</span>
-                           <span th:text="${storeInfo.storeAddr}">인천광역시 서구 당하동 962-1</span>
-                           <!-- <span th:text="${storeInfo.storeCellNum}">050-71302-5056</span> -->
-                       </div>
-                    </a>
-	            </div>
-	
-	        </section>
+            <div class="main-store">
+               	<div class="store-area">
+                   	<!-- <a  th:href="@{'/store/cbStoreDesc.do?storeId=' + ${storeInfo.storeId}}" > -->
+                   	<!-- <a  href="#"  th:each="storeInfo : ${storeList}"> -->
+                        <div class="storeList"  th:each="storeInfo : ${storeList}">
+                            <img  th:src="${storeInfo.storeImg}" >
+                            <em th:text="${storeInfo.storeNm}">케이크러버스</em>
+                           	<span  th:text="${storeInfo.storeEventTxt}" class="dis">500원 할인</span>
+                            <span th:text="${storeInfo.storeAddr}">인천광역시 서구 당하동 962-1</span>
+                            <!-- <span th:text="${storeInfo.storeCellNum}">050-71302-5056</span> -->
+                        </div>
+                     <!-- </a> -->
+                </div>
+            </div>
 	        <!-- //carbon-content -->
 	    </div>
 	    <!-- //content-wrap -->
