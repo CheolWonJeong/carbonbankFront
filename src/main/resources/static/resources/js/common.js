@@ -1,21 +1,15 @@
 //전화번호 포멧으로 생성
 function formatPhoneNumber(input) {
-    let value = input.value.replace(/[^0-9]/g, ""); // 숫자만 남기기
-    let result = "";
+	let numbers = input.value.replace(/\D/g, ''); // 숫자만 남김
+	let formatted = "";
 
-    if (value.length < 4) {
-        result = value;
-    } else if (value.length < 8) {
-        result = value.slice(0, 3) + "-" + value.slice(3);
-    } else {
-        result = value.slice(0, 3) + "-" + value.slice(3, 7) + "-" + value.slice(7, 11);
-    }
+	if (numbers.length < 4) {
+		formatted = numbers;
+	} else if (numbers.length < 8) {
+		formatted = numbers.slice(0, 3) + "-" + numbers.slice(3);
+	} else {
+		formatted = numbers.slice(0, 3) + "-" + numbers.slice(3, 7) + "-" + numbers.slice(7, 11);
+	}
 
-    input.value = result;
-}
-
-//전화번호 효성 검사
-function validatePhoneNumber(phone) {
-    const regex = /^01[0|1|6|7|8|9]-\d{3,4}-\d{4}$/;
-    return regex.test(phone);
-}
+	input.value = formatted;
+}	

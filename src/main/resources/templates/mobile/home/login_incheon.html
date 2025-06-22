@@ -4,6 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{mobile/layout/layoutno}">
 	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/nohead}}"></th:block>
+   <script type="text/javascript" src="/resources/js/common.js"></script>
 
 <script type="text/javascript">
 
@@ -43,8 +44,10 @@
                 }    
             });
         });
-        
+
+		
     });
+	
 </script>
 
 
@@ -52,7 +55,7 @@
 
     <ul class="carbon-login incheon"> <!-- 6.18  incheon  인천시로고 변경 -->
         <li>
-            <input type="text" id="mbrCellNum" maxlength="13" placeholder="01012345678" oninput="formatPhoneNumber(this)">
+            <input type="text" id="mbrCellNum" maxlength="13" placeholder="010-1234-5678" oninput="formatPhoneNumber(this)">
             
         </li>
         <li>
