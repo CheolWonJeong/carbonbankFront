@@ -18,7 +18,7 @@
         $('#memReg').on('click', function(event) {
         	
         	var storeCeoNm = $('#storeCeoNm').val();
-        	var storeCellNum = $('#storeCellNum').val();
+        	var storeCellNum = $('#storeCellNum').val().trim().replace(/-/g, '');
         	var storePwd = $('#storePwd').val();
         	var pwd2 = $('#storePwd2nd').val();
         	

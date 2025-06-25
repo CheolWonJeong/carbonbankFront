@@ -84,6 +84,29 @@ public class ConfigConstants {
 
 
 	}
+
+	public static enum kakaoAppKey{
+		carbonbank("carbonbank", "91a6d29cc76983b79aeb44c1caa12200"),
+		incheon("incheon", "d5c78a9dcfe431589c6b916aa65bb94e");
+
+		private String code;
+		private String linkUrl;
+
+		kakaoAppKey(final String _code, final String linkUrl) {
+			this.code = _code;
+			this.linkUrl = linkUrl;
+		}
+
+		public String getCode() {
+			return code;
+		}
+
+		public String getLinkUrl() {
+			return linkUrl;
+		}
+
+
+	}
 	public static enum enMenuList{
 		cbNoticeDesc("공지사항"),
 		cbNoticeList("공지사항"),

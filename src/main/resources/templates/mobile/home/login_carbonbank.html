@@ -14,7 +14,7 @@
 		//저장버튼 클릭
         $('#LgnProc').on('click', function(event) {
             var param = {
-                     "mbrCellNum" : $('#mbrCellNum').val() 
+                     "mbrCellNum" : $('#mbrCellNum').val().replace(/-/g, '')
                      , "mbrPwd" : $('#mbrPwd').val() 
                };        
             $.ajax({

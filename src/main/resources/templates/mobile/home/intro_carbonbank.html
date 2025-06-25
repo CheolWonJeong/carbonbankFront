@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mobile/layout/layoutno}">
+	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/nohead}}"></th:block>
+   <script type="text/javascript" src="/resources/js/common.js"></script>
+
+<script type="text/javascript" src="/resources/js/jquery-3.6.0.min.js"></script>
+
+
+<script type="text/javascript">
+//2.자동로그인 처리
+//- 앱을 사용자가 실행시 자동로그인 처리되는 메인페이지에 아래 구문 사용
+
+//앱단 메세지 핸들러 호출상태 체크 함수
+function waitForCallHandler(callback_func, attempts = 0) {
+  if (window.webkit && window.webkit.messageHandlers) {
+      callback_func();
+  } else if (attempts < 100) { // 100회까지 시도
+      setTimeout(function() {
+          waitForCallHandler(callback_func, attempts + 1); // 시도 횟수를 증가
+      }, 100);
+  } else {
+      //console.log('waitForCallHandler: 최대 시도 횟수에 도달했습니다.');
+  }
+}
+
+//메세지 핸들러 호출함수
+waitForCallHandler(function() {
+  window.webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "autologin","callback": "auto_login"}));
+});
+
+function auto_login(passwd, userid) {
+	//앱에서 user 변수에 아이디와 비밀번호를 넘겨줍니다.
+	//alert(userid);    //정보 확인(테스트)
+	//alert(passwd);    //정보 확인(테스트)
+	//넘겨받은 아이디와 비번이 있다면 로그인 인증처리 로직을 태우면 됩니다.(기존웹에 적용한 인증로직으로...)
+	if (userid == null && passwd == null) {
+		//alert("qqq");    //정보 확인(테스트)
+		//로그인 링크
+		location.href = "/home/cbLogin.do";
+	} else {
+		//alert("else");    //정보 확인(테스트)
+	  //로그인 처리
+      var param = {
+              "mbrCellNum" : userid 
+              , "mbrPwd" : passwd
+        };        
+	     $.ajax({
+	         url : '/home/cbAutoLgnProc'
+	         , type : 'POST'
+	         , dataType : 'JSON'
+	         , cache : false
+	         , data : param
+	         , beforeSend : function( xhr, settings ) { 
+	         	//loadingbar_show(); 
+	         }
+	         , success : function(data, stauts, request) {
+					if (data.procInd == "M") {
+						location.href = "/main/cbMain.do";
+					} else if (data.procInd == "S") {
+						location.href = "/carbon/cbCarbonMain.do?viewInd=T";
+					} else {
+						location.href = "/home/cbLogin.do";
+					}
+	
+	         }
+	         , error : function(xhr, status) {
+	     		location.href = "/home/cbLogin.do";
+	         }
+	         , complete : function(xhr, status) {
+	             //loadingbar_hide();
+		     		location.href = "/home/cbLogin.do";
+	         }    
+	     });
+	}
+}
+</script>
+
+
+<body>
+
+</body>
+</html>
+

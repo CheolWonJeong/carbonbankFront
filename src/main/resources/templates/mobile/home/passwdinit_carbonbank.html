@@ -18,7 +18,7 @@
         $('#memReg').on('click', function(event) {
         	
         	var mbrNm = $('#mbrNm').val();
-        	var mbrCellNum = $('#mbrCellNum').val();
+        	var mbrCellNum = $('#mbrCellNum').val().trim().replace(/-/g, '');
         	var mbrPwd = $('#mbrPwd').val();
         	var pwd2 = $('#mbrPwd2nd').val();
         	

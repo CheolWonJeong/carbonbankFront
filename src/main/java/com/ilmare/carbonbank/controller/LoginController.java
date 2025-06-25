@@ -40,6 +40,12 @@ public class LoginController {
 	@Value("${comm.imgServerPath}")
     private String imgServerPath;	
 
+	@RequestMapping(value = "/cbIntro.do", method=RequestMethod.GET)
+	public String cbIntro(HttpServletRequest request,  final CrbnMbrInfoModel paramVo, Model model) {
+		
+		return "/mobile/home/intro_" + CommUtil.getPartyCd(request);
+	}
+
 	@RequestMapping(value = "/cbLogin.do", method=RequestMethod.GET)
 	public String cbLogin(HttpServletRequest request,  final CrbnMbrInfoModel paramVo, Model model) {
 		
