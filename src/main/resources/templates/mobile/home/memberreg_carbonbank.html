@@ -34,6 +34,10 @@
         		alert("패스워드가 일치하지 않습니다.");
         		return;
         	}
+        	if (mbrCellNum == mbrPwd) {
+        		alert("휴대폰 번호와 같은 패스워드는 사용할 수 없습니다.");
+        		return;
+        	}
             var param = {
                      "mbrNm" : mbrNm
                      , "mbrCellNum" : mbrCellNum
@@ -90,12 +94,15 @@
 	            <input type="text" name="" id="mbrCellNum" maxlength="13" placeholder="010-1234-5678" oninput="formatPhoneNumber(this)">
 	        </li>
 	        <li>
-	            <label for="">비밀번호(숫자 6자리)</label>
-	            <input type="password" maxlength=6 name="" id="mbrPwd">
+	            <label for="">비밀번호</label>
+	            <input type="password" name="" id="mbrPwd">
 	        </li>
 	        <li>
 	            <label for="">비밀번호 확인</label>
-	            <input type="password" maxlength=6 name="" id="mbrPwd2nd">
+	            <input type="password" name="" id="mbrPwd2nd">
+	        </li>
+	        <li>
+	            <label for="">비밀번호는 영문, 숫자 특수문자 포함할 수 있습니다.</label>
 	        </li>
 	    </ul>
 	    <div class="join-btn">

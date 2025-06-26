@@ -108,14 +108,14 @@ public class HomeController {
 		
 		// 패승뤄드 암호화
 		String encParamPasswd = AES256Util.encrypt(paramVo.getMbrPwd());
-		log.info("loginProc pwd  {} ", encParamPasswd);
+		log.info("cbRegMmeberProc pwd  {}  | {} ", paramVo.getMbrPwd(), encParamPasswd);
 		paramVo.setMbrPwd(encParamPasswd);
 		paramVo.setPartyCd(CommUtil.getPartyCd(request));
 		
 		//멤버 저장
 		svc.insertMbr(paramVo);
 		result.put("procInd", "S");  // 정상
-		log.info("NoticeMainList End");
+		log.info("cbRegMmeberProc End");
 
 		return result;
 	}

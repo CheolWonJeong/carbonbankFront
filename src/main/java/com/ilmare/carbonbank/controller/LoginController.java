@@ -61,6 +61,7 @@ public class LoginController {
 
 		// 패스워드 암호화
 		String encParamPasswd = AES256Util.encrypt(paramVo.getMbrPwd());
+		log.info("cbLgnProc pwd  {}  | {} ", paramVo.getMbrPwd(), encParamPasswd);
 		paramVo.setMbrPwd(encParamPasswd);
 		paramVo.setPartyCd(CommUtil.getPartyCd(request));
 
