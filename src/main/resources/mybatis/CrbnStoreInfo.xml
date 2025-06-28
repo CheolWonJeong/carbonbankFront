@@ -47,7 +47,7 @@
 						,store_latitude
 						,store_longitude
                     from CRBN_STORE_INFO
-                   where party_cd = #{partyCd}
+                   where party_cd = #{partyCd} and store_stat = 'V'
          ]]>
                     <if test="storeNm != null and storeNm != '' " >
                            <![CDATA[       
@@ -72,7 +72,7 @@
             SELECT
                 COUNT(1)
             FROM CRBN_STORE_INFO
-            where party_cd = #{partyCd}
+            where party_cd = #{partyCd} and store_stat = 'V'
         ]]>
     </select>
  
@@ -111,7 +111,7 @@
 			,store_latitude
 			,store_longitude
         from CRBN_STORE_INFO
-            WHERE party_cd = #{partyCd}
+            WHERE party_cd = #{partyCd} and store_stat = 'V'
      ]]>
     </select>
     
@@ -128,7 +128,7 @@
 				,store_nm, store_img, store_addr, store_event
 				,IF(store_event is NULL, '할인 없음', concat(store_event, '00원 할인')) store_event_txt
 				,store_kakao_id, store_latitude, store_longitude
-	         from CRBN_STORE_INFO  WHERE party_cd = #{partyCd}
+	         from CRBN_STORE_INFO  WHERE party_cd = #{partyCd} and store_stat = 'V'
 	         order by cre_dtm desc limit 0, 2
         ]]>
     </select>
