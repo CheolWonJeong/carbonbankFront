@@ -31,11 +31,7 @@ waitForCallHandler(function() {
   window.webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "autologin","callback": "auto_login"}));
 });
 
-function auto_login(passwd, userid) {
-	//앱에서 user 변수에 아이디와 비밀번호를 넘겨줍니다.
-	//alert(userid);    //정보 확인(테스트)
-	//alert(passwd);    //정보 확인(테스트)
-	//넘겨받은 아이디와 비번이 있다면 로그인 인증처리 로직을 태우면 됩니다.(기존웹에 적용한 인증로직으로...)
+function auto_login(userid, passwd ) {
 	if (userid == null && passwd == null) {
 		//alert("qqq");    //정보 확인(테스트)
 		//로그인 링크
@@ -44,7 +40,7 @@ function auto_login(passwd, userid) {
 		//alert("else");    //정보 확인(테스트)
 	  //로그인 처리
       var param = {
-              "mbrCellNum" : userid 
+              "mbrId" : userid 
               , "mbrPwd" : passwd
         };        
 	     $.ajax({
@@ -67,11 +63,11 @@ function auto_login(passwd, userid) {
 	
 	         }
 	         , error : function(xhr, status) {
+        		alert("error");
 	     		location.href = "/home/cbLogin.do";
 	         }
 	         , complete : function(xhr, status) {
 	             //loadingbar_hide();
-		     		location.href = "/home/cbLogin.do";
 	         }    
 	     });
 	}

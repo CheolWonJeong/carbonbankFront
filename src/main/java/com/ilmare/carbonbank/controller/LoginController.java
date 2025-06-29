@@ -122,6 +122,8 @@ public class LoginController {
 		String loginInd = null;		//로그인 구분:M:회원, S:가맹점, A:회원, 가맹점 둘다 가입
 		log.info("cbAutoLgnProc Start");
 
+		paramVo.setPartyCd(CommUtil.getPartyCd(request));
+		log.info("cbAutoLgnProc id={} | pwd={} | partyCd={} ", paramVo.getMbrId(), paramVo.getMbrPwd(), paramVo.getPartyCd());
 		//세션이 존재하고,  파라머터와 id, pwd가 같으면 로그인 성공으로 리턴
 		//1.세션검사
 		if ( sessMgr.isSession(request) ) {
@@ -149,8 +151,6 @@ public class LoginController {
 		log.info("cbAutoLgnProc 세션 업슴 ");
 		// 패스워드가 암호화되어 있어 암호화 필요 없음
 		//멤버 조회
-		paramVo.setPartyCd(CommUtil.getPartyCd(request));
-		log.info("cbAutoLgnProc id={} | pwd={} | partyCd={} ", paramVo.getMbrId(), paramVo.getMbrPwd(), paramVo.getPartyCd());
 		CrbnMbrInfoModel info = svc.autoLoginData(paramVo);
 
 		if ( info == null ) {

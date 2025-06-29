@@ -17,12 +17,11 @@
 	//- 로그아웃시에는 저장된 정보를 지웁니다.
 	//- 기존 로그아웃 함수 및 url호출 전에 아래가 먼저 호출되도록 해주세요.(페이지 이동처리전 실행되도록 함)
 	//setTimeout(function(){
-	//	alert("로그아웃");
-	//	webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "offlogin"}))
+	//	webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "logout"}))
 	//},100);
 
 	function logout () {
-		webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "offlogin"}))
+		webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "logout"}))
 		$.ajax({
 	        url : '/my/cbLogOutProc'
 	            , type : 'POST'

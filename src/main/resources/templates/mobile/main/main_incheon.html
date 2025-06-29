@@ -5,6 +5,64 @@
       layout:decorate="~{mobile/layout/layout}">
 	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
 
+<script type="text/javascript">
+//1.웹에서 로그인이 완료되어 로딩되는 메인 웹소스에...
+//- 아래 처럼 javascript구문을 사용하여 호출하여주세요.
+
+//앱단 메세지 핸들러 호출상태 체크 함수
+function waitForCallHandler(callback_func, attempts = 0) {
+  if (window.webkit && window.webkit.messageHandlers) {
+      callback_func();
+  } else if (attempts < 100) { // 100회까지 시도
+      setTimeout(function() {
+          waitForCallHandler(callback_func, attempts + 1); // 시도 횟수를 증가
+      }, 100);
+  } else {
+      //console.log('waitForCallHandler: 최대 시도 횟수에 도달했습니다.');
+  }
+}
+
+
+//메세지 핸들러 호출함수
+waitForCallHandler(function() {
+  window.webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "savelogin","loginid": "[[${sess.mbrId}]]","passwd": "[[${sess.mbrPwd}]]"}));
+});
+
+//javascript 함수선언(푸시id를 받을수 있는 함수)
+function get_pushid(pushid) {
+	//푸시아이디 확인(푸시아이디 저장처리등의 로직이 들어가면 됨)
+	//alert(pushid);  //푸시아이디 확인(테스트용)
+    var param = {
+            "pushToken" : pushid
+      };        
+   $.ajax({
+       url : '/home/cbSetPushKey'
+       , type : 'POST'
+       , dataType : 'JSON'
+       , cache : false
+       , data : param
+       , beforeSend : function( xhr, settings ) { 
+       	//loadingbar_show(); 
+       }
+       , success : function(data, stauts, request) {
+
+       }
+       , error : function(xhr, status) {
+       }
+       , complete : function(xhr, status) {
+           //loadingbar_hide();
+       }    
+   });
+}
+
+
+//메세지 핸들러 호출함수
+waitForCallHandler(function() {
+    window.webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "getpushid","callback": "get_pushid"}));
+});
+
+</script>
+
 
 <body>
 	<th:block layout:fragment="header" th:insert="~{@{/mobile/layout/header_incheon}}"></th:block>
