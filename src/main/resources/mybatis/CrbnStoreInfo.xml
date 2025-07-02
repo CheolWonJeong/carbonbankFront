@@ -3,6 +3,22 @@
 
 <mapper namespace="com.ilmare.carbonbank.mapper.CrbnStoreInfoMapper">
 
+    <select id="countCellNum" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="int">
+    <![CDATA[
+        select count(*)
+        from   CRBN_STORE_INFO
+        WHERE  STORE_CELL_NUM = #{storeCellNum} and  party_cd = #{partyCd}
+     ]]>
+    </select>
+
+    <select id="countBisNum" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="int">
+    <![CDATA[
+        select count(*)
+        from   CRBN_STORE_INFO
+        WHERE  BIS_NUM = #{bisNum} and  party_cd = #{partyCd}
+     ]]>
+    </select>
+    
     <select id="selectDesc" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel" resultType="com.ilmare.carbonbank.model.CrbnStoreInfoModel">
     <![CDATA[
         select
@@ -91,6 +107,57 @@
         ]]>
     </select>
  
+    <insert id="insert" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel">
+        <![CDATA[
+            /*
+                1. ID: insert
+                2. 업무명: 뉴스
+                3. 업무설명: 뉴스 등록
+            */
+            INSERT INTO CRBN_STORE_INFO (
+			   store_id
+			  ,party_cd
+			  ,bis_num
+			  ,store_pwd
+			  ,store_cell_num
+			  ,store_ceo_nm
+			  ,store_nm
+			  
+			  ,store_latitude
+			  ,store_longitude
+			  
+			  ,store_no_img
+			  ,store_img
+			  ,store_email
+			  ,store_addr
+			  ,store_event
+			  ,cre_dtm
+			  ,chg_dtm
+			  
+            ) VALUES (
+			    concat('S',carbonbankDB.NEXTVAL('STORE'))
+			  , #{partyCd}
+			  , #{bisNum}
+			  , ' '
+			  , #{storeCellNum}
+			  , #{storeCeoNm}
+			  , #{storeNm}
+			  
+			  , #{storeLatitude}
+			  , #{storeLongitude}
+			  
+			  , #{storeNoImg}
+			  , #{storeImg}
+			  , #{storeEmail}
+			  , #{storeAddr}
+			  , #{storeEvent}
+			  , now()
+			  , now()
+			  
+            )
+        ]]>
+    </insert>
+    
 
     <update id="updatePasswd" parameterType="com.ilmare.carbonbank.model.CrbnStoreInfoModel">
         <![CDATA[

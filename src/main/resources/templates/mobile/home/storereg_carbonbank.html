@@ -11,48 +11,91 @@
 
 	$(document).ready(function(){
     	
+		$("input:text[bisNum]").on("keyup", function() {
+		      $(this).val($(this).val().replace(/[^0-9]/g,""));
+		   });		
+
 		$("input:text[storeCellNum]").on("keyup", function() {
 		      $(this).val($(this).val().replace(/[^0-9]/g,""));
 		   });		
 		//저장버튼 클릭
         $('#memReg').on('click', function(event) {
         	
-        	var storeCeoNm = $('#storeCeoNm').val();
-        	var storeCellNum = $('#storeCellNum').val().trim().replace(/-/g, '');
-        	var storePwd = $('#storePwd').val();
+        	var storeNm = $('#storeNm').val();
+			if (storeNm === "") { alert("상호를 입력하세요."); $('#storeNm').focus(); return false; }
+
+			var bisNum = $('#bisNum').val();
+			if (bisNum === "") { alert("사업자 등록번호를 입력하세요."); $('#bisNum').focus(); return false; }
+			bisNum = bisNum.trim().replace(/-/g, '');
+
+			var storeAddr = $('#storeAddr').val();
+			if (storeAddr === "") { alert("가맹점 주소을 입력하세요."); $('#storeAddr').focus(); return false; }
+
+			var storeCeoNm = $('#storeCeoNm').val();
+			if (storeCeoNm === "") { alert("대표자 성명을 입력하세요."); $('#storeCeoNm').focus(); return false; }
+
+			var storeCellNum = $('#storeCellNum').val().trim();
+			if (storeCellNum === "") { alert("휴대폰 번호를 입력하세요."); $('#storeCellNum').focus(); return false; }
+			storeCellNum = storeCellNum.trim().replace(/-/g, '');
+
+			var storePwd = $('#storePwd').val();
         	var pwd2 = $('#storePwd2nd').val();
         	
-        	if ( storeCeoNm == "") {
-        		alert("대표자 성명을 입력 하세요.");
-        		return;
-        	}
-        	if ( storeCellNum == "" ) {
-        		alert("휴대폰 번호을 입력 하세요.");
-        		return;
-        	}
-        	if (storePwd != "" && storePwd != pwd2) {
-        		alert("패스워드가 일치하지 않습니다.");
-        		return;
-        	}
-            var param = {
-                     "storeCeoNm" : storeCeoNm
-                     , "storeCellNum" : storeCellNum
-                     , "storePwd" : storePwd
-               };        
+        	if ( storePwd.length < 2 ) { alert("패스워드를 입력하세요.");  $('#storePwd').focus(); return false; }
+        	if ( storePwd != pwd2) { alert("패스워드가 일치하지 않습니다.");  $('#storePwd').focus(); return false;	}
+
+
+			var formData = new FormData();
+			// 1. storeNoImg 파일 추가
+			var storeNoImgFile = $("#storeNoImg")[0].files;
+			if (storeNoImgFile.length > 0) {
+			    for (var i = 0; i < storeNoImgFile.length; i++) {
+			        if (!checkExtension(storeNoImgFile[i].name, storeNoImgFile[i].size)) {
+			            return false;
+			        }
+			        // name을 명확히 지정
+			        formData.append("storeNoImgFile", storeNoImgFile[i]);
+			    }
+			} else {
+				 alert("사업자등록증 이미지는 선택하세요."); return false;
+			}
+
+			// 2. storeImg 파일 추가
+			var storeImgFile = $("#storeImg")[0].files;
+			if (storeImgFile.length > 0) {
+			    for (var i = 0; i < storeImgFile.length; i++) {
+			        if (!checkExtension(storeImgFile[i].name, storeImgFile[i].size)) {
+			            return false;
+			        }
+			        formData.append("storeImgFile", storeImgFile[i]);
+			    }
+			} else {
+				 alert("카페 이미지는 선택하세요."); return false;
+			}	
             
-            $.ajax({
+			formData.append("storeNm", storeNm );
+			formData.append("bisNum", bisNum); // 하이픈 제거된 값으로 저장
+			formData.append("storeAddr", storeAddr );
+			formData.append("storeCeoNm", storeCeoNm );
+			formData.append("storeCellNum", storeCellNum );
+			formData.append("storePwd", storePwd );
+
+			$.ajax({
                 url : '/home/cbRegStoreProc'
                 , type : 'POST'
-                , dataType : 'JSON'
-                , cache : false
-                , data : param
+                , data:formData //보내는데이터 form
+    			, contentType:false //보내는데이터타입 false->"multipart/form-data"로 선언됩니다.
+    			, processData:false //폼데이터가 name=값&name=값 형식으로 자동변경되는 것을 막아줍니다.
+
                 , beforeSend : function( xhr, settings ) { 
                     //loadingbar_show(); 
                 }
                 , success : function(data, stauts, request) {
     				if (data.procInd == "S") {
-    					alert("가입을 감사합니다.\n로그인 후 이용하세요.");
+    					alert("가입을 감사합니다.\n승인 처리 후 이용 가능 합니다.");
     					location.href = "/home/cbLogin.do";
+					} else if (data.procInd == "E" || (data.errorId == "dupBisNum" || data.errorId == "dupCellNum") ) {
+						alert(data.errorMsg);							
     				} else {
     					alert("처리중 오류가 발생 했습니다.");
     				}
@@ -78,7 +121,19 @@
 <div class="wrap">
 	<div layout:fragment="content">
 		<!-- //content-wrap -->
-	    <ul class="carbon-join2">
+	    <ul class="carbon-join2>
+	        <li>
+	            <label for="">상호</label>
+	            <input type="text" name="" id="storeNm">
+	        </li>
+	        <li>
+	            <label for="">사업자 등록번호</label>
+	            <input type="text" name="" id="bisNum"  maxlength="12" placeholder="123-45-67890"   oninput="formatBisNumber(this)">
+	        </li>
+	        <li>
+	            <label for="">매장 주소</label>
+	            <input type="text" name="" id="storeAddr">
+	        </li>
 	        <li>
 	            <label for="">대표자 성명</label>
 	            <input type="text" name="" id="storeCeoNm">
@@ -88,15 +143,29 @@
 	            <input type="text" name="" id="storeCellNum" maxlength="13" placeholder="010-1234-5678" oninput="formatPhoneNumber(this)">
 	        </li>
 	        <li>
-	            <label for="">비밀번호(숫자 6자리)</label>
-	            <input type="password" maxlength=6 name="" id="storePwd">
+	            <label for="">비밀번호</label>
+	            <input type="password" name="" id="storePwd">
+	        </li>
+	        <li>
+	            <label for="">비밀번호는 영문, 숫자 특수문자 포함할 수 있습니다.</label>
 	        </li>
 	        <li>
 	            <label for="">비밀번호 확인</label>
-	            <input type="password" maxlength=6 name="" id="storePwd2nd">
+	            <input type="password" name="" id="storePwd2nd">
 	        </li>
 	        <li>
-	            <label for="">가맹점 회원은 이미 등록되어 있어야 합니다.</label>
+	            <label for="">사업자등록증 사진</label>
+	            <div class="file-input">
+	                <input type="text" readonly="readonly" title="File Route" id="file_route1">
+	                <label>파일선택<input type="file" id="storeNoImg" accept="image/*" onchange="javascript:document.getElementById('file_route1').value=this.value"></label>
+	            </div>
+	        </li>
+	        <li>
+	            <label for="">사업장 사진</label>
+	            <div class="file-input">
+	                <input type="text" readonly="readonly" title="File Route" id="file_route2">
+	                <label>파일선택<input type="file" id="storeImg" accept="image/*" onchange="javascript:document.getElementById('file_route2').value=this.value"></label>
+	            </div>
 	        </li>
 	    </ul>
 	    <div class="join-btn">

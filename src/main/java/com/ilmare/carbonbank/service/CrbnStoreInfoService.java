@@ -34,16 +34,23 @@ public class CrbnStoreInfoService {
 		return mapper.selectListCount(param);
 	}
 
-	
-	public String  storeNextVal(){
-		return mapper.storeNextVal();
-	}
-
 	public int  selectCount(CrbnStoreInfoModel nModel){
 		return mapper.selectCount(nModel);
 	}
+
+	public int  countCellNum(CrbnStoreInfoModel nModel){
+		return mapper.countCellNum(nModel);
+	}
+
+	public int  countBisNum(CrbnStoreInfoModel nModel){
+		return mapper.countBisNum(nModel);
+	}
 	public int  updatePasswd(CrbnStoreInfoModel param){
 		return mapper.updatePasswd(param);
+	}
+
+	public void  createStore(CrbnStoreInfoModel param){
+		mapper.insert(param);
 	}
 
 	public List<CrbnStoreInfoModel> selectKakaoData(CrbnStoreInfoModel param){

@@ -22,8 +22,12 @@ import org.springframework.beans.factory.annotation.Value;
 @Component
 public class FileUtil {
 	
-	public static String imgServerPath = "/app/data/upload/";
-	public static String imgUri = "/img/";
+	@Value("${comm.imgServerPath}")
+    private String imgServerPath;	
+
+	@Value("${comm.imgUri}")
+    private String imgUri;	
+
 	public static String dgtQrPath = "uploadFiles/dgt_qr/";
 
 	private static final String DEFAULT_ENCODING = "euc-kr";
@@ -35,6 +39,14 @@ public class FileUtil {
 		
 	}
 	
+	
+	public String getFileSavePath(String filePath, String currDt) {		
+		return imgServerPath + filePath + currDt;
+	}
+	
+	public String getFileLinkUrl(String filePath, String currDt) {		
+		return imgUri + filePath + currDt;
+	}
 	
 	/**
 	 * 소스파일을 새로운 파일로 복사한다.<br>

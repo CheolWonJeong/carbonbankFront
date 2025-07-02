@@ -143,6 +143,29 @@ public class ConfigConstants {
 			return name;
 		}
 
+	}
+
+	public static enum imgFilePath{
+		StoreBis("StoreBis", "store_bis/"),
+		Store("Store", "uploadFiles/store/");
+
+		private String code;
+		private String filePath;
+
+		imgFilePath(final String _code, final String filePath) {
+			this.code = _code;
+			this.filePath = filePath;
+		}
+
+		public String getCode() {
+			return code;
+		}
+
+		public String getFilePath() {
+			return filePath;
+		}
+
 
 	}
+
 }

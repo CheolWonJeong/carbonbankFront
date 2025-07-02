@@ -14,8 +14,12 @@ public interface CrbnStoreInfoMapper {
 	CrbnStoreInfoModel selectDesc(CrbnStoreInfoModel commVo);
 	List<CrbnStoreInfoModel> selectList(CrbnStoreInfoModel commVo);
 	String selectListCount(CrbnStoreInfoModel commVo);
-	String storeNextVal();
 	int selectCount(CrbnStoreInfoModel model);
+
+	int countCellNum(CrbnStoreInfoModel commModel);	
+	int countBisNum(CrbnStoreInfoModel commModel);	
+
+	void insert(CrbnStoreInfoModel model);
 	int updatePasswd(CrbnStoreInfoModel model);
 
 	List<CrbnStoreInfoModel> selectKakaoData(CrbnStoreInfoModel commVo);
