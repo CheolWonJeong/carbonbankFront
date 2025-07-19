@@ -25,12 +25,12 @@ function formatBisNumber(input) {
 	// 10자리까지만 허용
 	numbers = numbers.slice(0, 10);
 
-	if (numbers.length < 3) {
+	if (numbers.length < 4) {
 		formatted = numbers;
-	} else if (numbers.length >= 3 && numbers.length <= 5) {
+	} else if ( numbers.length < 6) {
 	    formatted = numbers.slice(0,3) + '-' + numbers.slice(3);
-	} else if (numbers.length > 5) {
-	    formatted = numbers.slice(0,3) + '-' + numbers.slice(3,5) + '-' + numbers.slice(5);
+	} else  {
+	    formatted = numbers.slice(0,3) + '-' + numbers.slice(3,5) + '-' + numbers.slice(5, 10);
 	}
 	
 	input.value = formatted;
