@@ -214,6 +214,24 @@
         ]]>
     </update>
  
+    <update id="updateMemberPushToken" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+        <![CDATA[
+            UPDATE CRBN_MBR_INFO
+               SET
+                    push_token =#{pushToken}
+              WHERE mbr_id = #{mbrId}
+        ]]>
+    </update>
+ 
+    <update id="updateStorePushToken" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
+        <![CDATA[
+            UPDATE CRBN_STORE_INFO
+               SET
+                    push_token =#{pushToken}
+              WHERE store_id = #{storeId}
+        ]]>
+    </update>
+ 
     <update id="updateLgnHist" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
         <![CDATA[
             UPDATE CRBN_MBR_INFO
@@ -237,7 +255,7 @@
         <![CDATA[
             UPDATE CRBN_STORE_INFO
                SET
-                    lst_lgn_dtm   = now()
+                    lst_lgn_dtm   = now(), push_token = #{pushToken}
               WHERE store_id = #{regStoreId}
         ]]>
     </update>
@@ -249,40 +267,6 @@
             ) VALUES (
               #{regStoreId}, #{lgnIp}, #{lgnOs}, #{lgnBrowser}
             )
-        ]]>
-    </insert>
-
-    <insert id="insertPushTokensMember" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
-        <![CDATA[
-            INSERT INTO CRBN_PUSH_TOKENS 
-              (	mbr_id, push_token) 
-              SELECT mbr_id,  #{pushToken} from CRBN_MBR_INFO where mbr_id = #{mbrId}
-        ]]>
-    </insert>
- 
-    <select id="selectPushTokens" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel" resultType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
-        <![CDATA[
-            SELECT
-                mbr_id, push_token
-            FROM CRBN_PUSH_TOKENS
-            where  mbr_id in( #{mbrId}, #{storeId})
-        ]]>
-    </select>
- 
-    <insert id="insertPushTokensStore" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
-        <![CDATA[
-            INSERT INTO CRBN_PUSH_TOKENS 
-              (	mbr_id, push_token) 
-              SELECT store_id,  #{pushToken} from CRBN_STORE_INFO where store_id = #{storeId}
-        ]]>
-    </insert>
- 
-    <insert id="insertPushTokensHist" parameterType="com.ilmare.carbonbank.model.CrbnMbrInfoModel">
-        <![CDATA[
-            INSERT INTO CRBN_PUSH_TOKENS_HIST  
-              (	mbr_id, push_token) 
-              SELECT mbr_id,  push_token from CRBN_PUSH_TOKENS
-               WHERE mbr_id = #{mbrId}
         ]]>
     </insert>
 

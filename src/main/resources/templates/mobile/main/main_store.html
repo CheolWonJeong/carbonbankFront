@@ -6,10 +6,8 @@
 	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
 
 <script type="text/javascript">
-
 //QR카메라 호출 javascript 함수
 function qr_camera_call(){
-alert("qr_camera_call start");
 	var param = {
 		action:"qrcamera",
 		callback:"get_code" //읽혀진 코드값 전달받을 javascript함수명(웹소스에 정의필요)
@@ -19,7 +17,7 @@ alert("qr_camera_call start");
 }
 
 function get_code(val){
-	alert(val);  //읽혀진 값 확인(해당값을 사용하는 로직에 적용하면됩니다.)
+	//alert(val);  //읽혀진 값 확인(해당값을 사용하는 로직에 적용하면됩니다.)
 	//qr사용이력 저장
     var param = {
             "useQrCd" : val 

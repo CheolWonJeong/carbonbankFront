@@ -147,6 +147,10 @@ public class CrbnMbrInfoService {
 		
 	}
 
+	/*
+	 * PushToken 변경 처리
+	 * 
+	 */
 	@Transactional
 	public int savePushTokens(CrbnMbrInfoModel nModel)
 	{
@@ -154,14 +158,13 @@ public class CrbnMbrInfoService {
 		//회원로그인
 		//가맹점 로그인
 		if ( nModel.getMbrId() != null && !nModel.getMbrId().isEmpty()) {
-			rtn = mapper.updateLgnHist(nModel);
-			rtn =  mapper.insertLgnHist(nModel);
+			rtn = mapper.updateMemberPushToken(nModel);
 		}
 		
+		if ( rtn > 0)  return rtn;
 		//가맹점 로그인
 		if ( nModel.getRegStoreId() != null && !nModel.getRegStoreId().isEmpty()) {
-			rtn = mapper.updateStoreLgnHist(nModel);
-			rtn =  mapper.insertStoreLgnHist(nModel);
+			rtn = mapper.updateStorePushToken(nModel);
 		}
 		return rtn;
 		

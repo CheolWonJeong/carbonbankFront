@@ -29,11 +29,12 @@ public interface CrbnMbrInfoMapper {
 	int updateLgnHist(CrbnMbrInfoModel nbrInfo);
 	int insertLgnHist(CrbnMbrInfoModel nbrInfo);
 
+	int updateMemberPushToken(CrbnMbrInfoModel nbrInfo);
+	int updateStorePushToken(CrbnMbrInfoModel nbrInfo);
+
 	int updateStoreLgnHist(CrbnMbrInfoModel nbrInfo);
 	int insertStoreLgnHist(CrbnMbrInfoModel nbrInfo);
 	
-	CrbnMbrInfoModel selectPushTokens(CrbnMbrInfoModel nbrInfo);
-	int insertPushTokens(CrbnMbrInfoModel nbrInfo);
 	int deleteMember(String mbrId);
 	int deleteStore(String storeId);
 }

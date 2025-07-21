@@ -29,7 +29,7 @@ public class CrbnMbrInfoModel {
 	
 	private String pushToken;    	//푸시 ID
 
-	public void sePushToken(String pushToken) {
+	public void setPushToken(String pushToken) {
         this.pushToken = pushToken;
     }
 

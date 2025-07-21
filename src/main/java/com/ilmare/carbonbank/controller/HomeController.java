@@ -269,9 +269,8 @@ public class HomeController {
 		SessInfo sess = sessMgr.getSession(request);
 		paramVo.setMbrId(sess.getMbrId());
 		paramVo.setStoreId(sess.getStoreId());
-
-		log.info("cbSetPushKey PushToken  {} ", paramVo.getPushToken());
-
+		log.info("cbSetPushKey PushToken  {} |  {}", paramVo.getPushToken(), request.getParameter("pushToken"));
+		svc.savePushTokens(paramVo);
 		log.info("cbSetPushKey End");
 
 		return result;

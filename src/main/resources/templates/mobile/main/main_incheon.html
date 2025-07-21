@@ -6,6 +6,14 @@
 	<th:block layout:fragment="head" th:insert="~{@{/mobile/layout/head}}"></th:block>
 
 <script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+    waitForCallHandler(function() {
+        //alert("DOM 완성 후 실행");
+        window.webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "savelogin","loginid": "[[${sess.mbrId}]]","passwd": "[[${sess.mbrPwd}]]"}));
+        window.webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "getpushid","callback": "get_pushid"}));  //메세지 핸들러 호출함수
+    });
+});
+
 //1.웹에서 로그인이 완료되어 로딩되는 메인 웹소스에...
 //- 아래 처럼 javascript구문을 사용하여 호출하여주세요.
 
@@ -24,9 +32,9 @@ function waitForCallHandler(callback_func, attempts = 0) {
 
 
 //메세지 핸들러 호출함수
-waitForCallHandler(function() {
-  window.webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "savelogin","loginid": "[[${sess.mbrId}]]","passwd": "[[${sess.mbrPwd}]]"}));
-});
+//waitForCallHandler(function() {
+//  window.webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "savelogin","loginid": "[[${sess.mbrId}]]","passwd": "[[${sess.mbrPwd}]]"}));
+//});
 
 //javascript 함수선언(푸시id를 받을수 있는 함수)
 function get_pushid(pushid) {
